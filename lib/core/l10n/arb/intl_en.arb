@@ -1,0 +1,15 @@
+{
+    "@@locale": "en",
+    "loginTitle": "Admin Dashboard - Please sign in to continue",
+    "login": "Sign In",
+    "emailAddress": "Email Address",
+    "password": "Password",
+    "forgetPassword": "Forgot password?",
+    "genericError": "Something went wrong. Please try again later.",
+    "networkRequestFailed": "Network connection failed. Please check your internet connection.",
+    "invalidEmail": "Invalid email address.",
+    "requiredField": "This field is required",
+    "invalidCredential": "Incorrect email or password.",
+    "notAuthorized": "Not authorized to access",
+    "loginSuccess": "Signed in successfully"
+}
