@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../domain/entities/order_entity.dart';
+import '../../../../domain/entities/order_entity.dart';
 import 'order_item.dart';
 
 class AnimatedOrderItem extends StatelessWidget {

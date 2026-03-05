@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../add_product/add_product_view.dart';
 import 'action_button.dart';
 
 class BuildActionButtons extends StatelessWidget {
@@ -8,7 +9,14 @@ class BuildActionButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final actions = [
-      (label: 'إضافة منتج', icon: Icons.add, onTap: () {}, isPrimary: true),
+      (
+        label: 'إضافة منتج',
+        icon: Icons.add,
+        onTap: () {
+          Navigator.of(context).pushNamed(AddProductView.routeName);
+        },
+        isPrimary: true,
+      ),
       (
         label: 'فحص المخزون',
         icon: Icons.inventory_2_rounded,

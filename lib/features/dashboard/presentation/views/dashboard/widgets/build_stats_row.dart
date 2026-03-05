@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/utils/styles/app_colors.dart';
+import '../../../../../../core/utils/styles/app_colors.dart';
 import 'stats_card.dart';
 
 class BuildStatsRow extends StatelessWidget {

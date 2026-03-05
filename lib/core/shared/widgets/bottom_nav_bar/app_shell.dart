@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../features/dashboard/presentation/views/dashboard_view.dart';
+import '../../../../features/dashboard/presentation/views/add_product/add_product_view.dart';
+import '../../../../features/dashboard/presentation/views/dashboard/dashboard_view.dart';
 import 'custom_bottom_nav_bar.dart';
 
 class AppShell extends StatefulWidget {
@@ -97,19 +98,9 @@ class _AppShellState extends State<AppShell> {
 
   Widget _resolveTabRoute(RouteSettings settings, int tabIndex) {
     switch (settings.name) {
-      // case AddProductView.routeName:
-      //   return const AddProductView();
+      case AddProductView.routeName:
+        return const AddProductView();
 
-      // ── Tab 1: Inventory sub-routes ──────────────────────────────────────
-      // case ProductDetailView.routeName:
-      //   final product = settings.arguments as ProductEntity;
-      //   return ProductDetailView(product: product);
-
-      // ── Tab 2: Orders sub-routes ─────────────────────────────────────────
-      // case OrderDetailView.routeName:
-      //   return const OrderDetailView();
-
-      // Fallthrough → show the tab's root widget
       default:
         return _tabRoots[tabIndex];
     }

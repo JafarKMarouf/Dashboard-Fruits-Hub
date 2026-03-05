@@ -1,13 +1,13 @@
-import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/widgets/build_action_buttons.dart';
-import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/widgets/build_header.dart';
-import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/widgets/build_recent_orders_header.dart';
-import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/widgets/build_stats_row.dart';
-import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/widgets/main_app_bar.dart';
-import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/widgets/revenue_card.dart';
+import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/build_action_buttons.dart';
+import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/build_header.dart';
+import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/build_recent_orders_header.dart';
+import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/build_stats_row.dart';
+import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/main_app_bar.dart';
+import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/revenue_card.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../core/utils/constants.dart';
-import '../../../domain/entities/order_entity.dart';
+import '../../../../../../core/utils/constants.dart';
+import '../../../../domain/entities/order_entity.dart';
 import 'animated_order_item.dart';
 
 class DashboardViewBody extends StatefulWidget {
@@ -152,7 +152,7 @@ class _DashboardViewBodyState extends State<DashboardViewBody>
   }
 
   Widget _buildRecentOrdersHeader() =>
-      const SliverToBoxAdapter(child: BuildRecentOrdersHeader());
+      SliverToBoxAdapter(child: _animated(3, const BuildRecentOrdersHeader()));
 
   Widget _buildOrderList() => DecoratedSliver(
     decoration: BoxDecoration(
@@ -168,11 +168,9 @@ class _DashboardViewBodyState extends State<DashboardViewBody>
     ),
     sliver: SliverPadding(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-
       sliver: SliverList(
         delegate: SliverChildBuilderDelegate((context, index) {
           final isLast = index == _orders.length - 1;
-
           return Column(
             children: [
               AnimatedOrderItem(
