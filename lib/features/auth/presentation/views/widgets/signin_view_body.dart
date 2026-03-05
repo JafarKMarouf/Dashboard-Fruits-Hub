@@ -1,7 +1,7 @@
 import 'package:dashboard_fruit_hub/core/l10n/l10n.dart';
 import 'package:dashboard_fruit_hub/core/utils/styles/app_colors.dart';
 import 'package:dashboard_fruit_hub/core/utils/styles/app_text_styles.dart';
-import 'package:dashboard_fruit_hub/core/utils/widgets/app_text_widget.dart';
+import 'package:dashboard_fruit_hub/core/shared/widgets/app_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -44,7 +44,7 @@ class SigninViewBody extends StatelessWidget {
                 SizedBox(
                   width: MediaQuery.sizeOf(context).width * .7,
                   child: AppTextWidget(
-                    text: AppLocalizations.of(context).loginTitle,
+                    AppLocalizations.of(context).loginTitle,
                     style: AppTextStyles.styleBold13.copyWith(
                       color: AppColors.grayscale400,
                     ),

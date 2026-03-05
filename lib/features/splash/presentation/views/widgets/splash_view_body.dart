@@ -1,12 +1,11 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../../core/services/shared_preferences_service.dart';
+import '../../../../../core/shared/widgets/bottom_nav_bar/app_shell.dart';
 import '../../../../../core/utils/constants.dart';
 import '../../../../../core/utils/styles/app_images.dart';
 import '../../../../auth/presentation/views/signin_view.dart';
-import '../../../../dashboard/presentation/views/dashboard_view.dart';
 
 class SplashViewBody extends StatefulWidget {
   const SplashViewBody({super.key});
@@ -39,13 +38,14 @@ class _SplashViewBodyState extends State<SplashViewBody> {
   }
 
   void handleNavigation() {
-    Future.delayed(const Duration(seconds: 4), () async {
-      bool isUserLogged = SharedPreferencesService.getBool(kIsUserLoggedIn);
-      if (isUserLogged) {
-        Navigator.pushReplacementNamed(context, DashboardView.routeName);
-      } else {
-        Navigator.pushReplacementNamed(context, SigninView.routeName);
-      }
+    Future.delayed(const Duration(seconds: 4), () {
+      bool isLoggedIn = SharedPreferencesService.getBool(kIsUserLoggedIn);
+
+      final String destination = isLoggedIn
+          ? AppShell.routeName
+          : SigninView.routeName;
+
+      Navigator.pushReplacementNamed(context, destination);
     });
   }
 }

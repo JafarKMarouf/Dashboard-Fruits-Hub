@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
-import '../styles/app_colors.dart';
-import '../styles/app_text_styles.dart';
+import '../../utils/constants.dart';
+import '../../utils/styles/app_colors.dart';
+import '../../utils/styles/app_text_styles.dart';
 import 'app_text_widget.dart';
 
 class AppPrimaryButton extends StatelessWidget {
   const AppPrimaryButton({
     super.key,
-    this.backgroundColor,
-    required this.text,
     required this.onPressed,
+    this.backgroundColor,
+    this.text,
+    this.widget,
     this.width,
     this.height,
     this.textColor = Colors.white,
@@ -19,13 +20,14 @@ class AppPrimaryButton extends StatelessWidget {
   });
 
   final Color? backgroundColor;
-  final String text;
+  final String? text;
   final void Function()? onPressed;
   final bool isLoading;
   final double? width;
   final double? height;
   final Color textColor;
   final TextStyle? textStyle;
+  final Widget? widget;
 
   @override
   Widget build(BuildContext context) {
@@ -53,16 +55,18 @@ class AppPrimaryButton extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: kHorizontalPadding),
         ),
         onPressed: onPressed,
-        child: Center(
-          child: isLoading
-              ? const CircularProgressIndicator()
-              : AppTextWidget(
-                  text: text,
-                  style: AppTextStyles.styleBold16.copyWith(
-                    color: Colors.white,
-                  ),
-                ),
-        ),
+        child:
+            widget ??
+            Center(
+              child: isLoading
+                  ? const CircularProgressIndicator()
+                  : AppTextWidget(
+                      text!,
+                      style: AppTextStyles.styleBold16.copyWith(
+                        color: Colors.white,
+                      ),
+                    ),
+            ),
       ),
     );
   }

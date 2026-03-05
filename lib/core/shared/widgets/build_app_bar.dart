@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../styles/app_text_styles.dart';
+import '../../utils/styles/app_text_styles.dart';
 import 'app_text_widget.dart';
 
 AppBar buildAppBar(BuildContext context, {required String title}) {
@@ -15,6 +15,6 @@ AppBar buildAppBar(BuildContext context, {required String title}) {
           )
         : null,
     centerTitle: true,
-    title: AppTextWidget(text: title, style: AppTextStyles.styleBold19),
+    title: AppTextWidget(title, style: AppTextStyles.styleBold19),
   );
 }
