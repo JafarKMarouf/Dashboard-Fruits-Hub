@@ -163,6 +163,16 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `FruitHub Admin`
+  String get dashboardTitle {
+    return Intl.message(
+      'FruitHub Admin',
+      name: 'dashboardTitle',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

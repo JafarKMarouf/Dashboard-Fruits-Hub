@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../styles/app_colors.dart';
+import '../../utils/styles/app_colors.dart';
 
 class AppTextWidget extends StatelessWidget {
-  const AppTextWidget({
+  const AppTextWidget(
+    this.text, {
     super.key,
-    required this.text,
     this.fontSize,
     this.height,
     this.fontWeight,
