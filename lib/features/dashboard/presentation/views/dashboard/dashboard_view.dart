@@ -1,6 +1,5 @@
-import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/widgets/dashboard_view_body.dart';
+import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/dashboard_view_body.dart';
 import 'package:flutter/material.dart';
-
 
 class DashboardView extends StatelessWidget {
   const DashboardView({super.key});

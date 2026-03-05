@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../../../core/l10n/l10n.dart';
-import '../../../../../core/shared/widgets/app_text_widget.dart';
-import '../../../../../core/utils/styles/app_images.dart';
-import '../../../../../core/utils/styles/app_text_styles.dart';
+import '../../../../../../core/l10n/l10n.dart';
+import '../../../../../../core/shared/widgets/app_text_widget.dart';
+import '../../../../../../core/utils/styles/app_images.dart';
+import '../../../../../../core/utils/styles/app_text_styles.dart';
 
 class MainAppBar extends StatelessWidget {
   const MainAppBar({super.key});
