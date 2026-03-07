@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:dashboard_fruit_hub/core/services/get_it_service.dart';
+import 'package:dashboard_fruit_hub/core/services/image_picker/image_picker_service.dart';
 import 'package:dashboard_fruit_hub/core/shared/widgets/app_primary_button.dart';
 import 'package:dashboard_fruit_hub/core/shared/widgets/app_text_form_field.dart';
 import 'package:dashboard_fruit_hub/core/shared/widgets/app_text_widget.dart';
@@ -23,7 +25,7 @@ class _AddProductFormState extends State<AddProductForm> {
   final _priceController = TextEditingController();
   final _quantityController = TextEditingController();
   final _descriptionController = TextEditingController();
-  File? _productImage;
+  late File? productImage;
 
   @override
   void dispose() {
@@ -41,7 +43,8 @@ class _AddProductFormState extends State<AddProductForm> {
       child: Column(
         children: [
           ProductImagePicker(
-            onImageSelected: (file) => setState(() => _productImage = file),
+            imagePickerService: getIt<ImagePickerService>(),
+            onImageSelected: (file) => setState(() => productImage = file),
           ),
           const SizedBox(height: 20),
 
@@ -76,7 +79,7 @@ class _AddProductFormState extends State<AddProductForm> {
           AppPrimaryButton(
             onPressed: () {},
             colorShadow: AppColors.borderLight,
-            backgroundColor: AppColors.secondary,
+            backgroundColor: AppColors.primaryDark,
             height: 56,
             widget: Row(
               mainAxisAlignment: .center,

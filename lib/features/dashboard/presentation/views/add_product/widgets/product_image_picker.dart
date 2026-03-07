@@ -1,15 +1,22 @@
 import 'dart:io';
 
+import 'package:dashboard_fruit_hub/core/helpers/build_messages_bar.dart';
 import 'package:dashboard_fruit_hub/core/shared/widgets/app_text_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 
+import '../../../../../../core/services/image_picker/image_picker_service.dart';
 import '../../../../../../core/utils/styles/app_colors.dart';
 import '../../../../../../core/utils/styles/app_text_styles.dart';
+import 'overlay_icon_button.dart';
 
 class ProductImagePicker extends StatefulWidget {
-  const ProductImagePicker({super.key, required this.onImageSelected});
+  const ProductImagePicker({
+    super.key,
+    required this.imagePickerService,
+    required this.onImageSelected,
+  });
 
+  final ImagePickerService imagePickerService;
   final ValueChanged<File?> onImageSelected;
 
   @override
@@ -26,18 +33,15 @@ class _ProductImagePickerState extends State<ProductImagePicker> {
     setState(() => _isLoading = true);
 
     try {
-      final picker = ImagePicker();
-      final XFile? picked = await picker.pickImage(
-        source: ImageSource.gallery,
-        imageQuality: 85,
-        maxWidth: 1080,
-      );
+      final File? picked = await widget.imagePickerService.pickFromGallery();
+      if (picked == null) return;
 
-      if (picked != null) {
-        final file = File(picked.path);
-        setState(() => _pickedImage = file);
-        widget.onImageSelected(file);
-      }
+      final file = File(picked.path);
+      setState(() => _pickedImage = file);
+      widget.onImageSelected(file);
+    } on ImagePickerException catch (e) {
+      if (!mounted) return;
+      buildErrorBar(context, e.message);
     } finally {
       if (mounted) setState(() => _isLoading = false);
     }
@@ -61,12 +65,12 @@ class _ProductImagePickerState extends State<ProductImagePicker> {
         decoration: BoxDecoration(
           color: _pickedImage != null
               ? Colors.transparent
-              : AppColors.secondaryLight.withOpacity(0.04),
+              : AppColors.primaryLight.withOpacity(0.04),
           borderRadius: BorderRadius.circular(14),
           border: Border.all(
             color: _pickedImage != null
-                ? AppColors.secondary
-                : AppColors.secondary.withOpacity(0.4),
+                ? AppColors.primary
+                : AppColors.primary.withOpacity(0.4),
             width: 1.5,
             strokeAlign: BorderSide.strokeAlignInside,
           ),
@@ -88,15 +92,14 @@ class _ProductImagePickerState extends State<ProductImagePicker> {
             right: 8,
             child: Row(
               children: [
-                _OverlayIconButton(
+                OverlayIconButton(
                   icon: Icons.edit_rounded,
                   onTap: _pickFromGallery,
                 ),
                 const SizedBox(width: 6),
-                _OverlayIconButton(
+                OverlayIconButton(
                   icon: Icons.delete_rounded,
                   onTap: _removeImage,
-                  color: AppColors.error,
                 ),
               ],
             ),
@@ -114,7 +117,7 @@ class _ProductImagePickerState extends State<ProductImagePicker> {
           height: 28,
           child: CircularProgressIndicator(
             strokeWidth: 2.5,
-            color: AppColors.secondary,
+            color: AppColors.primary,
           ),
         ),
       );
@@ -127,12 +130,12 @@ class _ProductImagePickerState extends State<ProductImagePicker> {
           width: 56,
           height: 56,
           decoration: BoxDecoration(
-            color: AppColors.secondary.withOpacity(0.12),
+            color: AppColors.primary.withOpacity(0.12),
             shape: BoxShape.circle,
           ),
           child: const Icon(
             Icons.add_a_photo_rounded,
-            color: AppColors.secondary,
+            color: AppColors.primary,
             size: 26,
           ),
         ),
@@ -154,38 +157,6 @@ class _ProductImagePickerState extends State<ProductImagePicker> {
           ),
         ),
       ],
-    );
-  }
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// _OverlayIconButton — small frosted icon button shown on the image preview
-// ─────────────────────────────────────────────────────────────────────────────
-
-class _OverlayIconButton extends StatelessWidget {
-  const _OverlayIconButton({
-    required this.icon,
-    required this.onTap,
-    this.color,
-  });
-
-  final IconData icon;
-  final VoidCallback onTap;
-  final Color? color;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: 32,
-        height: 32,
-        decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.45),
-          shape: BoxShape.circle,
-        ),
-        child: Icon(icon, color: color ?? Colors.white, size: 16),
-      ),
     );
   }
 }

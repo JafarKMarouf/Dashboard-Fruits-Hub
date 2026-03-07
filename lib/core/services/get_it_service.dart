@@ -5,12 +5,17 @@ import '../../features/auth/presentation/cubits/signin_cubit/signin_cubit.dart';
 import 'database_service.dart';
 import 'firebase_auth_service.dart';
 import 'firestore_service.dart';
+import 'image_picker/image_picker_service.dart';
+import 'image_picker/image_picker_service_impl.dart';
 
 final getIt = GetIt.instance;
 
 /// Initializes and registers all app dependencies.
 Future<void> setupServiceLocator() async {
   _registerAuthDependencies();
+  getIt.registerLazySingleton<ImagePickerService>(
+    () => ImagePickerServiceImpl(),
+  );
 }
 
 void _registerAuthDependencies() {

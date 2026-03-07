@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../../../features/dashboard/presentation/views/add_product/add_product_view.dart';
 import '../../../../features/dashboard/presentation/views/dashboard/dashboard_view.dart';
@@ -35,24 +36,25 @@ class _AppShellState extends State<AppShell> {
     }
   }
 
-  Future<bool> _onWillPop() async {
+  Future<void> _onPopInvoked(bool didPop) async {
+    if (didPop) return;
     final activeNavigator = _navigatorKeys[_currentIndex].currentState;
     if (activeNavigator != null && activeNavigator.canPop()) {
       activeNavigator.pop();
-      return false;
+      return;
     }
     if (_currentIndex != 0) {
       setState(() => _currentIndex = 0);
-      return false;
+      return;
     }
-    return true;
+    await SystemNavigator.pop();
   }
 
   @override
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
-      onPopInvoked: (_) => _onWillPop(),
+      onPopInvoked: _onPopInvoked,
       child: Scaffold(
         body: IndexedStack(
           index: _currentIndex,

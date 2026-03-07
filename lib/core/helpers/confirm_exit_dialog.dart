@@ -9,42 +9,45 @@ Future<bool> showConfirmExitDialog(
 }) async {
   return await showDialog<bool>(
         context: context,
-        builder: (dialogContext) => AlertDialog(
-          backgroundColor: AppColors.background,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          title: const Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Icon(Icons.exit_to_app, color: AppColors.primaryDark, size: 28),
-              SizedBox(width: 12),
-              AppTextWidget('هل تريد الخروج؟'),
-            ],
-          ),
-          content: const AppTextWidget(
-            'لديك تغييرات غير محفوظة. هل تريد الخروج بدون حفظ؟',
-            maxLines: 2,
-            textDirection: TextDirection.rtl,
-          ),
-          actions: [
-            ElevatedButton(
-              onPressed:
-                  confirmExist ?? () => Navigator.pop(dialogContext, true),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primaryDark,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+        builder: (dialogContext) {
+          return AlertDialog(
+            backgroundColor: AppColors.background,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            title: const Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Icon(Icons.exit_to_app, color: AppColors.primaryDark, size: 28),
+                SizedBox(width: 12),
+                AppTextWidget('هل تريد الخروج؟'),
+              ],
+            ),
+            content: const AppTextWidget(
+              'لديك تغييرات غير محفوظة. هل تريد الخروج بدون حفظ؟',
+              maxLines: 2,
+              textDirection: TextDirection.rtl,
+            ),
+            actionsAlignment: .start,
+            actions: [
+              ElevatedButton(
+                onPressed:
+                    confirmExist ?? () => Navigator.pop(dialogContext, true),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primaryDark,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                 ),
+                child: const AppTextWidget('خروج', color: AppColors.background),
               ),
-              child: const AppTextWidget('خروج', color: AppColors.background),
-            ),
-            TextButton(
-              onPressed: () => Navigator.pop(dialogContext, false),
-              child: const AppTextWidget('إلغاء'),
-            ),
-          ],
-        ),
+              TextButton(
+                onPressed: () => Navigator.pop(dialogContext, false),
+                child: const AppTextWidget('إلغاء'),
+              ),
+            ],
+          );
+        },
       ) ??
       false;
 }
