@@ -17,7 +17,6 @@ void main() async {
   await Future.wait([
     SharedPreferencesService.init(),
     Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform),
-
     Supabase.initialize(
       url: dotenv.env['SUPABASE_URL']!,
       anonKey: dotenv.env['SUPABASE_ANON_KEY']!,

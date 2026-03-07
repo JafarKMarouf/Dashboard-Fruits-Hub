@@ -9,6 +9,7 @@ class AddProductViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return const SafeArea(
       child: SingleChildScrollView(
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: kHorizontalPadding),
           child: Column(

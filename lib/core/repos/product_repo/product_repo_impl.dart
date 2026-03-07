@@ -5,19 +5,21 @@ import 'package:dartz/dartz.dart';
 import 'package:dashboard_fruit_hub/core/errors/failure.dart';
 import 'package:dashboard_fruit_hub/core/utils/constants.dart';
 
-import '../../../../core/services/database_service/database_service.dart';
-import '../../domain/entities/product_entity.dart';
-import '../../domain/repos/dashboard_repo.dart';
-import '../models/product_model.dart';
+import '../../services/database_service/database_service.dart';
+import '../../services/storage_service/storage_service.dart';
+import '../../../features/dashboard/domain/entities/add_product_entity.dart';
+import 'product_repo.dart';
+import '../../../features/dashboard/data/models/add_product_model.dart';
 
-class DashboardRepoImpl implements DashboardRepo {
-  DashboardRepoImpl(this.db);
+class ProductRepoImpl implements ProductRepo {
+  ProductRepoImpl(this.databaseService, this.storageService);
 
-  final DatabaseService db;
+  final DatabaseService databaseService;
+  final StorageService storageService;
 
   @override
   Future<Either<Failure, void>> addProduct({
-    required ProductEntity product,
+    required AddProductEntity product,
     required File image,
   }) async {
     try {
@@ -26,20 +28,22 @@ class DashboardRepoImpl implements DashboardRepo {
 
       // 2. Build model with the uploaded URL.
       final model = ProductModel.fromEntity(
-        ProductEntity(
+        AddProductEntity(
           name: product.name,
           price: product.price,
           quantity: product.quantity,
           description: product.description,
           imageUrl: imageUrl,
+          isFeatured: product.isFeatured,
+          code: product.code,
         ),
       );
 
       // 3. Persist to database via the shared service.
-      await db.addData(path: kProductTable, data: model.toJson());
+      await databaseService.addData(path: kProductTable, data: model.toJson());
       return const Right(null);
     } catch (e) {
-      log('Exception in DashboardRepoImpl.addProduct: ${e.toString()}');
+      log('Exception in ProductRepoImpl.addProduct: ${e.toString()}');
 
       return Left(ServerFailure('Failed to add product. ${e.toString()}'));
     }
@@ -49,9 +53,9 @@ class DashboardRepoImpl implements DashboardRepo {
 
   Future<String> _uploadImage(File image) async {
     try {
-      return db.uploadImage(image, kProductTable);
+      return await storageService.uploadImage(image, kProductBucket);
     } catch (e) {
-      log('Exception in DashboardRepoImpl.uploadImage: ${e.toString()}');
+      log('Exception in ProductRepoImpl.uploadImage: ${e.toString()}');
 
       throw ServerFailure('Failed to upload product image, ${e.toString()}');
     }

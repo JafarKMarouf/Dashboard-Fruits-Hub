@@ -6,6 +6,7 @@ import 'package:dashboard_fruit_hub/core/shared/widgets/app_primary_button.dart'
 import 'package:dashboard_fruit_hub/core/shared/widgets/app_text_form_field.dart';
 import 'package:dashboard_fruit_hub/core/shared/widgets/app_text_widget.dart';
 import 'package:dashboard_fruit_hub/core/utils/styles/app_text_styles.dart';
+import 'package:dashboard_fruit_hub/features/dashboard/domain/entities/add_product_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,6 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../../core/helpers/build_messages_bar.dart';
 import '../../../../../../core/utils/styles/app_colors.dart';
 import '../../../cubit/add_product_cubit/add_product_cubit.dart';
+import 'is_featured_checkbox.dart';
 import 'product_image_picker.dart';
 
 class AddProductForm extends StatefulWidget {
@@ -28,7 +30,9 @@ class _AddProductFormState extends State<AddProductForm> {
   final _priceController = TextEditingController();
   final _quantityController = TextEditingController();
   final _descriptionController = TextEditingController();
+  final _codeController = TextEditingController();
   File? _productImage;
+  late bool _isFeatured = false;
 
   @override
   void dispose() {
@@ -36,6 +40,7 @@ class _AddProductFormState extends State<AddProductForm> {
     _priceController.dispose();
     _quantityController.dispose();
     _descriptionController.dispose();
+    _codeController.dispose();
     super.dispose();
   }
 
@@ -48,10 +53,14 @@ class _AddProductFormState extends State<AddProductForm> {
     }
 
     context.read<AddProductCubit>().addProduct(
-      name: _nameController.text.trim(),
-      price: double.parse(_priceController.text.trim()),
-      quantity: int.parse(_quantityController.text.trim()),
-      description: _descriptionController.text.trim(),
+      product: AddProductEntity(
+        name: _nameController.text.trim(),
+        price: double.parse(_priceController.text.trim()),
+        quantity: int.parse(_quantityController.text.trim()),
+        description: _descriptionController.text.trim(),
+        isFeatured: _isFeatured,
+        code: _codeController.text.toLowerCase().trim(),
+      ),
       image: _productImage!,
     );
   }
@@ -105,7 +114,25 @@ class _AddProductFormState extends State<AddProductForm> {
           ),
           const SizedBox(height: 16),
 
+          AppTextFormField(
+            controller: _codeController,
+            label: 'كود المنتج',
+            hintText: 'مثال: abcdef',
+            textInputType: TextInputType.text,
+            textInputAction: TextInputAction.next,
+            validator: _requiredValidator,
+          ),
+          const SizedBox(height: 16),
+
           _buildPriceQuantityRow(),
+          const SizedBox(height: 16),
+          IsFeaturedCheckbox(
+            changed: (value) {
+              setState(() {
+                _isFeatured = value;
+              });
+            },
+          ),
           const SizedBox(height: 16),
           AppTextFormField(
             label: 'وصف المنتج',

@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'database_service.dart';
@@ -52,11 +51,5 @@ class FirestoreService extends DatabaseService {
   }) async {
     var data = await firestore.collection(path).doc(documentId).get();
     return data.exists;
-  }
-
-  @override
-  Future<String> uploadImage(File image, String bucket) {
-    // TODO: implement uploadImage
-    throw UnimplementedError();
   }
 }

@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:dashboard_fruit_hub/core/services/database_service/database_service.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -37,23 +36,5 @@ class SupabaseStoreService extends DatabaseService {
   }) {
     // TODO: implement isDataExists
     throw UnimplementedError();
-  }
-
-  @override
-  Future<String> uploadImage(File image, String bucket) async {
-    final String fileName =
-        '${DateTime.now().millisecondsSinceEpoch}_${image.path.split('/').last}';
-
-    final String storagePath = 'images/$fileName';
-
-    await supabase.storage
-        .from(bucket)
-        .upload(
-          storagePath,
-          image,
-          fileOptions: const FileOptions(upsert: false),
-        );
-
-    return supabase.storage.from(bucket).getPublicUrl(storagePath);
   }
 }
