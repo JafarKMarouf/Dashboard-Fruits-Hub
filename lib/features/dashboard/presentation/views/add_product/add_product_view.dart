@@ -63,8 +63,8 @@ class _AddProductViewState extends State<AddProductView> {
           onPressed: _onExit,
           child: AppTextWidget(
             'إلغاء',
-            style: AppTextStyles.styleBold13.copyWith(
-              color: AppColors.secondaryDark,
+            style: AppTextStyles.styleBold14.copyWith(
+              color: AppColors.primaryDark,
             ),
           ),
         ),

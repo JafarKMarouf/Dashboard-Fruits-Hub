@@ -7,14 +7,16 @@ class AddProductViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SingleChildScrollView(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: kHorizontalPadding),
-        child: Column(
-          children: [
-            SizedBox(height: kTopPadding),
-            AddProductForm(),
-          ],
+    return const SafeArea(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: kHorizontalPadding),
+          child: Column(
+            children: [
+              SizedBox(height: kTopPadding),
+              AddProductForm(),
+            ],
+          ),
         ),
       ),
     );
