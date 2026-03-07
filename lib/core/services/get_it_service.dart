@@ -1,6 +1,6 @@
 import 'package:dashboard_fruit_hub/core/services/database_service/supabase_store_service.dart';
-import 'package:dashboard_fruit_hub/features/dashboard/data/repos/dashboard_repo_impl.dart';
-import 'package:dashboard_fruit_hub/features/dashboard/domain/repos/dashboard_repo.dart';
+import 'package:dashboard_fruit_hub/core/repos/product_repo/product_repo_impl.dart';
+import 'package:dashboard_fruit_hub/core/repos/product_repo/product_repo.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../features/auth/data/repos/auth_repo_impl.dart';
@@ -13,6 +13,8 @@ import 'database_service/firestore_service.dart';
 import 'firebase_auth_service.dart';
 import 'image_picker/image_picker_service.dart';
 import 'image_picker/image_picker_service_impl.dart';
+import 'storage_service/storage_service.dart';
+import 'storage_service/supabase_storage_service.dart';
 
 final getIt = GetIt.instance;
 
@@ -36,7 +38,11 @@ void _registerServices() {
 
   getIt.registerLazySingleton<DatabaseService>(
     () => SupabaseStoreService(),
-    instanceName: 'supabase',
+    instanceName: 'supabase_database',
+  );
+  getIt.registerLazySingleton<StorageService>(
+    () => SupabaseStorageService(),
+    instanceName: 'supabase_storage',
   );
 }
 
@@ -47,14 +53,17 @@ void _registerRepositories() {
       getIt<DatabaseService>(instanceName: 'firestore'),
     ),
   );
-  getIt.registerLazySingleton<DashboardRepo>(
-    () => DashboardRepoImpl(getIt<DatabaseService>(instanceName: 'supabase')),
+  getIt.registerLazySingleton<ProductRepo>(
+    () => ProductRepoImpl(
+      getIt<DatabaseService>(instanceName: 'supabase_database'),
+      getIt<StorageService>(instanceName: 'supabase_storage'),
+    ),
   );
 }
 
 void _registerCubits() {
   getIt.registerFactory<SigninCubit>(() => SigninCubit(getIt<AuthRepo>()));
   getIt.registerFactory<AddProductCubit>(
-    () => AddProductCubit(getIt<DashboardRepo>()),
+    () => AddProductCubit(getIt<ProductRepo>()),
   );
 }
