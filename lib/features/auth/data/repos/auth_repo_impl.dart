@@ -5,7 +5,7 @@ import 'package:dartz/dartz.dart';
 
 import '../../../../core/errors/custom_exceptions.dart';
 import '../../../../core/errors/failure.dart';
-import '../../../../core/services/database_service.dart';
+import '../../../../core/services/database_service/database_service.dart';
 import '../../../../core/services/firebase_auth_service.dart';
 import '../../../../core/services/shared_preferences_service.dart';
 import '../../../../core/utils/backend_endpoints.dart';

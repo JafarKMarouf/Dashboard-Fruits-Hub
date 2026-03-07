@@ -8,8 +8,11 @@ import 'package:dashboard_fruit_hub/core/shared/widgets/app_text_widget.dart';
 import 'package:dashboard_fruit_hub/core/utils/styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../../core/helpers/build_messages_bar.dart';
 import '../../../../../../core/utils/styles/app_colors.dart';
+import '../../../cubit/add_product_cubit/add_product_cubit.dart';
 import 'product_image_picker.dart';
 
 class AddProductForm extends StatefulWidget {
@@ -25,7 +28,7 @@ class _AddProductFormState extends State<AddProductForm> {
   final _priceController = TextEditingController();
   final _quantityController = TextEditingController();
   final _descriptionController = TextEditingController();
-  late File? productImage;
+  File? _productImage;
 
   @override
   void dispose() {
@@ -36,6 +39,42 @@ class _AddProductFormState extends State<AddProductForm> {
     super.dispose();
   }
 
+  void _onSubmit() {
+    if (!_formKey.currentState!.validate()) return;
+
+    if (_productImage == null) {
+      buildErrorBar(context, 'يرجى اختيار صورة للمنتج');
+      return;
+    }
+
+    context.read<AddProductCubit>().addProduct(
+      name: _nameController.text.trim(),
+      price: double.parse(_priceController.text.trim()),
+      quantity: int.parse(_quantityController.text.trim()),
+      description: _descriptionController.text.trim(),
+      image: _productImage!,
+    );
+  }
+
+  // ── Validators ──────────────────────────────────────────────────────────────
+
+  String? _requiredValidator(String? value) =>
+      (value == null || value.trim().isEmpty) ? 'هذا الحقل مطلوب' : null;
+
+  String? _priceValidator(String? value) {
+    if (value == null || value.trim().isEmpty) return 'هذا الحقل مطلوب';
+    final price = double.tryParse(value);
+    if (price == null || price <= 0) return 'أدخل سعراً صحيحاً';
+    return null;
+  }
+
+  String? _quantityValidator(String? value) {
+    if (value == null || value.trim().isEmpty) return 'هذا الحقل مطلوب';
+    final qty = int.tryParse(value);
+    if (qty == null || qty < 0) return 'أدخل كمية صحيحة';
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -44,7 +83,7 @@ class _AddProductFormState extends State<AddProductForm> {
         children: [
           ProductImagePicker(
             imagePickerService: getIt<ImagePickerService>(),
-            onImageSelected: (file) => setState(() => productImage = file),
+            onImageSelected: (file) => setState(() => _productImage = file),
           ),
           const SizedBox(height: 20),
 
@@ -62,6 +101,7 @@ class _AddProductFormState extends State<AddProductForm> {
                 size: 18,
               ),
             ),
+            validator: _requiredValidator,
           ),
           const SizedBox(height: 16),
 
@@ -76,26 +116,28 @@ class _AddProductFormState extends State<AddProductForm> {
             textInputAction: TextInputAction.done,
           ),
           const SizedBox(height: 28),
-          AppPrimaryButton(
-            onPressed: () {},
-            colorShadow: AppColors.borderLight,
-            backgroundColor: AppColors.primaryDark,
-            height: 56,
-            widget: Row(
-              mainAxisAlignment: .center,
-              children: [
-                const Icon(Icons.save_rounded, color: Colors.white, size: 24),
-                const SizedBox(width: 8),
-                AppTextWidget(
-                  'حفظ المنتج',
-                  style: AppTextStyles.styleBold16.copyWith(
-                    color: Colors.white,
-                  ),
-                ),
-              ],
-            ),
-          ),
+          buildSubmitButton(),
           const SizedBox(height: 28),
+        ],
+      ),
+    );
+  }
+
+  AppPrimaryButton buildSubmitButton() {
+    return AppPrimaryButton(
+      onPressed: _onSubmit,
+      colorShadow: AppColors.borderLight,
+      backgroundColor: AppColors.primaryDark,
+      height: 56,
+      widget: Row(
+        mainAxisAlignment: .center,
+        children: [
+          const Icon(Icons.save_rounded, color: Colors.white, size: 24),
+          const SizedBox(width: 8),
+          AppTextWidget(
+            'حفظ المنتج',
+            style: AppTextStyles.styleBold16.copyWith(color: Colors.white),
+          ),
         ],
       ),
     );
@@ -117,6 +159,7 @@ class _AddProductFormState extends State<AddProductForm> {
             ],
             textInputAction: TextInputAction.next,
             suffixText: 'ل.س',
+            validator: _priceValidator,
           ),
         ),
         const SizedBox(width: 12),
@@ -129,7 +172,7 @@ class _AddProductFormState extends State<AddProductForm> {
             textInputType: TextInputType.number,
             textInputAction: TextInputAction.next,
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-            // validator: _requiredValidator,
+            validator: _quantityValidator,
           ),
         ),
       ],
