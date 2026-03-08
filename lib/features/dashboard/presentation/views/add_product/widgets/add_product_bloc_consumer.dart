@@ -39,6 +39,9 @@ class _AddProductBlocConsumerState extends State<AddProductBlocConsumer> {
           }
           if (state is AddProductSuccess) {
             buildSuccessMessage(context, 'Add Product Success');
+            Future.delayed(const Duration(milliseconds: 400), () {
+              Navigator.of(context).pop();
+            });
           }
         },
         builder: (context, state) {

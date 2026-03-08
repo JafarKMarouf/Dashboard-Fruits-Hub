@@ -65,7 +65,7 @@ class _ProductImagePickerState extends State<ProductImagePicker> {
         decoration: BoxDecoration(
           color: _pickedImage != null
               ? Colors.transparent
-              : AppColors.primaryLight.withOpacity(0.04),
+              : AppColors.primaryDark.withOpacity(0.04),
           borderRadius: BorderRadius.circular(14),
           border: Border.all(
             color: _pickedImage != null
