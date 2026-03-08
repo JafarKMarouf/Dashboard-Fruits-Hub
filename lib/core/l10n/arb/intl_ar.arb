@@ -11,5 +11,6 @@
     "requiredField": " هذا الحقل مطلوب",
     "invalidCredential": "البريد الإلكتروني أو كلمة المرور غير صحيح.",
     "notAuthorized": "غير مخول للوصول",
-    "loginSuccess": "تم تسجيل الدخول بنجاح"
+    "loginSuccess": "تم تسجيل الدخول بنجاح",
+    "dashboardTitle": "FruitHub Admin"
 }

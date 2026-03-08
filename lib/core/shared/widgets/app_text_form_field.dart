@@ -1,9 +1,10 @@
-import 'package:dashboard_fruit_hub/core/utils/widgets/app_text_widget.dart';
+import 'package:dashboard_fruit_hub/core/shared/widgets/app_text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../l10n/l10n.dart';
-import '../styles/app_colors.dart';
-import '../styles/app_text_styles.dart';
+import '../../utils/styles/app_colors.dart';
+import '../../utils/styles/app_text_styles.dart';
 
 class AppTextFormField extends StatelessWidget {
   const AppTextFormField({
@@ -16,9 +17,13 @@ class AppTextFormField extends StatelessWidget {
     required this.textInputType,
     this.textInputAction,
     this.validator,
+    this.inputFormatters,
     this.showShadow = true,
     this.onSaved,
     this.label,
+    this.suffixText,
+    this.fillColor,
+    this.maxLines = 1,
   });
 
   final TextEditingController? controller;
@@ -31,6 +36,10 @@ class AppTextFormField extends StatelessWidget {
   final String? Function(String?)? validator;
   final bool showShadow;
   final void Function(String?)? onSaved;
+  final List<TextInputFormatter>? inputFormatters;
+  final String? suffixText;
+  final Color? fillColor;
+  final int maxLines;
 
   InputBorder _buildBorder([Color? color]) {
     return OutlineInputBorder(
@@ -46,12 +55,12 @@ class AppTextFormField extends StatelessWidget {
       children: [
         if (label != null)
           AppTextWidget(
-            text: label!,
+            label!,
             style: AppTextStyles.styleBold14.copyWith(
               color: AppColors.grayscale800,
             ),
           ),
-        if (label != null) const SizedBox(height: 12),
+        if (label != null) const SizedBox(height: 8),
         Container(
           decoration: showShadow
               ? BoxDecoration(
@@ -72,6 +81,8 @@ class AppTextFormField extends StatelessWidget {
                 (value) => (value == null || value.isEmpty)
                     ? AppLocalizations.of(context).requiredField
                     : null,
+            inputFormatters: inputFormatters,
+            maxLines: maxLines,
             onSaved: onSaved,
             controller: controller,
             obscureText: obscureText,
@@ -79,9 +90,17 @@ class AppTextFormField extends StatelessWidget {
             textInputAction: textInputAction ?? TextInputAction.done,
             decoration: InputDecoration(
               filled: true,
-              fillColor: const Color(0xFFF4F5F7),
+              fillColor: fillColor ?? Colors.white,
               hintText: hintText,
               suffixIcon: suffixIcon,
+              suffix: suffixText != null
+                  ? AppTextWidget(
+                      suffixText!,
+                      style: AppTextStyles.styleRegular13.copyWith(
+                        color: AppColors.grayscale400,
+                      ),
+                    )
+                  : null,
               prefixIcon: prefixIcon,
               prefixIconColor: AppColors.grayscale400,
               hintStyle: AppTextStyles.styleSemiBold16.copyWith(
