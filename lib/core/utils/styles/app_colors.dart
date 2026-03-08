@@ -57,7 +57,7 @@ abstract class AppColors {
   // Primary
   static const Color primary = green600;
   static const Color primaryLight = green400;
-  static const Color primaryDark = green700;
+  static const Color primaryDark = green1_800;
 
   // Secondary
   static const Color secondary = orange500;

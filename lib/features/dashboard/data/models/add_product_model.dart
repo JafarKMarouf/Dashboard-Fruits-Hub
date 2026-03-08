@@ -1,14 +1,21 @@
 import '../../domain/entities/add_product_entity.dart';
 
 class ProductModel extends AddProductEntity {
-  const ProductModel({
+  ProductModel({
     required super.name,
     required super.price,
     required super.quantity,
     required super.description,
     required super.isFeatured,
     required super.code,
+    required super.imageFile,
     super.imageUrl,
+    required super.expirationMonths,
+    required super.numberOfCalories,
+    required super.unitAmount,
+    super.isOrganic,
+    super.avgRate,
+    super.countRate,
   });
 
   // ── Mapping ────────────────────────────────────────────────────────────────
@@ -19,18 +26,15 @@ class ProductModel extends AddProductEntity {
     quantity: entity.quantity,
     description: entity.description,
     imageUrl: entity.imageUrl,
+    imageFile: entity.imageFile,
     isFeatured: entity.isFeatured,
     code: entity.code,
-  );
-
-  factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
-    name: json['name'] as String,
-    price: (json['price'] as num).toDouble(),
-    quantity: json['quantity'] as int,
-    description: json['description'] as String,
-    imageUrl: json['image_url'] as String,
-    isFeatured: json['is_featured'] as bool,
-    code: json['code'] as String,
+    expirationMonths: entity.expirationMonths,
+    numberOfCalories: entity.numberOfCalories,
+    unitAmount: entity.unitAmount,
+    isOrganic: entity.isOrganic,
+    avgRate: entity.avgRate,
+    countRate: entity.countRate,
   );
 
   Map<String, dynamic> toJson() => {
@@ -41,5 +45,11 @@ class ProductModel extends AddProductEntity {
     'image_url': imageUrl,
     'is_featured': isFeatured,
     'code': code,
+    'expiration_months': expirationMonths,
+    'number_of_calories': numberOfCalories,
+    'unit_amount': unitAmount,
+    'is_organic': isOrganic,
+    'avg_rate': avgRate,
+    'count_rate': countRate,
   };
 }

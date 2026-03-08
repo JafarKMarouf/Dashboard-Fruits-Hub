@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:dashboard_fruit_hub/core/services/storage_service/storage_service.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class SupabaseStorageService extends StorageService {
+class SupabaseStorage extends StorageService {
   final supabase = Supabase.instance.client;
 
   @override
