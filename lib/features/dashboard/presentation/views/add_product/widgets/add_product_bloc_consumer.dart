@@ -29,8 +29,8 @@ class _AddProductBlocConsumerState extends State<AddProductBlocConsumer> {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
-      onPopInvokedWithResult: (didPop, _) {
-        if (!didPop) _onExit();
+      onPopInvokedWithResult: (didPop, _) async {
+        if (!didPop) await _onExit();
       },
       child: BlocConsumer<AddProductCubit, AddProductState>(
         listener: (context, state) {
@@ -38,7 +38,7 @@ class _AddProductBlocConsumerState extends State<AddProductBlocConsumer> {
             buildErrorBar(context, state.message);
           }
           if (state is AddProductSuccess) {
-            buildSuccessMessage(context, 'Add Product Success');
+            buildSuccessMessage(context, 'تمت إضافة المنتج بنجاح.');
             Future.delayed(const Duration(milliseconds: 400), () {
               Navigator.of(context).pop();
             });
