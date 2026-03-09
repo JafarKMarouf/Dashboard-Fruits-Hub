@@ -5,9 +5,9 @@ import 'package:dashboard_fruit_hub/core/errors/failure.dart';
 import 'package:dashboard_fruit_hub/core/utils/backend_endpoints.dart';
 
 import '../../services/database_service/database_service.dart';
-import '../../../features/dashboard/domain/entities/add_product_entity.dart';
+import '../../../features/dashboard/domain/entities/product_entity.dart';
 import 'product_repo.dart';
-import '../../../features/dashboard/data/models/add_product_model.dart';
+import '../../../features/dashboard/data/models/product_model.dart';
 
 class ProductRepoImpl implements ProductRepo {
   ProductRepoImpl(this.databaseService);
@@ -16,7 +16,7 @@ class ProductRepoImpl implements ProductRepo {
 
   @override
   Future<Either<Failure, void>> addProduct({
-    required AddProductEntity product,
+    required ProductEntity product,
   }) async {
     try {
       await databaseService.addData(
@@ -27,7 +27,7 @@ class ProductRepoImpl implements ProductRepo {
     } catch (e) {
       log('Exception in ProductRepoImpl.addProduct: ${e.toString()}');
 
-      return Left(ServerFailure('Failed to add product. ${e.toString()}'));
+      return Left(ServerFailure('فشل في اضافه المنتج.'));
     }
   }
 }
