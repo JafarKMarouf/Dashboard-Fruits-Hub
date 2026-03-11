@@ -57,7 +57,7 @@ class AppTextFormField extends StatelessWidget {
           AppTextWidget(
             label!,
             style: AppTextStyles.styleBold14.copyWith(
-              color: AppColors.grayscale800,
+              color: AppColors.grayscale900,
             ),
           ),
         if (label != null) const SizedBox(height: 8),
@@ -104,7 +104,7 @@ class AppTextFormField extends StatelessWidget {
               prefixIcon: prefixIcon,
               prefixIconColor: AppColors.grayscale400,
               hintStyle: AppTextStyles.styleSemiBold16.copyWith(
-                color: AppColors.grayscale600,
+                color: AppColors.grayscale500,
               ),
               border: _buildBorder(),
               enabledBorder: _buildBorder(),
@@ -116,7 +116,7 @@ class AppTextFormField extends StatelessWidget {
               ),
             ),
             style: AppTextStyles.styleSemiBold16.copyWith(
-              color: AppColors.grayscale600,
+              color: AppColors.grayscale800,
             ),
           ),
         ),

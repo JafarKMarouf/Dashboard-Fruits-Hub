@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:dashboard_fruit_hub/core/helpers/build_messages_bar.dart';
-import 'package:dashboard_fruit_hub/features/dashboard/domain/entities/add_product_entity.dart';
+import 'package:dashboard_fruit_hub/features/dashboard/domain/entities/product_entity.dart';
 import 'package:dashboard_fruit_hub/features/dashboard/presentation/cubit/add_product_cubit/add_product_cubit.dart';
 import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/add_product/widgets/review_step.dart';
 import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/add_product/widgets/step_buttons.dart';
@@ -72,7 +72,7 @@ class _AddProductFormState extends State<AddProductForm>
       return;
     }
     context.read<AddProductCubit>().addProduct(
-      product: AddProductEntity(
+      product: ProductEntity(
         name: _controllers.name.text.trim(),
         price: double.parse(_controllers.price.text.trim()),
         quantity: int.parse(_controllers.quantity.text.trim()),
@@ -84,6 +84,7 @@ class _AddProductFormState extends State<AddProductForm>
         expirationMonths: int.parse(_controllers.expirationMonths.text),
         numberOfCalories: int.parse(_controllers.numberOfCalories.text),
         unitAmount: int.parse(_controllers.unitAmount.text),
+        reviews: [],
       ),
     );
   }
