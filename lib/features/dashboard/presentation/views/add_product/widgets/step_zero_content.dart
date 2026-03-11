@@ -60,7 +60,7 @@ class StepZeroContent extends StatelessWidget {
         AppTextFormField(
           controller: codeController,
           label: 'كود المنتج',
-          hintText: 'مثال: abcdef',
+          hintText: 'مثال: apple',
           textInputType: TextInputType.text,
           textInputAction: TextInputAction.next,
           validator: requiredValidator,
