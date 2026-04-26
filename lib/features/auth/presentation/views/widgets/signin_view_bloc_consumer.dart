@@ -24,7 +24,7 @@ class SigninViewBlocConsumer extends StatelessWidget {
             'notAuthorized' => locale.notAuthorized,
             _ => locale.genericError,
           };
-          buildErrorBar(context, localizedMessage);
+          showErrorBar(context, localizedMessage);
         }
         if (state is SigninSuccess) {
           buildSuccessMessage(

@@ -45,6 +45,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "فشل الاتصال بالشبكة. يرجى التحقق من اتصالك بالإنترنت.",
     ),
     "notAuthorized": MessageLookupByLibrary.simpleMessage("غير مخول للوصول"),
+    "orderListTitle": MessageLookupByLibrary.simpleMessage("إدارة الطلبات"),
     "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
     "requiredField": MessageLookupByLibrary.simpleMessage(" هذا الحقل مطلوب"),
   };

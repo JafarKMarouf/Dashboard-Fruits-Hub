@@ -47,6 +47,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "notAuthorized": MessageLookupByLibrary.simpleMessage(
       "Not authorized to access",
     ),
+    "orderListTitle": MessageLookupByLibrary.simpleMessage("Orders"),
     "password": MessageLookupByLibrary.simpleMessage("Password"),
     "requiredField": MessageLookupByLibrary.simpleMessage(
       "This field is required",

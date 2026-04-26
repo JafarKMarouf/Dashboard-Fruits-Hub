@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../../../../core/l10n/l10n.dart';
-import '../../../../../../core/shared/widgets/app_text_widget.dart';
-import '../../../../../../core/utils/styles/app_images.dart';
-import '../../../../../../core/utils/styles/app_text_styles.dart';
+import 'app_text_widget.dart';
+import '../../utils/styles/app_images.dart';
+import '../../utils/styles/app_text_styles.dart';
 
 class MainAppBar extends StatelessWidget {
-  const MainAppBar({super.key});
+  final String title;
+  const MainAppBar({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -15,10 +15,7 @@ class MainAppBar extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         const Icon(Icons.menu_rounded),
-        AppTextWidget(
-          AppLocalizations.of(context).dashboardTitle,
-          style: AppTextStyles.styleBold19,
-        ),
+        AppTextWidget(title, style: AppTextStyles.styleBold19),
         Container(
           padding: const EdgeInsets.all(8),
           decoration: const ShapeDecoration(

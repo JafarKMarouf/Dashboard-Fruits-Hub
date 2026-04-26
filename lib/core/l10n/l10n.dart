@@ -173,6 +173,11 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `Orders`
+  String get orderListTitle {
+    return Intl.message('Orders', name: 'orderListTitle', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

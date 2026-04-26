@@ -41,7 +41,7 @@ class _ProductImagePickerState extends State<ProductImagePicker> {
       widget.onImageSelected(file);
     } on ImagePickerException catch (e) {
       if (!mounted) return;
-      buildErrorBar(context, e.message);
+      showErrorBar(context, e.message);
     } finally {
       if (mounted) setState(() => _isLoading = false);
     }

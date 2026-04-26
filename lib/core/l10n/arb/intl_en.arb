@@ -12,5 +12,6 @@
     "invalidCredential": "Incorrect email or password.",
     "notAuthorized": "Not authorized to access",
     "loginSuccess": "Signed in successfully",
-    "dashboardTitle": "FruitHub Admin"
+    "dashboardTitle": "FruitHub Admin",
+    "orderListTitle": "Orders"
 }

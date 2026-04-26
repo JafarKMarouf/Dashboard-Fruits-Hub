@@ -4,7 +4,7 @@ import 'package:toastification/toastification.dart';
 import '../shared/widgets/app_text_widget.dart';
 import '../utils/styles/app_text_styles.dart';
 
-void buildErrorBar(BuildContext context, String message) {
+void showErrorBar(BuildContext context, String message) {
   toastification.show(
     context: context,
     type: ToastificationType.error,

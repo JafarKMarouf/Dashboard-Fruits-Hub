@@ -12,5 +12,6 @@
     "invalidCredential": "البريد الإلكتروني أو كلمة المرور غير صحيح.",
     "notAuthorized": "غير مخول للوصول",
     "loginSuccess": "تم تسجيل الدخول بنجاح",
-    "dashboardTitle": "FruitHub Admin"
+    "dashboardTitle": "FruitHub Admin",
+    "orderListTitle": "إدارة الطلبات"
 }

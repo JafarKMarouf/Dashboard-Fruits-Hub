@@ -16,7 +16,7 @@ class AddProductCubit extends Cubit<AddProductState> {
     emit(AddProductLoading());
     var result = await imageRepo.uploadImage(
       image: product.imageFile,
-      path: 'products',
+      path: 'Fruits',
     );
     result.fold((fail) => emit(AddProductFailure(fail.message)), (
       imageUrl,

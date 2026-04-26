@@ -35,7 +35,7 @@ class _AddProductBlocConsumerState extends State<AddProductBlocConsumer> {
       child: BlocConsumer<AddProductCubit, AddProductState>(
         listener: (context, state) {
           if (state is AddProductFailure) {
-            buildErrorBar(context, state.message);
+            showErrorBar(context, state.message);
           }
           if (state is AddProductSuccess) {
             buildSuccessMessage(context, 'تمت إضافة المنتج بنجاح.');

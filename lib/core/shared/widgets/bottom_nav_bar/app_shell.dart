@@ -1,8 +1,15 @@
+import 'package:dashboard_fruit_hub/core/shared/widgets/app_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/services/get_it_service.dart';
 import '../../../../features/dashboard/presentation/views/add_product/add_product_view.dart';
 import '../../../../features/dashboard/presentation/views/dashboard/dashboard_view.dart';
+import '../../../../features/orders/domain/usecases/update_order_status_usecase.dart';
+import '../../../../features/orders/domain/usecases/watch_orders_usecase.dart';
+import '../../../../features/orders/presentation/cubit/orders_cubit/orders_cubit.dart';
+import '../../../../features/orders/presentation/views/orders_view.dart';
 import 'custom_bottom_nav_bar.dart';
 
 class AppShell extends StatefulWidget {
@@ -17,22 +24,36 @@ class AppShell extends StatefulWidget {
 class _AppShellState extends State<AppShell> {
   int _currentIndex = 0;
 
+  final Set<int> _visitedTabs = {0};
+
   final List<GlobalKey<NavigatorState>> _navigatorKeys = List.generate(
     4,
     (_) => GlobalKey<NavigatorState>(),
   );
 
-  final List<Widget> _tabRoots = const [
-    DashboardView(),
-    Center(child: Text('Inventory')),
-    Center(child: Text('Orders')),
-    Center(child: Text('Reports')),
-  ];
+  late final OrdersCubit _ordersCubit = OrdersCubit(
+    watchOrders: getIt<WatchOrdersUseCase>(),
+    updateStatus: getIt<UpdateOrderStatusUseCase>(),
+  );
+
+  @override
+  void dispose() {
+    _ordersCubit.close();
+    super.dispose();
+  }
+
   void _onTabTapped(int index) {
     if (index == _currentIndex) {
       _navigatorKeys[index].currentState?.popUntil((route) => route.isFirst);
-    } else {
-      setState(() => _currentIndex = index);
+      return;
+    }
+
+    setState(() {
+      _currentIndex = index;
+      _visitedTabs.add(index);
+    });
+    if (index == 2 && !_ordersCubit.isWatching) {
+      _ordersCubit.startWatching();
     }
   }
 
@@ -52,24 +73,29 @@ class _AppShellState extends State<AppShell> {
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      canPop: false,
-      onPopInvoked: _onPopInvoked,
-      child: Scaffold(
-        body: IndexedStack(
-          index: _currentIndex,
-          children: List.generate(
-            _tabRoots.length,
-            (index) => Navigator(
-              key: _navigatorKeys[index],
-              onGenerateRoute: (settings) =>
-                  _onGenerateTabRoute(settings, index),
-            ),
+    return BlocProvider.value(
+      value: _ordersCubit,
+      child: PopScope(
+        canPop: false,
+        onPopInvoked: _onPopInvoked,
+        child: Scaffold(
+          body: IndexedStack(
+            index: _currentIndex,
+            children: List.generate(4, (index) {
+              if (!_visitedTabs.contains(index)) {
+                return const SizedBox.shrink();
+              }
+              return Navigator(
+                key: _navigatorKeys[index],
+                onGenerateRoute: (settings) =>
+                    _onGenerateTabRoute(settings, index),
+              );
+            }),
           ),
-        ),
-        bottomNavigationBar: CustomBottomNavigationBar(
-          selectedIndex: _currentIndex,
-          onItemTapped: _onTabTapped,
+          bottomNavigationBar: CustomBottomNavigationBar(
+            selectedIndex: _currentIndex,
+            onItemTapped: _onTabTapped,
+          ),
         ),
       ),
     );
@@ -77,10 +103,9 @@ class _AppShellState extends State<AppShell> {
 
   Route<dynamic> _onGenerateTabRoute(RouteSettings settings, int tabIndex) {
     final Widget page = _resolveTabRoute(settings, tabIndex);
-
     return PageRouteBuilder(
       settings: settings,
-      pageBuilder: (_, animation, _) => page,
+      pageBuilder: (_, _, _) => page,
       transitionsBuilder: (_, animation, _, child) => FadeTransition(
         opacity: CurvedAnimation(parent: animation, curve: Curves.easeOut),
         child: SlideTransition(
@@ -102,9 +127,23 @@ class _AppShellState extends State<AppShell> {
     switch (settings.name) {
       case AddProductView.routeName:
         return const AddProductView();
-
       default:
-        return _tabRoots[tabIndex];
+        return _tabRoot(tabIndex);
+    }
+  }
+
+  Widget _tabRoot(int index) {
+    switch (index) {
+      case 0:
+        return const DashboardView();
+      case 1:
+        return const Center(child: AppTextWidget('Inventory'));
+      case 2:
+        return const OrdersView();
+      case 3:
+        return const Center(child: AppTextWidget('Reports'));
+      default:
+        return const SizedBox.shrink();
     }
   }
 }
