@@ -15,7 +15,7 @@ class DashboardApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Cairo',
         colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
-        scaffoldBackgroundColor: Colors.white,
+        scaffoldBackgroundColor: const Color(0xfff6f8f7),
       ),
       locale: const Locale('ar'),
       localizationsDelegates: const [

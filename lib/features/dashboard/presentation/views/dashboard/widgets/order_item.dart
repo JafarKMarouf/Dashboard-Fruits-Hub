@@ -48,6 +48,7 @@ class OrderItem extends StatelessWidget {
     return SizedBox(
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        trailing: const Icon(Icons.arrow_forward_ios, size: 16),
         leading: Container(
           width: 38,
           height: 38,

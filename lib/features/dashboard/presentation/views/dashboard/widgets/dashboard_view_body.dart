@@ -2,10 +2,11 @@ import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashbo
 import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/build_header.dart';
 import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/build_recent_orders_header.dart';
 import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/build_stats_row.dart';
-import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/main_app_bar.dart';
+import 'package:dashboard_fruit_hub/core/shared/widgets/main_app_bar.dart';
 import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/revenue_card.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../../core/l10n/l10n.dart';
 import '../../../../../../core/utils/constants.dart';
 import '../../../../domain/entities/order_entity.dart';
 import 'animated_order_item.dart';
@@ -110,7 +111,10 @@ class _DashboardViewBodyState extends State<DashboardViewBody>
     child: Column(
       children: [
         const SizedBox(height: kTopPadding),
-        _animated(0, const MainAppBar()),
+        _animated(
+          0,
+          MainAppBar(title: AppLocalizations.of(context).dashboardTitle),
+        ),
       ],
     ),
   );
@@ -181,7 +185,7 @@ class _DashboardViewBodyState extends State<DashboardViewBody>
               ),
               if (!isLast)
                 const Divider(
-                  height: 1,
+                  height: 2,
                   indent: 16,
                   endIndent: 16,
                   color: Color(0xFFF3F4F6),

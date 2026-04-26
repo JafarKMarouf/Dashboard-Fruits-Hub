@@ -68,7 +68,7 @@ class _AddProductFormState extends State<AddProductForm>
   void _onSubmit() {
     if (!_formKey.currentState!.validate()) return;
     if (_productImage == null) {
-      buildErrorBar(context, 'يرجى اختيار صورة للمنتج');
+      showErrorBar(context, 'يرجى اختيار صورة للمنتج');
       return;
     }
     context.read<AddProductCubit>().addProduct(
