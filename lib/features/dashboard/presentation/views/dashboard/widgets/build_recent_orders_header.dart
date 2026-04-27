@@ -24,7 +24,7 @@ class BuildRecentOrdersHeader extends StatelessWidget {
               child: AppTextWidget(
                 'عرض الكل',
                 style: AppTextStyles.styleBold13.copyWith(
-                  color: AppColors.success,
+                  color: AppColors.green1_600,
                 ),
               ),
             ),

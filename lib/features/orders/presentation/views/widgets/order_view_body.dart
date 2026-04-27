@@ -162,9 +162,9 @@ class _OrdersStats extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<OrdersCubit, OrdersState>(
-      buildWhen: (_, curr) => curr is OrdersLoaded,
+      buildWhen: (_, curr) => curr is OrdersLoadedState,
       builder: (context, state) {
-        if (state is! OrdersLoaded) {
+        if (state is! OrdersLoadedState) {
           return const OrdersStatsRow(
             total: 0,
             pending: 0,
@@ -198,17 +198,20 @@ class _OrdersFilter extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<OrdersCubit, OrdersState>(
       buildWhen: (prev, curr) =>
-          curr is OrdersLoaded &&
-          (prev is! OrdersLoaded || (prev).activeFilter != (curr).activeFilter),
+          curr is OrdersLoadedState &&
+          (prev is! OrdersLoadedState ||
+              (prev).activeFilter != (curr).activeFilter),
       builder: (context, state) {
         final cubit = context.read<OrdersCubit>();
-        final filter = state is OrdersLoaded
+        final filter = state is OrdersLoadedState
             ? state.activeFilter
             : OrderFilter.all;
         return OrdersFilterBar(
           activeFilter: filter,
           counts: {
-            OrderFilter.all: state is OrdersLoaded ? state.orders.length : 0,
+            OrderFilter.all: state is OrdersLoadedState
+                ? state.orders.length
+                : 0,
             OrderFilter.pending: cubit.countByStatus(OrderStatus.pending),
             OrderFilter.shipped: cubit.countByStatus(OrderStatus.shipped),
             OrderFilter.delivered: cubit.countByStatus(OrderStatus.delivered),

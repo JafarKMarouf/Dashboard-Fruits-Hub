@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 import 'order_item_entity.dart';
 import 'order_status.dart';
 import 'shipping_address_entity.dart';
@@ -52,5 +54,10 @@ class OrderEntity {
       return id ?? 'N/A';
     }
     return 'رقم الطلب ${id!.substring(id!.length - 6).toUpperCase()}#';
+  }
+
+  String get formatUpdateTime {
+    if (updatedAt == null) return '';
+    return DateFormat.jm('ar').format(updatedAt!);
   }
 }

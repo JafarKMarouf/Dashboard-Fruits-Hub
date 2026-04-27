@@ -30,34 +30,34 @@ abstract class OrdersState extends Equatable {
   List<Object?> get props => [];
 }
 
-class OrdersInitial extends OrdersState {
-  const OrdersInitial();
+class OrdersInitialState extends OrdersState {
+  const OrdersInitialState();
 }
 
-class OrdersLoading extends OrdersState {
-  const OrdersLoading();
+class OrdersLoadingState extends OrdersState {
+  const OrdersLoadingState();
 }
 
-class OrdersLoaded extends OrdersState {
+class OrdersLoadedState extends OrdersState {
   final List<OrderEntity> orders;
   final List<OrderEntity> filtered;
   final OrderFilter activeFilter;
   final String? updatingOrderId;
-  const OrdersLoaded({
+  const OrdersLoadedState({
     required this.orders,
     required this.filtered,
     required this.activeFilter,
     this.updatingOrderId,
   });
 
-  OrdersLoaded copyWith({
+  OrdersLoadedState copyWith({
     List<OrderEntity>? orders,
     List<OrderEntity>? filtered,
     OrderFilter? activeFilter,
     String? updatingOrderId,
     bool clearUpdating = false,
   }) {
-    return OrdersLoaded(
+    return OrdersLoadedState(
       orders: orders ?? this.orders,
       filtered: filtered ?? this.filtered,
       activeFilter: activeFilter ?? this.activeFilter,
@@ -71,13 +71,10 @@ class OrdersLoaded extends OrdersState {
   List<Object?> get props => [orders, filtered, activeFilter, updatingOrderId];
 }
 
-class OrdersError extends OrdersState {
+class OrdersFailureState extends OrdersState {
   final String message;
 
-  const OrdersError(this.message);
-
-  @override
-  List<Object?> get props => [message];
+  const OrdersFailureState(this.message);
 }
 
 class OrderStatusUpdateError extends OrdersState {

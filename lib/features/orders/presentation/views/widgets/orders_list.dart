@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/utils/shared/widgets/app_text_widget.dart';
-import '../../../../../../core/utils/styles/app_colors.dart';
-import '../../../../../../core/utils/styles/app_text_styles.dart';
 import '../../../../../core/entities/order_entity/order_entity.dart';
+import '../../../../../core/utils/shared/widgets/custom_error_widget.dart';
 import '../../cubit/orders_cubit/orders_cubit.dart';
 import '../../cubit/orders_cubit/orders_state.dart';
 import 'empty_orders.dart';
@@ -21,18 +19,25 @@ class OrdersList extends StatelessWidget {
     return BlocBuilder<OrdersCubit, OrdersState>(
       builder: (context, state) {
         // ── Loading ──────────────────────────────────────────────────────────
-        if (state is OrdersInitial || state is OrdersLoading) {
+        if (state is OrdersInitialState || state is OrdersLoadingState) {
           return const OrdersListLoading();
         }
 
         // ── Error ────────────────────────────────────────────────────────────
-        if (state is OrdersError) {
-          return _OrdersErrorSliver(message: state.message);
+        if (state is OrdersFailureState) {
+          return SliverFillRemaining(
+            child: CustomErrorWidget(
+              errorMessage: state.message,
+              onRetry: () {
+                context.read<OrdersCubit>().startWatching();
+              },
+            ),
+          );
         }
 
         // ── Resolve orders + updating id ─────────────────────────────────────
         final (orders, updatingId) = switch (state) {
-          OrdersLoaded() => (state.filtered, state.updatingOrderId),
+          OrdersLoadedState() => (state.filtered, state.updatingOrderId),
           OrderStatusUpdateError() => (state.filtered, null),
           _ => (<OrderEntity>[], null),
         };
@@ -58,49 +63,6 @@ class OrdersList extends StatelessWidget {
           }, childCount: orders.length),
         );
       },
-    );
-  }
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// _OrdersErrorSliver — private, only used by OrdersList
-// ─────────────────────────────────────────────────────────────────────────────
-
-class _OrdersErrorSliver extends StatelessWidget {
-  final String message;
-
-  const _OrdersErrorSliver({required this.message});
-
-  @override
-  Widget build(BuildContext context) {
-    return SliverFillRemaining(
-      child: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Icon(
-              Icons.error_outline_rounded,
-              size: 48,
-              color: AppColors.error,
-            ),
-            const SizedBox(height: 12),
-            AppTextWidget(
-              'حدث خطأ: $message',
-              style: AppTextStyles.styleRegular16.copyWith(
-                color: AppColors.error,
-              ),
-              textDirection: TextDirection.rtl,
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 16),
-            TextButton.icon(
-              onPressed: () => context.read<OrdersCubit>().startWatching(),
-              icon: const Icon(Icons.refresh_rounded),
-              label: const Text('إعادة المحاولة'),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

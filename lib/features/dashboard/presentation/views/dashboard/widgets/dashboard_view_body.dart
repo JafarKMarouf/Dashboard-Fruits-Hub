@@ -1,4 +1,4 @@
-import 'package:dashboard_fruit_hub/features/dashboard/presentation/cubit/dashboard_order_cubit/dashboard_order_cubit.dart';
+import 'package:dashboard_fruit_hub/features/dashboard/presentation/cubit/cubit/dashboard_order_cubit.dart';
 import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/build_action_buttons.dart';
 import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/build_header.dart';
 import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/build_recent_orders_header.dart';
@@ -157,4 +157,7 @@ class _DashboardViewBodyState extends State<DashboardViewBody>
 
   Widget _buildRecentOrdersHeader() =>
       SliverToBoxAdapter(child: _animated(3, const BuildRecentOrdersHeader()));
+
+  Widget _buildRecentOrders() =>
+      _animated(3, RecentOrdersSliverList(entryController: _entryController));
 }

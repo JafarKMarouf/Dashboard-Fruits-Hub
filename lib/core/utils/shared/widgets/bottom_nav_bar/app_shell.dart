@@ -77,9 +77,6 @@ class _AppShellState extends State<AppShell> {
         ),
       ),
     );
-    // return BlocProvider.value(
-    //   value: _ordersCubit,
-    //   child:);
   }
 
   Route<dynamic> _onGenerateTabRoute(RouteSettings settings, int tabIndex) {
