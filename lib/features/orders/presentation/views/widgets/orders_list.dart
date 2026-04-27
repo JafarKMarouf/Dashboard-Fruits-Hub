@@ -53,7 +53,7 @@ class OrdersList extends StatelessWidget {
               onTap: () => onOrderTap(order),
               onStatusChanged: (status) => context
                   .read<OrdersCubit>()
-                  .updateStatus(orderId: order.id, status: status),
+                  .updateStatus(orderId: order.id!, status: status),
             );
           }, childCount: orders.length),
         );

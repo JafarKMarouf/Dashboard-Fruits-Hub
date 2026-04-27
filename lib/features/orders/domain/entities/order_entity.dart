@@ -3,38 +3,38 @@ import 'order_status.dart';
 import 'shipping_address_entity.dart';
 
 class OrderEntity {
-  final String id;
+  final String? id;
 
-  final String userId;
+  final String? userId;
 
-  final ShippingAddressEntity shippingAddress;
+  final ShippingAddressEntity? shippingAddress;
 
-  final List<OrderItemEntity> items;
+  final List<OrderItemEntity>? items;
 
-  final double totalPrice;
+  final double? totalPrice;
 
   final double finalTotal;
 
-  final String payMethod;
+  final String? payMethod;
 
   final OrderStatus status;
 
-  final DateTime createdAt;
+  final DateTime? createdAt;
 
-  final DateTime updatedAt;
+  final DateTime? updatedAt;
 
   const OrderEntity({
-    required this.id,
-    required this.userId,
-    required this.shippingAddress,
-    required this.items,
-    required this.totalPrice,
+    this.id,
+    this.userId,
+    this.shippingAddress,
+    this.items,
+    this.totalPrice,
     required this.finalTotal,
-    required this.payMethod,
+    this.payMethod,
     required this.status,
-    required this.createdAt,
-    required this.updatedAt,
+    this.createdAt,
+    this.updatedAt,
   });
 
-  int get totalQuantity => items.fold(0, (sum, i) => sum + i.quantity);
+  int get totalQuantity => items!.fold(0, (sum, i) => sum + i.quantity);
 }
