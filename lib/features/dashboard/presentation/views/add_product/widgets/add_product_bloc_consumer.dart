@@ -1,11 +1,11 @@
-import 'package:dashboard_fruit_hub/core/shared/widgets/custom_progress_hud.dart';
+import 'package:dashboard_fruit_hub/core/utils/shared/widgets/custom_progress_hud.dart';
 import 'package:dashboard_fruit_hub/features/dashboard/presentation/cubit/add_product_cubit/add_product_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../../core/helpers/build_messages_bar.dart';
-import '../../../../../../core/helpers/confirm_exit_dialog.dart';
-import '../../../../../../core/shared/widgets/app_text_widget.dart';
+import '../../../../../../core/utils/helpers/build_messages_bar.dart';
+import '../../../../../../core/utils/helpers/confirm_exit_dialog.dart';
+import '../../../../../../core/utils/shared/widgets/app_text_widget.dart';
 import '../../../../../../core/utils/styles/app_colors.dart';
 import '../../../../../../core/utils/styles/app_text_styles.dart';
 import 'add_product_view_body.dart';

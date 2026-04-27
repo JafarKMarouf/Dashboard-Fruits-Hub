@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:dashboard_fruit_hub/core/shared/widgets/app_text_form_field.dart';
+import 'package:dashboard_fruit_hub/core/utils/shared/widgets/app_text_form_field.dart';
 
 class UnitCaloriesRow extends StatelessWidget {
   const UnitCaloriesRow({

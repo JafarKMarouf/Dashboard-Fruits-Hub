@@ -1,8 +1,8 @@
 import 'package:dashboard_fruit_hub/features/dashboard/domain/entities/product_entity.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/repos/image_repo/image_repo.dart';
-import '../../../../../core/repos/product_repo/product_repo.dart';
+import '../../../../../core/repos/image/image_repo.dart';
+import '../../../../../core/repos/product/product_repo.dart';
 
 part 'add_product_state.dart';
 

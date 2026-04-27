@@ -1,4 +1,4 @@
-import 'package:dashboard_fruit_hub/core/shared/widgets/app_text_form_field.dart';
+import 'package:dashboard_fruit_hub/core/utils/shared/widgets/app_text_form_field.dart';
 import 'package:dashboard_fruit_hub/core/utils/constants.dart';
 import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/add_product/widgets/is_featured_checkbox.dart';
 import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/add_product/widgets/is_organic_checkbox.dart';

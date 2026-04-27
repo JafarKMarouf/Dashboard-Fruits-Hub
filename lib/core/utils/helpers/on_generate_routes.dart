@@ -1,8 +1,8 @@
-import 'package:dashboard_fruit_hub/core/shared/widgets/app_text_widget.dart';
+import 'package:dashboard_fruit_hub/core/utils/shared/widgets/app_text_widget.dart';
 import 'package:flutter/material.dart';
 
-import '../../features/auth/presentation/views/signin_view.dart';
-import '../../features/splash/presentation/views/splash_view.dart';
+import '../../../features/auth/presentation/views/signin_view.dart';
+import '../../../features/splash/presentation/views/splash_view.dart';
 import '../shared/widgets/bottom_nav_bar/app_shell.dart';
 import 'custom_transition.dart';
 

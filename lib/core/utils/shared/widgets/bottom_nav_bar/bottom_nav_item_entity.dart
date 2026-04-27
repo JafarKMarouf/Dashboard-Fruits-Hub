@@ -15,7 +15,7 @@ class BottomNavItemEntity {
 List<BottomNavItemEntity> get navigationBarItems => [
   BottomNavItemEntity(
     activeIcon: Icons.dashboard_rounded,
-    inactiveIcon: Icons.dashboard_customize_outlined,
+    inactiveIcon: Icons.dashboard_outlined,
     title: 'الرئيسية',
   ),
   BottomNavItemEntity(
@@ -24,13 +24,13 @@ List<BottomNavItemEntity> get navigationBarItems => [
     title: 'المخزون',
   ),
   BottomNavItemEntity(
-    activeIcon: Icons.shopping_bag_rounded,
-    inactiveIcon: Icons.shopping_bag_outlined,
+    activeIcon: Icons.shopping_cart_rounded,
+    inactiveIcon: Icons.shopping_cart_outlined,
     title: 'الطلبات',
   ),
   BottomNavItemEntity(
-    activeIcon: Icons.bar_chart_rounded,
-    inactiveIcon: Icons.bar_chart_outlined,
-    title: 'التقارير',
+    activeIcon: Icons.people_alt_rounded,
+    inactiveIcon: Icons.people_alt_outlined,
+    title: 'العملاء',
   ),
 ];

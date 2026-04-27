@@ -1,4 +1,4 @@
-import '../../domain/entities/shipping_address_entity.dart';
+import '../../../../core/entities/order_entity/shipping_address_entity.dart';
 
 class ShippingAddressModel {
   final String name;

@@ -1,4 +1,4 @@
-import 'package:dashboard_fruit_hub/core/shared/widgets/bottom_nav_bar/bottom_nav_item_entity.dart';
+import 'package:dashboard_fruit_hub/core/utils/shared/widgets/bottom_nav_bar/bottom_nav_item_entity.dart';
 import 'package:flutter/material.dart';
 
 import 'nav_bar_item.dart';

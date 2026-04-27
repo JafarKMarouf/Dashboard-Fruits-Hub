@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../utils/styles/app_text_styles.dart';
+import '../../styles/app_text_styles.dart';
 import 'app_text_widget.dart';
 
 AppBar buildAppBar(BuildContext context, {required String title}) {

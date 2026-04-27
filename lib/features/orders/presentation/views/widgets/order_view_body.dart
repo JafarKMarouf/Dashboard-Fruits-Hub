@@ -1,5 +1,5 @@
-import 'package:dashboard_fruit_hub/core/helpers/build_messages_bar.dart';
-import 'package:dashboard_fruit_hub/features/orders/domain/entities/order_status.dart';
+import 'package:dashboard_fruit_hub/core/utils/helpers/build_messages_bar.dart';
+import 'package:dashboard_fruit_hub/core/entities/order_entity/order_status.dart';
 import 'package:dashboard_fruit_hub/features/orders/presentation/views/widgets/orders_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,8 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../../core/utils/constants.dart';
 import '../../../../../../core/utils/styles/app_text_styles.dart';
 import '../../../../../core/l10n/l10n.dart';
-import '../../../../../core/shared/widgets/main_app_bar.dart';
-import '../../../domain/entities/order_entity.dart';
+import '../../../../../core/utils/shared/widgets/main_app_bar.dart';
+import '../../../../../core/entities/order_entity/order_entity.dart';
 import '../../cubit/orders_cubit/orders_cubit.dart';
 import '../../cubit/orders_cubit/orders_state.dart';
 import 'orders_filter_bar.dart';

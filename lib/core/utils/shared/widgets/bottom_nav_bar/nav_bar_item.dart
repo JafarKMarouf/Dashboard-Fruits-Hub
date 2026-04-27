@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../utils/styles/app_colors.dart';
-import '../../../utils/styles/app_text_styles.dart';
+import '../../../styles/app_colors.dart';
+import '../../../styles/app_text_styles.dart';
 import '../app_text_widget.dart';
 import 'bottom_nav_item_entity.dart';
 

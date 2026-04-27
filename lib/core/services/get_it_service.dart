@@ -1,7 +1,7 @@
-import 'package:dashboard_fruit_hub/core/repos/image_repo/image_repo.dart';
-import 'package:dashboard_fruit_hub/core/repos/image_repo/image_repo_impl.dart';
-import 'package:dashboard_fruit_hub/core/repos/product_repo/product_repo_impl.dart';
-import 'package:dashboard_fruit_hub/core/repos/product_repo/product_repo.dart';
+import 'package:dashboard_fruit_hub/core/repos/image/image_repo.dart';
+import 'package:dashboard_fruit_hub/core/repos/image/image_repo_impl.dart';
+import 'package:dashboard_fruit_hub/core/repos/product/product_repo_impl.dart';
+import 'package:dashboard_fruit_hub/core/repos/product/product_repo.dart';
 import 'package:dashboard_fruit_hub/features/orders/domain/repos/orders_repo.dart';
 import 'package:dashboard_fruit_hub/features/orders/presentation/cubit/orders_cubit/orders_cubit.dart';
 import 'package:get_it/get_it.dart';
@@ -53,7 +53,9 @@ void _registerRepositories() {
   getIt.registerLazySingleton<ImageRepo>(
     () => ImageRepoImpl(getIt<StorageService>()),
   );
-  getIt.registerLazySingleton<OrdersRepo>(() => OrdersRepoImpl());
+  getIt.registerLazySingleton<OrdersRepo>(
+    () => OrdersRepoImpl(getIt<DatabaseService>()),
+  );
 }
 
 void _registerCubits() {

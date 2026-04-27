@@ -1,4 +1,4 @@
-import 'package:dashboard_fruit_hub/features/orders/domain/entities/order_entity.dart';
+import 'package:dashboard_fruit_hub/core/entities/order_entity/order_entity.dart';
 import 'package:flutter/material.dart';
 
 import 'order_item.dart';

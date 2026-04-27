@@ -2,7 +2,7 @@ import 'package:dashboard_fruit_hub/features/splash/presentation/views/splash_vi
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'core/helpers/on_generate_routes.dart';
+import 'core/utils/helpers/on_generate_routes.dart';
 import 'core/l10n/l10n.dart';
 import 'core/utils/styles/app_colors.dart';
 

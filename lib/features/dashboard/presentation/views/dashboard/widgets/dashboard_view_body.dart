@@ -3,9 +3,9 @@ import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashbo
 import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/build_header.dart';
 import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/build_recent_orders_header.dart';
 import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/build_stats_row.dart';
-import 'package:dashboard_fruit_hub/core/shared/widgets/main_app_bar.dart';
+import 'package:dashboard_fruit_hub/core/utils/shared/widgets/main_app_bar.dart';
 import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/revenue_card.dart';
-import 'package:dashboard_fruit_hub/features/orders/domain/entities/order_entity.dart';
+import 'package:dashboard_fruit_hub/core/entities/order_entity/order_entity.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../core/l10n/l10n.dart';

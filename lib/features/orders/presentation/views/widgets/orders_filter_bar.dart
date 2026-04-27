@@ -1,4 +1,4 @@
-import 'package:dashboard_fruit_hub/core/shared/widgets/app_text_widget.dart';
+import 'package:dashboard_fruit_hub/core/utils/shared/widgets/app_text_widget.dart';
 import 'package:dashboard_fruit_hub/features/orders/presentation/cubit/orders_cubit/orders_state.dart';
 import 'package:flutter/material.dart';
 

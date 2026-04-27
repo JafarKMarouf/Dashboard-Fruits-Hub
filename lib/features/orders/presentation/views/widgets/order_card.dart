@@ -1,10 +1,10 @@
-import 'package:dashboard_fruit_hub/core/shared/widgets/app_primary_button.dart';
-import 'package:dashboard_fruit_hub/features/orders/domain/entities/order_entity.dart';
-import 'package:dashboard_fruit_hub/features/orders/domain/entities/order_status.dart';
+import 'package:dashboard_fruit_hub/core/utils/shared/widgets/app_primary_button.dart';
+import 'package:dashboard_fruit_hub/core/entities/order_entity/order_entity.dart';
+import 'package:dashboard_fruit_hub/core/entities/order_entity/order_status.dart';
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-import '../../../../../../core/shared/widgets/app_text_widget.dart';
+import '../../../../../core/utils/shared/widgets/app_text_widget.dart';
 import '../../../../../../core/utils/styles/app_colors.dart';
 import '../../../../../../core/utils/styles/app_text_styles.dart';
 import 'item__thumbnails.dart';

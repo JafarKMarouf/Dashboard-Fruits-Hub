@@ -52,4 +52,48 @@ class FirestoreService extends DatabaseService {
     var data = await firestore.collection(path).doc(documentId).get();
     return data.exists;
   }
+
+  @override
+  Stream<List<T>> watchData<T>({
+    required String path,
+    required T Function(Map<String, dynamic> data, String documentId) builder,
+    Map<String, dynamic>? query,
+  }) {
+    Query firestoreQuery = firestore.collection(path);
+
+    if (query != null && query.containsKey('orderBy')) {
+      firestoreQuery = firestoreQuery.orderBy(
+        query['orderBy'],
+        descending: query['descending'] ?? false,
+      );
+    }
+
+    if (query != null && query.containsKey('limit')) {
+      firestoreQuery = firestoreQuery.limit(query['limit'] as int);
+    }
+
+    return firestoreQuery.snapshots().map((snapshot) {
+      return snapshot.docs.map((doc) {
+        final data = doc.data() as Map<String, dynamic>;
+        return builder(data, doc.id);
+      }).toList();
+    });
+  }
+
+  @override
+  Future<void> updateData({
+    required String path,
+    required String documentId,
+    required Map<String, dynamic> data,
+  }) async {
+    try {
+      await firestore.collection(path).doc(documentId).update(data);
+    } on FirebaseException catch (e) {
+      log('FirebaseException in FirestoreService.updateData: ${e.toString()}');
+      rethrow;
+    } catch (e) {
+      log('Exception in FirestoreService.updateData: ${e.toString()}');
+      rethrow;
+    }
+  }
 }

@@ -1,13 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dashboard_fruit_hub/features/orders/domain/entities/order_entity.dart';
-import 'package:dashboard_fruit_hub/features/orders/domain/entities/order_status.dart';
+import 'package:dashboard_fruit_hub/core/entities/order_entity/order_entity.dart';
+import 'package:dashboard_fruit_hub/core/entities/order_entity/order_status.dart';
 
 import 'order_item_model.dart';
 import 'shipping_address_model.dart';
 
 class OrderModel {
-  final String id;
-
   final String userId;
 
   final ShippingAddressModel shippingAddress;
@@ -27,7 +25,6 @@ class OrderModel {
   final DateTime updatedAt;
 
   const OrderModel({
-    required this.id,
     required this.userId,
     required this.shippingAddress,
     required this.items,
@@ -39,8 +36,7 @@ class OrderModel {
     required this.updatedAt,
   });
 
-  factory OrderModel.fromDoc(DocumentSnapshot doc, {String? customerName}) {
-    final data = doc.data() as Map<String, dynamic>;
+  factory OrderModel.fromJson(Map<String, dynamic> data) {
     final rawItems = data['items'] as List<dynamic>? ?? [];
     final items = rawItems
         .map((e) => OrderItemModel.fromMap(e as Map<String, dynamic>))
@@ -55,7 +51,6 @@ class OrderModel {
     }
 
     return OrderModel(
-      id: doc.id,
       userId: data['user_id'] as String? ?? '',
       shippingAddress: shippingAddress,
       items: items,
@@ -68,8 +63,8 @@ class OrderModel {
     );
   }
 
-  OrderEntity toEntity() => OrderEntity(
-    id: id,
+  OrderEntity toEntity({required String orderId}) => OrderEntity(
+    id: orderId,
     userId: userId,
     shippingAddress: shippingAddress.toEntity(),
     items: items.map((i) => i.toEntity()).toList(),

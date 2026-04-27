@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../utils/constants.dart';
-import '../../utils/styles/app_colors.dart';
-import '../../utils/styles/app_text_styles.dart';
+import '../../constants.dart';
+import '../../styles/app_colors.dart';
+import '../../styles/app_text_styles.dart';
 import 'app_text_widget.dart';
 
 class AppPrimaryButton extends StatefulWidget {

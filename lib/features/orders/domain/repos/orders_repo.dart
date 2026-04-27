@@ -1,15 +1,12 @@
-import 'package:dashboard_fruit_hub/features/orders/domain/entities/order_status.dart';
+import 'package:dashboard_fruit_hub/core/entities/order_entity/order_status.dart';
 
-import '../entities/order_entity.dart';
+import '../../../../core/entities/order_entity/order_entity.dart';
 
 abstract class OrdersRepo {
-  /// Real-time stream of all orders, newest first.
   Stream<List<OrderEntity>> watchOrders();
 
-  /// Fetch a single order by [orderId].
   Future<OrderEntity> getOrderById(String orderId);
 
-  // /// Update order status. Returns updated entity on success.
   Future<void> updateOrderStatus({
     required String orderId,
     required OrderStatus status,

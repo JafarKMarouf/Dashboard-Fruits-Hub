@@ -1,15 +1,15 @@
-import 'package:dashboard_fruit_hub/core/shared/widgets/app_text_widget.dart';
+import 'package:dashboard_fruit_hub/core/utils/shared/widgets/app_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/services/get_it_service.dart';
-import '../../../../features/dashboard/presentation/views/add_product/add_product_view.dart';
-import '../../../../features/dashboard/presentation/views/dashboard/dashboard_view.dart';
-import '../../../../features/orders/domain/usecases/update_order_status_usecase.dart';
-import '../../../../features/orders/domain/usecases/watch_orders_usecase.dart';
-import '../../../../features/orders/presentation/cubit/orders_cubit/orders_cubit.dart';
-import '../../../../features/orders/presentation/views/orders_view.dart';
+import '../../../../services/get_it_service.dart';
+import '../../../../../features/dashboard/presentation/views/add_product/add_product_view.dart';
+import '../../../../../features/dashboard/presentation/views/dashboard/dashboard_view.dart';
+import '../../../../../features/orders/domain/usecases/update_order_status_usecase.dart';
+import '../../../../../features/orders/domain/usecases/watch_orders_usecase.dart';
+import '../../../../../features/orders/presentation/cubit/orders_cubit/orders_cubit.dart';
+import '../../../../../features/orders/presentation/views/orders_view.dart';
 import 'custom_bottom_nav_bar.dart';
 
 class AppShell extends StatefulWidget {
@@ -141,7 +141,7 @@ class _AppShellState extends State<AppShell> {
       case 2:
         return const OrdersView();
       case 3:
-        return const Center(child: AppTextWidget('Reports'));
+        return const Center(child: AppTextWidget('Customers'));
       default:
         return const SizedBox.shrink();
     }

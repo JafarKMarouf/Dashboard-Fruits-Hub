@@ -1,11 +1,11 @@
-import 'package:dashboard_fruit_hub/features/orders/domain/entities/order_status.dart';
-import 'package:dashboard_fruit_hub/features/orders/domain/entities/shipping_address_entity.dart';
+import 'package:dashboard_fruit_hub/core/entities/order_entity/order_status.dart';
+import 'package:dashboard_fruit_hub/core/entities/order_entity/shipping_address_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../../../../core/utils/styles/app_colors.dart';
-import '../../../domain/entities/order_entity.dart';
-import '../../../domain/entities/order_item_entity.dart';
+import '../../../../../core/entities/order_entity/order_entity.dart';
+import '../../../../../core/entities/order_entity/order_item_entity.dart';
 import 'order_card.dart';
 
 class OrdersListLoading extends StatelessWidget {

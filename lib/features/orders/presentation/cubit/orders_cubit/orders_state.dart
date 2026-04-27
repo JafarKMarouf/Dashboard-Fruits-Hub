@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../../../domain/entities/order_entity.dart';
+import '../../../../../core/entities/order_entity/order_entity.dart';
 
 // ─── Filter ────────────────────────────────────────────────────────────────
 
