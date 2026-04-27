@@ -1,3 +1,5 @@
+import 'package:dashboard_fruit_hub/features/orders/domain/entities/order_status.dart';
+
 import '../entities/order_entity.dart';
 
 abstract class OrdersRepo {

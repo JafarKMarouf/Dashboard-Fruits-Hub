@@ -1,4 +1,5 @@
-import '../entities/order_entity.dart';
+import 'package:dashboard_fruit_hub/features/orders/domain/entities/order_status.dart';
+
 import '../repos/orders_repo.dart';
 
 class UpdateOrderStatusUseCase {

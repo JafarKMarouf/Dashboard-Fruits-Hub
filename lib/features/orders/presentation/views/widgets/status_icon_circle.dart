@@ -1,7 +1,7 @@
+import 'package:dashboard_fruit_hub/features/orders/domain/entities/order_status.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/utils/styles/app_colors.dart';
-import '../../../domain/entities/order_entity.dart';
 
 class StatusIconCircle extends StatelessWidget {
   final OrderStatus status;

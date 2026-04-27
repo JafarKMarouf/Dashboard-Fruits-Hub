@@ -1,12 +1,18 @@
-import '../../domain/entities/order_item_entity.dart';
+import 'package:dashboard_fruit_hub/features/orders/domain/entities/order_item_entity.dart';
 
-class OrderItemModel extends OrderItemEntity {
+class OrderItemModel {
+  final String productCode;
+  final String productName;
+  final String? imageUrl;
+  final int quantity;
+  final double priceAtPurchase;
+
   const OrderItemModel({
-    required super.productCode,
-    required super.productName,
-    super.imageUrl,
-    required super.quantity,
-    required super.priceAtPurchase,
+    required this.productCode,
+    required this.productName,
+    this.imageUrl,
+    required this.quantity,
+    required this.priceAtPurchase,
   });
 
   factory OrderItemModel.fromMap(Map<String, dynamic> map) {
@@ -19,11 +25,23 @@ class OrderItemModel extends OrderItemEntity {
     );
   }
 
-  Map<String, dynamic> toMap() => {
-    'product_code': productCode,
-    'product_name': productName,
-    'image_url': imageUrl,
-    'count': quantity,
-    'price_at_purchase': priceAtPurchase,
-  };
+  OrderItemEntity toEntity() {
+    return OrderItemEntity(
+      productCode: productCode,
+      productName: productName,
+      quantity: quantity,
+      priceAtPurchase: priceAtPurchase,
+      imageUrl: imageUrl,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'product_code': productCode,
+      'product_name': productName,
+      'image_url': imageUrl,
+      'price_at_purchase': priceAtPurchase,
+      'count': quantity,
+    };
+  }
 }
