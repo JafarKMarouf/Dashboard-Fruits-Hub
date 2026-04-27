@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:dashboard_fruit_hub/features/orders/domain/entities/order_status.dart';
+import 'package:dashboard_fruit_hub/core/entities/order_entity/order_status.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../domain/entities/order_entity.dart';
+import '../../../../../core/entities/order_entity/order_entity.dart';
 import '../../../domain/usecases/update_order_status_usecase.dart';
 import '../../../domain/usecases/watch_orders_usecase.dart';
 import 'orders_state.dart';

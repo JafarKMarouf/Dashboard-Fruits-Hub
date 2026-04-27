@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:dashboard_fruit_hub/core/shared/widgets/app_text_widget.dart';
+import 'package:dashboard_fruit_hub/core/utils/shared/widgets/app_text_widget.dart';
 import 'package:dashboard_fruit_hub/core/utils/styles/app_colors.dart';
 import 'package:dashboard_fruit_hub/core/utils/styles/app_text_styles.dart';
 import 'package:flutter/material.dart';

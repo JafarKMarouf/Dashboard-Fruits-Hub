@@ -1,4 +1,4 @@
-import '../entities/order_entity.dart';
+import '../../../../core/entities/order_entity/order_entity.dart';
 import '../repos/orders_repo.dart';
 
 class WatchOrdersUseCase {

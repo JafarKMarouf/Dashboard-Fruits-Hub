@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../../core/shared/widgets/app_text_widget.dart';
+import '../../../../../core/utils/shared/widgets/app_text_widget.dart';
 import '../../../../../../core/utils/styles/app_colors.dart';
 import '../../../../../../core/utils/styles/app_text_styles.dart';
-import '../../../domain/entities/order_entity.dart';
+import '../../../../../core/entities/order_entity/order_entity.dart';
 import '../../cubit/orders_cubit/orders_cubit.dart';
 import '../../cubit/orders_cubit/orders_state.dart';
 import 'empty_orders.dart';

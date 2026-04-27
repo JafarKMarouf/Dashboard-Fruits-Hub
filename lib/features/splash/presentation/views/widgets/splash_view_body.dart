@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../../core/services/shared_preferences_service.dart';
-import '../../../../../core/shared/widgets/bottom_nav_bar/app_shell.dart';
+import '../../../../../core/utils/shared/widgets/bottom_nav_bar/app_shell.dart';
 import '../../../../../core/utils/constants.dart';
 import '../../../../../core/utils/styles/app_images.dart';
 import '../../../../auth/presentation/views/signin_view.dart';

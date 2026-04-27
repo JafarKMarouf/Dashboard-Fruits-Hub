@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:dashboard_fruit_hub/core/services/get_it_service.dart';
 import 'package:dashboard_fruit_hub/core/services/image_picker/image_picker_service.dart';
-import 'package:dashboard_fruit_hub/core/shared/widgets/app_text_form_field.dart';
+import 'package:dashboard_fruit_hub/core/utils/shared/widgets/app_text_form_field.dart';
 import 'package:dashboard_fruit_hub/core/utils/styles/app_colors.dart';
 import 'package:flutter/material.dart';
 

@@ -1,6 +1,6 @@
-import 'package:dashboard_fruit_hub/core/shared/widgets/app_text_widget.dart';
-import 'package:dashboard_fruit_hub/core/shared/widgets/custom_network_image.dart';
-import 'package:dashboard_fruit_hub/features/orders/domain/entities/order_item_entity.dart';
+import 'package:dashboard_fruit_hub/core/utils/shared/widgets/app_text_widget.dart';
+import 'package:dashboard_fruit_hub/core/utils/shared/widgets/custom_network_image.dart';
+import 'package:dashboard_fruit_hub/core/entities/order_entity/order_item_entity.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../core/utils/styles/app_colors.dart';

@@ -1,10 +1,10 @@
-import 'package:dashboard_fruit_hub/core/shared/widgets/app_text_widget.dart';
+import 'package:dashboard_fruit_hub/core/utils/shared/widgets/app_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../l10n/l10n.dart';
-import '../../utils/styles/app_colors.dart';
-import '../../utils/styles/app_text_styles.dart';
+import '../../../l10n/l10n.dart';
+import '../../styles/app_colors.dart';
+import '../../styles/app_text_styles.dart';
 
 class AppTextFormField extends StatelessWidget {
   const AppTextFormField({

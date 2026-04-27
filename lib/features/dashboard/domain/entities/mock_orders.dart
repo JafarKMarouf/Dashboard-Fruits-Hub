@@ -1,7 +1,7 @@
 // Mock data
-import 'package:dashboard_fruit_hub/features/orders/domain/entities/order_entity.dart';
-import 'package:dashboard_fruit_hub/features/orders/domain/entities/order_status.dart';
-import 'package:dashboard_fruit_hub/features/orders/domain/entities/shipping_address_entity.dart';
+import 'package:dashboard_fruit_hub/core/entities/order_entity/order_entity.dart';
+import 'package:dashboard_fruit_hub/core/entities/order_entity/order_status.dart';
+import 'package:dashboard_fruit_hub/core/entities/order_entity/shipping_address_entity.dart';
 
 class MockOrders {
   static const List<OrderEntity> recent = [

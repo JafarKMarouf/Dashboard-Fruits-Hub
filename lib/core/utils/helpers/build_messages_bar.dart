@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:toastification/toastification.dart';
 
 import '../shared/widgets/app_text_widget.dart';
-import '../utils/styles/app_text_styles.dart';
+import '../styles/app_text_styles.dart';
 
 void showErrorBar(BuildContext context, String message) {
   toastification.show(
