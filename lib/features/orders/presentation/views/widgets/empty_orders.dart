@@ -1,3 +1,4 @@
+import 'package:dashboard_fruit_hub/core/shared/widgets/app_text_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/utils/styles/app_colors.dart';
@@ -17,7 +18,7 @@ class EmptyOrders extends StatelessWidget {
           color: AppColors.grayscale300,
         ),
         const SizedBox(height: 12),
-        Text(
+        AppTextWidget(
           'لا توجد طلبات',
           style: AppTextStyles.styleSemiBold16.copyWith(
             color: AppColors.textSecondary,

@@ -1,9 +1,10 @@
+import 'package:dashboard_fruit_hub/core/shared/widgets/app_text_widget.dart';
 import 'package:dashboard_fruit_hub/core/shared/widgets/custom_network_image.dart';
+import 'package:dashboard_fruit_hub/features/orders/domain/entities/order_item_entity.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../core/utils/styles/app_colors.dart';
 import '../../../../../../core/utils/styles/app_text_styles.dart';
-import '../../../domain/entities/order_item_entity.dart';
 
 class ItemsThumbnails extends StatelessWidget {
   final List<OrderItemEntity> items;
@@ -20,7 +21,6 @@ class ItemsThumbnails extends StatelessWidget {
     if (items.isEmpty) return const SizedBox.shrink();
 
     final visible = items.take(_maxVisible).toList();
-    final totalQty = items.fold<int>(0, (sum, i) => sum + i.quantity);
 
     final circleCount = 1 + visible.length;
     final stackWidth = _size + (_size - _overlap) * (circleCount - 1);
@@ -39,16 +39,13 @@ class ItemsThumbnails extends StatelessWidget {
             );
           }),
 
-          Positioned(left: 0, child: _CountBadge(count: totalQty)),
+          if (items.length - 2 > 0)
+            Positioned(left: 0, child: _CountBadge(count: items.length - 2)),
         ],
       ),
     );
   }
 }
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Count badge  — grey circle with "٣+" text
-// ─────────────────────────────────────────────────────────────────────────────
 
 class _CountBadge extends StatelessWidget {
   final int count;
@@ -69,7 +66,7 @@ class _CountBadge extends StatelessWidget {
         ),
       ),
       child: Center(
-        child: Text(
+        child: AppTextWidget(
           '$count+',
           style: AppTextStyles.styleBold13.copyWith(
             color: AppColors.textSecondary,

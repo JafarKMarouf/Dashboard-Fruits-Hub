@@ -1,12 +1,17 @@
 import '../../domain/entities/shipping_address_entity.dart';
 
-class ShippingAddressModel extends ShippingAddressEntity {
+class ShippingAddressModel {
+  final String name;
+  final String phone;
+  final String email;
+  final String city;
+  final String state;
   const ShippingAddressModel({
-    required super.name,
-    required super.phone,
-    required super.email,
-    required super.city,
-    required super.state,
+    required this.name,
+    required this.phone,
+    required this.email,
+    required this.city,
+    required this.state,
   });
 
   factory ShippingAddressModel.fromMap(Map<String, dynamic> map) {
@@ -26,4 +31,12 @@ class ShippingAddressModel extends ShippingAddressEntity {
     'city': city,
     'state': state,
   };
+
+  ShippingAddressEntity toEntity() => ShippingAddressEntity(
+    name: name,
+    phone: phone,
+    email: email,
+    city: city,
+    state: state,
+  );
 }

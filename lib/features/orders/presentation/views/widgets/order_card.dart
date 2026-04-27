@@ -1,10 +1,12 @@
 import 'package:dashboard_fruit_hub/core/shared/widgets/app_primary_button.dart';
+import 'package:dashboard_fruit_hub/features/orders/domain/entities/order_entity.dart';
+import 'package:dashboard_fruit_hub/features/orders/domain/entities/order_status.dart';
 import 'package:flutter/material.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../../../../core/shared/widgets/app_text_widget.dart';
 import '../../../../../../core/utils/styles/app_colors.dart';
 import '../../../../../../core/utils/styles/app_text_styles.dart';
-import '../../../domain/entities/order_entity.dart';
 import 'item__thumbnails.dart';
 import 'order_status_badge.dart';
 import 'status_icon_circle.dart';
@@ -57,14 +59,14 @@ class OrderCard extends StatelessWidget {
                       crossAxisAlignment: .start,
                       children: [
                         AppTextWidget(
-                          order.displayNumber,
+                          'رقم الطلب ${order.id} #',
                           style: AppTextStyles.styleSemiBold13.copyWith(
                             color: AppColors.textSecondary,
                           ),
                         ),
                         const SizedBox(height: 3),
                         AppTextWidget(
-                          order.customerName,
+                          order.shippingAddress.name,
                           style: AppTextStyles.styleBold19,
                         ),
                       ],
@@ -96,7 +98,7 @@ class OrderCard extends StatelessWidget {
                         ),
                         const SizedBox(height: 4),
                         AppTextWidget(
-                          '${order.finalTotal.toStringAsFixed(2)} ل.س',
+                          '${_formatPrice(order.finalTotal)} ل.س',
                           style: AppTextStyles.styleBold16,
                         ),
                       ],
@@ -105,25 +107,65 @@ class OrderCard extends StatelessWidget {
                 ),
 
                 const SizedBox(height: 10),
-                Row(
-                  children: [
-                    if (isUpdating)
-                      const SizedBox(
-                        width: 20,
-                        height: 20,
-                        child: CircularProgressIndicator(strokeWidth: 2),
-                      )
-                    else if (order.status == OrderStatus.pending)
-                      _AcceptButton(
-                        onTap: () => onStatusChanged(OrderStatus.shipped),
-                      ),
-                  ],
+                Skeleton.replace(
+                  replacement: Container(
+                    height: 44,
+                    decoration: BoxDecoration(
+                      color: AppColors.grayscale200,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                  ),
+                  child: _ActionRow(
+                    order: order,
+                    isUpdating: isUpdating,
+                    onStatusChanged: onStatusChanged,
+                  ),
                 ),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+// String displayOrderId(String id) {
+//   return 'رقم الطلب ${id.length >= 4 ? id.substring(0, 6).toUpperCase() : id} #';
+// }
+
+String _formatPrice(double price) {
+  if (price == price.truncateToDouble()) {
+    return price.toInt().toString();
+  }
+
+  final formatted = price.toStringAsFixed(2);
+  return formatted.replaceAll(RegExp(r'\.?0+$'), '');
+}
+
+class _ActionRow extends StatelessWidget {
+  final OrderEntity order;
+  final bool isUpdating;
+  final ValueChanged<OrderStatus> onStatusChanged;
+
+  const _ActionRow({
+    required this.order,
+    required this.isUpdating,
+    required this.onStatusChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: isUpdating
+              ? _LoadingButton()
+              : order.status == OrderStatus.pending
+              ? _AcceptButton(onTap: () => onStatusChanged(OrderStatus.shipped))
+              : const SizedBox.shrink(),
+        ),
+      ],
     );
   }
 }
@@ -140,6 +182,26 @@ class _AcceptButton extends StatelessWidget {
       text: 'قبول الطلب',
       height: 40,
       width: MediaQuery.sizeOf(context).width * .65,
+    );
+  }
+}
+
+class _LoadingButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 44,
+      decoration: BoxDecoration(
+        color: AppColors.grayscale100,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: const Center(
+        child: SizedBox(
+          width: 20,
+          height: 20,
+          child: CircularProgressIndicator(strokeWidth: 2),
+        ),
+      ),
     );
   }
 }
