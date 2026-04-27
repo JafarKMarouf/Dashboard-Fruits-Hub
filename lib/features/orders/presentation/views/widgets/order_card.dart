@@ -66,7 +66,7 @@ class OrderCard extends StatelessWidget {
                         ),
                         const SizedBox(height: 3),
                         AppTextWidget(
-                          order.shippingAddress.name,
+                          order.shippingAddress!.name!,
                           style: AppTextStyles.styleBold19,
                         ),
                       ],
@@ -84,8 +84,8 @@ class OrderCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: .spaceBetween,
                   children: [
-                    if (order.items.isNotEmpty)
-                      ItemsThumbnails(items: order.items),
+                    if (order.items!.isNotEmpty)
+                      ItemsThumbnails(items: order.items!),
 
                     Column(
                       crossAxisAlignment: .start,
@@ -129,10 +129,6 @@ class OrderCard extends StatelessWidget {
     );
   }
 }
-
-// String displayOrderId(String id) {
-//   return 'رقم الطلب ${id.length >= 4 ? id.substring(0, 6).toUpperCase() : id} #';
-// }
 
 String _formatPrice(double price) {
   if (price == price.truncateToDouble()) {

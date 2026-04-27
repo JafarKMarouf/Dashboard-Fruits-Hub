@@ -1,6 +1,6 @@
+import 'package:dashboard_fruit_hub/features/orders/domain/entities/order_entity.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../domain/entities/order_entity.dart';
 import 'order_item.dart';
 
 class AnimatedOrderItem extends StatelessWidget {
