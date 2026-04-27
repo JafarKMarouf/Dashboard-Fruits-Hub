@@ -59,7 +59,7 @@ class OrderCard extends StatelessWidget {
                       crossAxisAlignment: .start,
                       children: [
                         AppTextWidget(
-                          'رقم الطلب ${order.id} #',
+                          order.formatOrderId,
                           style: AppTextStyles.styleSemiBold13.copyWith(
                             color: AppColors.textSecondary,
                           ),
@@ -98,7 +98,7 @@ class OrderCard extends StatelessWidget {
                         ),
                         const SizedBox(height: 4),
                         AppTextWidget(
-                          '${_formatPrice(order.finalTotal)} ل.س',
+                          order.formatPrice,
                           style: AppTextStyles.styleBold16,
                         ),
                       ],
@@ -128,15 +128,6 @@ class OrderCard extends StatelessWidget {
       ),
     );
   }
-}
-
-String _formatPrice(double price) {
-  if (price == price.truncateToDouble()) {
-    return price.toInt().toString();
-  }
-
-  final formatted = price.toStringAsFixed(2);
-  return formatted.replaceAll(RegExp(r'\.?0+$'), '');
 }
 
 class _ActionRow extends StatelessWidget {

@@ -5,10 +5,12 @@ abstract class DatabaseService {
     String? documentId,
   });
 
-  Future<Map<String, dynamic>> getData({
+  Future<dynamic> getData({
     required String path,
-    required String documentId,
+    String? documentId,
+    Map<String, dynamic>? query,
   });
+
   Stream<List<T>> watchData<T>({
     required String path,
     required T Function(Map<String, dynamic> data, String documentId) builder,

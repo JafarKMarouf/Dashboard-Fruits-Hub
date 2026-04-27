@@ -11,13 +11,12 @@ class OrdersRepoImpl implements OrdersRepo {
   final DatabaseService databaseService;
 
   OrdersRepoImpl(this.databaseService);
-  static const int _pageLimit = 20;
 
   @override
   Stream<List<OrderEntity>> watchOrders() {
     return databaseService.watchData<OrderEntity>(
       path: BackendEndpoints.getOrder,
-      query: {'orderBy': 'created_at', 'descending': true, 'limit': _pageLimit},
+      query: {'orderBy': 'created_at', 'descending': true},
       builder: (data, id) => OrderModel.fromJson(data).toEntity(orderId: id),
     );
   }

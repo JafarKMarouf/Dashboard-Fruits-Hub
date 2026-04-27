@@ -1,34 +1,26 @@
 import 'dart:async';
 
 import 'package:dashboard_fruit_hub/core/entities/order_entity/order_status.dart';
+import 'package:dashboard_fruit_hub/features/orders/domain/repos/orders_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/entities/order_entity/order_entity.dart';
-import '../../../domain/usecases/update_order_status_usecase.dart';
-import '../../../domain/usecases/watch_orders_usecase.dart';
 import 'orders_state.dart';
 
 class OrdersCubit extends Cubit<OrdersState> {
-  final WatchOrdersUseCase _watchOrders;
-  final UpdateOrderStatusUseCase _updateStatus;
-
   StreamSubscription<List<OrderEntity>>? _subscription;
 
   bool get isWatching => _subscription != null;
 
-  OrdersCubit({
-    required WatchOrdersUseCase watchOrders,
-    required UpdateOrderStatusUseCase updateStatus,
-  }) : _watchOrders = watchOrders,
-       _updateStatus = updateStatus,
-       super(const OrdersInitial());
+  final OrdersRepo ordersRepo;
+  OrdersCubit(this.ordersRepo) : super(const OrdersInitial());
 
   void startWatching() {
     if (_subscription != null) return;
 
     emit(const OrdersLoading());
 
-    _subscription = _watchOrders().listen(
+    _subscription = ordersRepo.watchOrders().listen(
       _onOrdersReceived,
       onError: (e) => emit(OrdersError(e.toString())),
     );
@@ -83,7 +75,7 @@ class OrdersCubit extends Cubit<OrdersState> {
     emit(loaded.copyWith(updatingOrderId: orderId));
 
     try {
-      await _updateStatus(orderId: orderId, status: status);
+      await ordersRepo.updateOrderStatus(orderId: orderId, status: status);
       if (state is OrdersLoaded) {
         emit((state as OrdersLoaded).copyWith(clearUpdating: true));
       }
