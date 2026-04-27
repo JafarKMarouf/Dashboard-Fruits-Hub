@@ -48,10 +48,11 @@ class OrderCard extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(14),
             child: Column(
-              crossAxisAlignment: .end,
+              crossAxisAlignment: .start,
               children: [
                 Row(
                   crossAxisAlignment: .start,
+                  mainAxisAlignment: .start,
                   children: [
                     StatusIconCircle(status: order.status),
                     const SizedBox(width: 12),
@@ -71,8 +72,10 @@ class OrderCard extends StatelessWidget {
                         ),
                       ],
                     ),
+
                     const Spacer(),
                     OrderStatusBadge(status: order.status),
+                    _buildMoreMenu(context),
                   ],
                 ),
 
@@ -84,9 +87,23 @@ class OrderCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: .spaceBetween,
                   children: [
-                    if (order.items!.isNotEmpty)
-                      ItemsThumbnails(items: order.items!),
-
+                    order.status == OrderStatus.pending ||
+                            order.status == OrderStatus.shipped
+                        ? ItemsThumbnails(items: order.items!)
+                        : Row(
+                            children: [
+                              AppTextWidget(
+                                order.status == OrderStatus.cancelled
+                                    ? 'تم الإالغاء  ${order.formatUpdateTime}'
+                                    : 'تم الشحن  ${order.formatUpdateTime}',
+                                style: AppTextStyles.styleBold14.copyWith(
+                                  color: AppColors.textSecondary,
+                                ),
+                              ),
+                              const SizedBox(width: 2),
+                              const Icon(Icons.alarm, size: 16),
+                            ],
+                          ),
                     Column(
                       crossAxisAlignment: .start,
                       children: [
@@ -105,7 +122,6 @@ class OrderCard extends StatelessWidget {
                     ),
                   ],
                 ),
-
                 const SizedBox(height: 10),
                 Skeleton.replace(
                   replacement: Container(
@@ -128,6 +144,32 @@ class OrderCard extends StatelessWidget {
       ),
     );
   }
+
+  Widget _buildMoreMenu(BuildContext context) {
+    return PopupMenuButton<String>(
+      icon: const Icon(Icons.more_vert, color: Color(0xFF4B5563)),
+      onSelected: (value) {},
+      itemBuilder: (context) => [
+        const PopupMenuItem(
+          value: 'details',
+          child: AppTextWidget('تفاصيل الطلب'),
+        ),
+        if (order.status == OrderStatus.pending)
+          PopupMenuItem(
+            value: 'cancel',
+            child: GestureDetector(
+              onTap: () => onStatusChanged(OrderStatus.cancelled),
+              child: AppTextWidget(
+                'إلغاء الطلب',
+                style: AppTextStyles.styleRegular16.copyWith(
+                  color: AppColors.error,
+                ),
+              ),
+            ),
+          ),
+      ],
+    );
+  }
 }
 
 class _ActionRow extends StatelessWidget {
@@ -143,17 +185,14 @@ class _ActionRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: isUpdating
-              ? _LoadingButton()
-              : order.status == OrderStatus.pending
-              ? _AcceptButton(onTap: () => onStatusChanged(OrderStatus.shipped))
-              : const SizedBox.shrink(),
-        ),
-      ],
-    );
+    return isUpdating ? _LoadingButton() : _buildMainActionButton();
+  }
+
+  Widget _buildMainActionButton() {
+    if (order.status == OrderStatus.pending) {
+      return _AcceptButton(onTap: () => onStatusChanged(OrderStatus.shipped));
+    }
+    return const SizedBox.shrink();
   }
 }
 
@@ -168,7 +207,7 @@ class _AcceptButton extends StatelessWidget {
       onPressed: onTap,
       text: 'قبول الطلب',
       height: 40,
-      width: MediaQuery.sizeOf(context).width * .65,
+      width: MediaQuery.sizeOf(context).width * .80,
     );
   }
 }
@@ -179,7 +218,7 @@ class _LoadingButton extends StatelessWidget {
     return Container(
       height: 44,
       decoration: BoxDecoration(
-        color: AppColors.grayscale100,
+        color: AppColors.primaryDark,
         borderRadius: BorderRadius.circular(16),
       ),
       child: const Center(

@@ -2,7 +2,7 @@ import 'package:dashboard_fruit_hub/core/repos/image/image_repo.dart';
 import 'package:dashboard_fruit_hub/core/repos/image/image_repo_impl.dart';
 import 'package:dashboard_fruit_hub/core/repos/product/product_repo_impl.dart';
 import 'package:dashboard_fruit_hub/core/repos/product/product_repo.dart';
-import 'package:dashboard_fruit_hub/features/dashboard/presentation/cubit/dashboard_order_cubit/dashboard_order_cubit.dart';
+import 'package:dashboard_fruit_hub/features/dashboard/presentation/cubit/cubit/dashboard_order_cubit.dart';
 import 'package:dashboard_fruit_hub/features/orders/domain/repos/orders_repo.dart';
 import 'package:dashboard_fruit_hub/features/orders/presentation/cubit/orders_cubit/orders_cubit.dart';
 import 'package:get_it/get_it.dart';

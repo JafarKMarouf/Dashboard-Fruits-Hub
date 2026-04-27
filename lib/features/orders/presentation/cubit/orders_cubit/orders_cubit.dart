@@ -13,26 +13,26 @@ class OrdersCubit extends Cubit<OrdersState> {
   bool get isWatching => _subscription != null;
 
   final OrdersRepo ordersRepo;
-  OrdersCubit(this.ordersRepo) : super(const OrdersInitial());
+  OrdersCubit(this.ordersRepo) : super(const OrdersInitialState());
 
   void startWatching() {
     if (_subscription != null) return;
 
-    emit(const OrdersLoading());
+    emit(const OrdersLoadingState());
 
     _subscription = ordersRepo.watchOrders().listen(
       _onOrdersReceived,
-      onError: (e) => emit(OrdersError(e.toString())),
+      onError: (e) => emit(OrdersFailureState(e.toString())),
     );
   }
 
   void _onOrdersReceived(List<OrderEntity> orders) {
-    final currentFilter = state is OrdersLoaded
-        ? (state as OrdersLoaded).activeFilter
+    final currentFilter = state is OrdersLoadedState
+        ? (state as OrdersLoadedState).activeFilter
         : OrderFilter.all;
 
     emit(
-      OrdersLoaded(
+      OrdersLoadedState(
         orders: orders,
         filtered: _applyFilter(orders, currentFilter),
         activeFilter: currentFilter,
@@ -41,8 +41,8 @@ class OrdersCubit extends Cubit<OrdersState> {
   }
 
   void setFilter(OrderFilter filter) {
-    if (state is! OrdersLoaded) return;
-    final loaded = state as OrdersLoaded;
+    if (state is! OrdersLoadedState) return;
+    final loaded = state as OrdersLoadedState;
 
     emit(
       loaded.copyWith(
@@ -69,15 +69,15 @@ class OrdersCubit extends Cubit<OrdersState> {
     required String orderId,
     required OrderStatus status,
   }) async {
-    if (state is! OrdersLoaded) return;
-    final loaded = state as OrdersLoaded;
+    if (state is! OrdersLoadedState) return;
+    final loaded = state as OrdersLoadedState;
 
     emit(loaded.copyWith(updatingOrderId: orderId));
 
     try {
       await ordersRepo.updateOrderStatus(orderId: orderId, status: status);
-      if (state is OrdersLoaded) {
-        emit((state as OrdersLoaded).copyWith(clearUpdating: true));
+      if (state is OrdersLoadedState) {
+        emit((state as OrdersLoadedState).copyWith(clearUpdating: true));
       }
     } catch (e) {
       emit(
@@ -92,8 +92,8 @@ class OrdersCubit extends Cubit<OrdersState> {
   }
 
   int countByStatus(OrderStatus status) {
-    if (state is! OrdersLoaded) return 0;
-    return (state as OrdersLoaded).orders
+    if (state is! OrdersLoadedState) return 0;
+    return (state as OrdersLoadedState).orders
         .where((o) => o.status == status)
         .length;
   }
