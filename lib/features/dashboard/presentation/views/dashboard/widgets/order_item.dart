@@ -24,7 +24,7 @@ class OrderItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             AppTextWidget(
-              'Order ${order.id}',
+              order.formatOrderId,
               style: AppTextStyles.styleBold16,
             ),
             const SizedBox(width: 6),
@@ -45,10 +45,8 @@ class OrderItem extends StatelessWidget {
               TextSpan(
                 children: [
                   TextSpan(
-                    text: order.shippingAddress!.name!,
-                    style: AppTextStyles.styleBold16.copyWith(
-                      color: AppColors.grayscale500,
-                    ),
+                    text: order.formatPrice,
+                    style: AppTextStyles.styleBold16,
                   ),
                   TextSpan(
                     text: '  •  ',
@@ -57,8 +55,10 @@ class OrderItem extends StatelessWidget {
                     ),
                   ),
                   TextSpan(
-                    text: '\$${order.finalTotal.toStringAsFixed(2)}',
-                    style: AppTextStyles.styleBold16,
+                    text: order.shippingAddress!.name!,
+                    style: AppTextStyles.styleBold16.copyWith(
+                      color: AppColors.grayscale500,
+                    ),
                   ),
                 ],
               ),

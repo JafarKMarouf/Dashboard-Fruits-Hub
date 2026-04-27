@@ -1,5 +1,6 @@
 import 'package:dashboard_fruit_hub/core/utils/helpers/build_messages_bar.dart';
 import 'package:dashboard_fruit_hub/core/entities/order_entity/order_status.dart';
+import 'package:dashboard_fruit_hub/core/utils/shared/widgets/app_text_widget.dart';
 import 'package:dashboard_fruit_hub/features/orders/presentation/views/widgets/orders_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,6 +40,7 @@ class _OrdersViewBodyState extends State<OrdersViewBody>
   @override
   void initState() {
     super.initState();
+    context.read<OrdersCubit>().startWatching();
     _setupAnimations();
   }
 
@@ -130,7 +132,7 @@ class _OrdersViewBodyState extends State<OrdersViewBody>
               const SliverToBoxAdapter(
                 child: Padding(
                   padding: EdgeInsets.only(bottom: 12),
-                  child: Text(
+                  child: AppTextWidget(
                     'أحدث الطلبات',
                     textDirection: TextDirection.rtl,
                     style: AppTextStyles.styleBold16,
