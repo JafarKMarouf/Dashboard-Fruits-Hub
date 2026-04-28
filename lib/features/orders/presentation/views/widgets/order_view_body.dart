@@ -1,5 +1,5 @@
-import 'package:dashboard_fruit_hub/core/utils/helpers/build_messages_bar.dart';
 import 'package:dashboard_fruit_hub/core/entities/order_entity/order_status.dart';
+import 'package:dashboard_fruit_hub/core/utils/helpers/build_messages_bar.dart';
 import 'package:dashboard_fruit_hub/core/utils/shared/widgets/app_text_widget.dart';
 import 'package:dashboard_fruit_hub/features/orders/presentation/views/widgets/orders_list.dart';
 import 'package:flutter/material.dart';
@@ -7,13 +7,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../core/utils/constants.dart';
 import '../../../../../../core/utils/styles/app_text_styles.dart';
+import '../../../../../core/entities/order_entity/order_entity.dart';
 import '../../../../../core/l10n/l10n.dart';
 import '../../../../../core/utils/shared/widgets/main_app_bar.dart';
-import '../../../../../core/entities/order_entity/order_entity.dart';
 import '../../cubit/orders_cubit/orders_cubit.dart';
 import '../../cubit/orders_cubit/orders_state.dart';
 import 'orders_filter_bar.dart';
-import 'orders_stats_row.dart';
+import 'orders_stats.dart';
 
 class OrdersViewBody extends StatefulWidget {
   const OrdersViewBody({super.key});
@@ -123,7 +123,7 @@ class _OrdersViewBodyState extends State<OrdersViewBody>
               SliverToBoxAdapter(
                 child: FadeTransition(
                   opacity: _fadeAnimation[1],
-                  child: const _OrdersStats(),
+                  child: const OrdersStats(),
                 ),
               ),
               const SliverToBoxAdapter(child: SizedBox(height: 16)),
@@ -156,41 +156,6 @@ class _OrdersViewBodyState extends State<OrdersViewBody>
   }
 }
 
-class _OrdersStats extends StatelessWidget {
-  const _OrdersStats();
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<OrdersCubit, OrdersState>(
-      buildWhen: (_, curr) => curr is OrdersLoadedState,
-      builder: (context, state) {
-        if (state is! OrdersLoadedState) {
-          return const OrdersStatsRow(
-            total: 0,
-            pending: 0,
-            shipped: 0,
-            revenue: 0,
-          );
-        }
-        final cubit = context.read<OrdersCubit>();
-        final revenue = state.orders.fold<double>(
-          0,
-          (s, o) => s + o.finalTotal,
-        );
-        return Padding(
-          padding: const EdgeInsets.only(top: 12),
-          child: OrdersStatsRow(
-            total: state.orders.length,
-            pending: cubit.countByStatus(OrderStatus.pending),
-            shipped: cubit.countByStatus(OrderStatus.shipped),
-            revenue: revenue,
-          ),
-        );
-      },
-    );
-  }
-}
-
 class _OrdersFilter extends StatelessWidget {
   const _OrdersFilter();
 
@@ -215,6 +180,7 @@ class _OrdersFilter extends StatelessWidget {
             OrderFilter.pending: cubit.countByStatus(OrderStatus.pending),
             OrderFilter.shipped: cubit.countByStatus(OrderStatus.shipped),
             OrderFilter.delivered: cubit.countByStatus(OrderStatus.delivered),
+            OrderFilter.cancelled: cubit.countByStatus(OrderStatus.cancelled),
           },
           onFilterChanged: cubit.setFilter,
         );

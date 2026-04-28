@@ -46,8 +46,8 @@ class OrderModel {
     final shippingAddress = ShippingAddressModel.fromMap(rawAddress);
 
     DateTime toDateTime(dynamic value) {
-      if (value is Timestamp) return value.toDate();
-      return DateTime.now();
+      if (value is Timestamp) return value.toDate().toUtc();
+      return DateTime.now().toUtc();
     }
 
     return OrderModel(
@@ -59,7 +59,7 @@ class OrderModel {
       payMethod: data['pay_method'] as String? ?? '',
       status: OrderStatusX.fromString(data['status'] as String? ?? ''),
       createdAt: toDateTime(data['created_at']),
-      updatedAt: toDateTime(data['updatedAt']),
+      updatedAt: toDateTime(data['updated_at']),
     );
   }
 
