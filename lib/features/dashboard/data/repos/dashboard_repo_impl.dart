@@ -9,15 +9,24 @@ class DashboardRepoImpl extends DashboardRepo {
   final DatabaseService databaseService;
 
   DashboardRepoImpl(this.databaseService);
-
-  static const int _pageLimit = 10;
+  OrderEntity _build(Map<String, dynamic> data, String id) =>
+      OrderModel.fromJson(data).toEntity(orderId: id);
 
   @override
-  Stream<List<OrderEntity>> watchOrders() {
+  Stream<List<OrderEntity>> watchRecentOrders({int limit = 10}) {
     return databaseService.watchData<OrderEntity>(
       path: BackendEndpoints.getOrder,
-      query: {'orderBy': 'created_at', 'descending': true, 'limit': _pageLimit},
-      builder: (data, id) => OrderModel.fromJson(data).toEntity(orderId: id),
+      query: {'orderBy': 'created_at', 'descending': true, 'limit': limit},
+      builder: _build,
+    );
+  }
+
+  @override
+  Stream<List<OrderEntity>> watchAllOrdersForStats() {
+    return databaseService.watchData<OrderEntity>(
+      path: BackendEndpoints.getOrder,
+      query: {'orderBy': 'created_at', 'descending': true},
+      builder: _build,
     );
   }
 }

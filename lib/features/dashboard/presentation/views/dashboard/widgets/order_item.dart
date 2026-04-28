@@ -1,3 +1,4 @@
+import 'package:dashboard_fruit_hub/core/entities/order_entity/order_entity_x.dart';
 import 'package:dashboard_fruit_hub/core/utils/shared/widgets/app_text_widget.dart';
 import 'package:dashboard_fruit_hub/core/entities/order_entity/order_entity.dart';
 import 'package:dashboard_fruit_hub/core/entities/order_entity/order_status.dart';
@@ -24,7 +25,7 @@ class OrderItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             AppTextWidget(
-              order.formatOrderId,
+              order.formatOrderId(context),
               style: AppTextStyles.styleBold16,
             ),
             const SizedBox(width: 6),
@@ -41,27 +42,34 @@ class OrderItem extends StatelessWidget {
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text: order.formatPrice,
-                    style: AppTextStyles.styleBold16,
+            Builder(
+              builder: (context) {
+                final isRtl = Directionality.of(context) == TextDirection.rtl;
+
+                final nameSpan = TextSpan(
+                  text: order.shippingAddress!.name!,
+                  style: AppTextStyles.styleBold16.copyWith(
+                    color: AppColors.grayscale500,
                   ),
-                  TextSpan(
-                    text: '  •  ',
-                    style: AppTextStyles.styleRegular16.copyWith(
-                      color: order.status.fg,
-                    ),
+                );
+
+                final dotSpan = TextSpan(
+                  text: '  •  ',
+                  style: AppTextStyles.styleRegular16.copyWith(
+                    color: order.status.fg,
                   ),
-                  TextSpan(
-                    text: order.shippingAddress!.name!,
-                    style: AppTextStyles.styleBold16.copyWith(
-                      color: AppColors.grayscale500,
-                    ),
-                  ),
-                ],
-              ),
+                );
+
+                final priceSpan = TextSpan(
+                  text: order.formatPrice(context),
+                  style: AppTextStyles.styleBold16,
+                );
+                final spans = isRtl
+                    ? [priceSpan, dotSpan, nameSpan]
+                    : [nameSpan, dotSpan, priceSpan];
+
+                return Text.rich(TextSpan(children: spans));
+              },
             ),
             const SizedBox(height: 6),
             OrderStatusBadge(status: order.status),

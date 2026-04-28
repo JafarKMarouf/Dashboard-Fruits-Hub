@@ -1,8 +1,9 @@
-import 'package:dashboard_fruit_hub/core/utils/shared/widgets/app_text_widget.dart';
 import 'package:dashboard_fruit_hub/core/utils/shared/widgets/custom_error_widget.dart';
 import 'package:dashboard_fruit_hub/features/dashboard/presentation/cubit/cubit/dashboard_order_cubit.dart';
+import 'package:dashboard_fruit_hub/features/orders/presentation/views/widgets/empty_orders.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../../orders/presentation/views/widgets/orders_list_loading.dart';
 import 'animated_order_item.dart';
 
@@ -15,7 +16,7 @@ class RecentOrdersSliverList extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<DashboardOrderCubit, DashboardOrderState>(
       builder: (context, state) {
-        if (state is DashboardOrderLoading) {
+        if (state is DashboardOrderLoading || state is DashboardOrderInitial) {
           return const OrdersListLoading();
         }
 
@@ -23,19 +24,18 @@ class RecentOrdersSliverList extends StatelessWidget {
           return SliverToBoxAdapter(
             child: CustomErrorWidget(
               errorMessage: state.message,
-              onRetry: () {
-                context.read<DashboardOrderCubit>().startWatching();
-              },
+              onRetry: () =>
+                  context.read<DashboardOrderCubit>().startWatching(),
             ),
           );
         }
 
         if (state is DashboardOrderLoaded) {
-          final orders = state.orders;
+          final orders = state.recentOrders;
           if (orders.isEmpty) {
             return const SliverFillRemaining(
               hasScrollBody: false,
-              child: Center(child: AppTextWidget('No recent orders found.')),
+              child: EmptyOrders(),
             );
           }
 

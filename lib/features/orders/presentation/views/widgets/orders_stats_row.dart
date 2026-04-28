@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../../core/utils/styles/app_colors.dart';
 import '../../../../../../core/utils/styles/app_text_styles.dart';
+import '../../../../../core/utils/helpers/format_revenue.dart';
 
 class OrdersStatsRow extends StatelessWidget {
   final int total;
@@ -34,7 +35,7 @@ class OrdersStatsRow extends StatelessWidget {
         const SizedBox(width: 12),
         _StatCard(
           label: 'المبيعات',
-          value: '${revenue.toStringAsFixed(0)} ل.س',
+          value: formatRevenue(revenue),
           sub: '(إجمالي/اليوم) ل.س',
           bg: Colors.white,
           fg: const Color(0xFF6a798f),
