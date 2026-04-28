@@ -52,5 +52,23 @@ class MessageLookup extends MessageLookupByLibrary {
     "requiredField": MessageLookupByLibrary.simpleMessage(
       "This field is required",
     ),
+    "statusCancelled": MessageLookupByLibrary.simpleMessage("cancelled since"),
+    "statusDelivered": MessageLookupByLibrary.simpleMessage("delivered since"),
+    "timeAgoDayOne": MessageLookupByLibrary.simpleMessage("1 day ago"),
+    "timeAgoDayPlural": MessageLookupByLibrary.simpleMessage("days ago"),
+    "timeAgoDayTwo": MessageLookupByLibrary.simpleMessage("2 days ago"),
+    "timeAgoHourOne": MessageLookupByLibrary.simpleMessage("1 hour ago"),
+    "timeAgoHourPlural": MessageLookupByLibrary.simpleMessage("hours ago"),
+    "timeAgoHourTwo": MessageLookupByLibrary.simpleMessage("2 hours ago"),
+    "timeAgoMinuteOne": MessageLookupByLibrary.simpleMessage("1 minute ago"),
+    "timeAgoMinutePlural": MessageLookupByLibrary.simpleMessage("minutes ago"),
+    "timeAgoMinuteTwo": MessageLookupByLibrary.simpleMessage("2 minutes ago"),
+    "timeAgoMoments": MessageLookupByLibrary.simpleMessage("moments ago"),
+    "timeAgoMonthOne": MessageLookupByLibrary.simpleMessage("1 month ago"),
+    "timeAgoMonthPlural": MessageLookupByLibrary.simpleMessage("months ago"),
+    "timeAgoMonthTwo": MessageLookupByLibrary.simpleMessage("2 months ago"),
+    "timeAgoYearOne": MessageLookupByLibrary.simpleMessage("1 year ago"),
+    "timeAgoYearPlural": MessageLookupByLibrary.simpleMessage("years ago"),
+    "timeAgoYearTwo": MessageLookupByLibrary.simpleMessage("2 years ago"),
   };
 }

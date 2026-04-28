@@ -62,6 +62,8 @@ class OrdersCubit extends Cubit<OrdersState> {
         return orders.where((o) => o.status == OrderStatus.shipped).toList();
       case OrderFilter.delivered:
         return orders.where((o) => o.status == OrderStatus.delivered).toList();
+      case OrderFilter.cancelled:
+        return orders.where((o) => o.status == OrderStatus.cancelled).toList();
     }
   }
 

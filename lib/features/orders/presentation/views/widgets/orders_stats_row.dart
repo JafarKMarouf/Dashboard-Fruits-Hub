@@ -92,7 +92,7 @@ class _StatCard extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 6),
-            AppTextWidget(value, style: AppTextStyles.styleBold28),
+            AppTextWidget(value, style: AppTextStyles.styleBold23, maxLines: 2),
             const SizedBox(height: 2),
             AppTextWidget(
               sub,

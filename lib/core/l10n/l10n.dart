@@ -178,6 +178,181 @@ class AppLocalizations {
   String get orderListTitle {
     return Intl.message('Orders', name: 'orderListTitle', desc: '', args: []);
   }
+
+  /// `moments ago`
+  String get timeAgoMoments {
+    return Intl.message(
+      'moments ago',
+      name: 'timeAgoMoments',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `1 minute ago`
+  String get timeAgoMinuteOne {
+    return Intl.message(
+      '1 minute ago',
+      name: 'timeAgoMinuteOne',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `2 minutes ago`
+  String get timeAgoMinuteTwo {
+    return Intl.message(
+      '2 minutes ago',
+      name: 'timeAgoMinuteTwo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `minutes ago`
+  String get timeAgoMinutePlural {
+    return Intl.message(
+      'minutes ago',
+      name: 'timeAgoMinutePlural',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `1 hour ago`
+  String get timeAgoHourOne {
+    return Intl.message(
+      '1 hour ago',
+      name: 'timeAgoHourOne',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `2 hours ago`
+  String get timeAgoHourTwo {
+    return Intl.message(
+      '2 hours ago',
+      name: 'timeAgoHourTwo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `hours ago`
+  String get timeAgoHourPlural {
+    return Intl.message(
+      'hours ago',
+      name: 'timeAgoHourPlural',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `1 day ago`
+  String get timeAgoDayOne {
+    return Intl.message('1 day ago', name: 'timeAgoDayOne', desc: '', args: []);
+  }
+
+  /// `2 days ago`
+  String get timeAgoDayTwo {
+    return Intl.message(
+      '2 days ago',
+      name: 'timeAgoDayTwo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `days ago`
+  String get timeAgoDayPlural {
+    return Intl.message(
+      'days ago',
+      name: 'timeAgoDayPlural',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `1 month ago`
+  String get timeAgoMonthOne {
+    return Intl.message(
+      '1 month ago',
+      name: 'timeAgoMonthOne',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `2 months ago`
+  String get timeAgoMonthTwo {
+    return Intl.message(
+      '2 months ago',
+      name: 'timeAgoMonthTwo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `months ago`
+  String get timeAgoMonthPlural {
+    return Intl.message(
+      'months ago',
+      name: 'timeAgoMonthPlural',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `1 year ago`
+  String get timeAgoYearOne {
+    return Intl.message(
+      '1 year ago',
+      name: 'timeAgoYearOne',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `2 years ago`
+  String get timeAgoYearTwo {
+    return Intl.message(
+      '2 years ago',
+      name: 'timeAgoYearTwo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `years ago`
+  String get timeAgoYearPlural {
+    return Intl.message(
+      'years ago',
+      name: 'timeAgoYearPlural',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `cancelled since`
+  String get statusCancelled {
+    return Intl.message(
+      'cancelled since',
+      name: 'statusCancelled',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `delivered since`
+  String get statusDelivered {
+    return Intl.message(
+      'delivered since',
+      name: 'statusDelivered',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

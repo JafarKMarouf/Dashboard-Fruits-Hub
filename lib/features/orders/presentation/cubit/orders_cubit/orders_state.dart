@@ -4,7 +4,7 @@ import '../../../../../core/entities/order_entity/order_entity.dart';
 
 // ─── Filter ────────────────────────────────────────────────────────────────
 
-enum OrderFilter { all, pending, shipped, delivered }
+enum OrderFilter { all, pending, shipped, delivered, cancelled }
 
 extension OrderFilterX on OrderFilter {
   String get labelAr {
@@ -17,6 +17,8 @@ extension OrderFilterX on OrderFilter {
         return 'قيد الشحن';
       case OrderFilter.delivered:
         return 'تم التسليم';
+      case OrderFilter.cancelled:
+        return 'ملغى';
     }
   }
 }

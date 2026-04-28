@@ -13,5 +13,24 @@
     "notAuthorized": "Not authorized to access",
     "loginSuccess": "Signed in successfully",
     "dashboardTitle": "FruitHub Admin",
-    "orderListTitle": "Orders"
+    "orderListTitle": "Orders",
+    "timeAgoMoments": "moments ago",
+    "timeAgoMinuteOne": "1 minute ago",
+    "timeAgoMinuteTwo": "2 minutes ago",
+    "timeAgoMinutePlural": "minutes ago",
+    "timeAgoHourOne": "1 hour ago",
+    "timeAgoHourTwo": "2 hours ago",
+    "timeAgoHourPlural": "hours ago",
+    "timeAgoDayOne": "1 day ago",
+    "timeAgoDayTwo": "2 days ago",
+    "timeAgoDayPlural": "days ago",
+    "timeAgoMonthOne": "1 month ago",
+    "timeAgoMonthTwo": "2 months ago",
+    "timeAgoMonthPlural": "months ago",
+    "timeAgoYearOne": "1 year ago",
+    "timeAgoYearTwo": "2 years ago",
+    "timeAgoYearPlural": "years ago",
+    "statusCancelled": "cancelled since",
+    "statusDelivered":   "delivered since"
+
 }

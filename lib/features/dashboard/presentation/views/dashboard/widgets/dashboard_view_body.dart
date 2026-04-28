@@ -1,9 +1,9 @@
+import 'package:dashboard_fruit_hub/core/utils/shared/widgets/main_app_bar.dart';
 import 'package:dashboard_fruit_hub/features/dashboard/presentation/cubit/cubit/dashboard_order_cubit.dart';
 import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/build_action_buttons.dart';
 import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/build_header.dart';
 import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/build_recent_orders_header.dart';
 import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/build_stats_row.dart';
-import 'package:dashboard_fruit_hub/core/utils/shared/widgets/main_app_bar.dart';
 import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/dashboard_order_list.dart';
 import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/revenue_card.dart';
 import 'package:flutter/material.dart';
@@ -23,8 +23,8 @@ class _DashboardViewBodyState extends State<DashboardViewBody>
     with SingleTickerProviderStateMixin {
   late final AnimationController _entryController;
 
-  late final List<Animation<double>> _fadeAnims;
-  late final List<Animation<Offset>> _slideAnims;
+  late final List<Animation<double>> _fadeAnimation;
+  late final List<Animation<Offset>> _slideAnimation;
   static const int _sectionCount = 5;
   static const List<(double, double)> _intervals = [
     (0.00, 0.30),
@@ -53,7 +53,7 @@ class _DashboardViewBodyState extends State<DashboardViewBody>
       duration: const Duration(milliseconds: 900),
     );
 
-    _fadeAnims = List.generate(_sectionCount, (i) {
+    _fadeAnimation = List.generate(_sectionCount, (i) {
       final (begin, end) = _intervals[i];
       return Tween<double>(begin: 0.0, end: 1.0).animate(
         CurvedAnimation(
@@ -63,7 +63,7 @@ class _DashboardViewBodyState extends State<DashboardViewBody>
       );
     });
 
-    _slideAnims = List.generate(_sectionCount, (i) {
+    _slideAnimation = List.generate(_sectionCount, (i) {
       final (begin, end) = _intervals[i];
       return Tween<Offset>(
         begin: const Offset(0, 0.18),
@@ -81,8 +81,11 @@ class _DashboardViewBodyState extends State<DashboardViewBody>
 
   Widget _animated(int sectionIndex, Widget child) {
     return FadeTransition(
-      opacity: _fadeAnims[sectionIndex],
-      child: SlideTransition(position: _slideAnims[sectionIndex], child: child),
+      opacity: _fadeAnimation[sectionIndex],
+      child: SlideTransition(
+        position: _slideAnimation[sectionIndex],
+        child: child,
+      ),
     );
   }
 
@@ -157,7 +160,4 @@ class _DashboardViewBodyState extends State<DashboardViewBody>
 
   Widget _buildRecentOrdersHeader() =>
       SliverToBoxAdapter(child: _animated(3, const BuildRecentOrdersHeader()));
-
-  Widget _buildRecentOrders() =>
-      _animated(3, RecentOrdersSliverList(entryController: _entryController));
 }

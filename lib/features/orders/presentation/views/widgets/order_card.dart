@@ -1,3 +1,5 @@
+import 'package:dashboard_fruit_hub/core/l10n/l10n.dart';
+import 'package:dashboard_fruit_hub/core/utils/extensions/date_time_extensions.dart';
 import 'package:dashboard_fruit_hub/core/utils/shared/widgets/app_primary_button.dart';
 import 'package:dashboard_fruit_hub/core/entities/order_entity/order_entity.dart';
 import 'package:dashboard_fruit_hub/core/entities/order_entity/order_status.dart';
@@ -90,19 +92,13 @@ class OrderCard extends StatelessWidget {
                     order.status == OrderStatus.pending ||
                             order.status == OrderStatus.shipped
                         ? ItemsThumbnails(items: order.items!)
-                        : Row(
-                            children: [
-                              AppTextWidget(
-                                order.status == OrderStatus.cancelled
-                                    ? 'تم الإالغاء  ${order.formatUpdateTime}'
-                                    : 'تم الشحن  ${order.formatUpdateTime}',
-                                style: AppTextStyles.styleBold14.copyWith(
-                                  color: AppColors.textSecondary,
-                                ),
-                              ),
-                              const SizedBox(width: 2),
-                              const Icon(Icons.alarm, size: 16),
-                            ],
+                        : AppTextWidget(
+                            order.status == OrderStatus.cancelled
+                                ? '${AppLocalizations.of(context).statusCancelled} ${order.updatedAt.arabicTimeAgo(context)}'
+                                : '${AppLocalizations.of(context).statusDelivered} ${order.updatedAt.arabicTimeAgo(context)}',
+                            style: AppTextStyles.styleBold14.copyWith(
+                              color: AppColors.textSecondary,
+                            ),
                           ),
                     Column(
                       crossAxisAlignment: .start,
