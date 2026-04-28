@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../core/shared/widgets/app_text_widget.dart';
+import '../../../../../../core/utils/shared/widgets/app_text_widget.dart';
 import '../../../../../../core/utils/styles/app_colors.dart';
 import '../../../../../../core/utils/styles/app_text_styles.dart';
 
@@ -10,10 +10,10 @@ class BuildRecentOrdersHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
+      crossAxisAlignment: .end,
       children: [
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: .spaceBetween,
           children: [
             const AppTextWidget(
               'الطلبات الأخيرة',
@@ -24,7 +24,7 @@ class BuildRecentOrdersHeader extends StatelessWidget {
               child: AppTextWidget(
                 'عرض الكل',
                 style: AppTextStyles.styleBold13.copyWith(
-                  color: AppColors.success,
+                  color: AppColors.green1_600,
                 ),
               ),
             ),

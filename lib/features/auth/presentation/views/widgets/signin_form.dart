@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/l10n/l10n.dart';
 import '../../../../../core/utils/styles/app_colors.dart';
 import '../../../../../core/utils/styles/app_text_styles.dart';
-import '../../../../../core/shared/widgets/app_primary_button.dart';
-import '../../../../../core/shared/widgets/app_text_form_field.dart';
-import '../../../../../core/shared/widgets/app_text_widget.dart';
+import '../../../../../core/utils/shared/widgets/app_primary_button.dart';
+import '../../../../../core/utils/shared/widgets/app_text_form_field.dart';
+import '../../../../../core/utils/shared/widgets/app_text_widget.dart';
 import '../../../domain/requests/user_request.dart';
 import '../../cubits/signin_cubit/signin_cubit.dart';
 

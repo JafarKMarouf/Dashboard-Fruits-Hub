@@ -1,13 +1,19 @@
-import 'package:dashboard_fruit_hub/core/repos/image_repo/image_repo.dart';
-import 'package:dashboard_fruit_hub/core/repos/image_repo/image_repo_impl.dart';
-import 'package:dashboard_fruit_hub/core/repos/product_repo/product_repo_impl.dart';
-import 'package:dashboard_fruit_hub/core/repos/product_repo/product_repo.dart';
+import 'package:dashboard_fruit_hub/core/repos/image/image_repo.dart';
+import 'package:dashboard_fruit_hub/core/repos/image/image_repo_impl.dart';
+import 'package:dashboard_fruit_hub/core/repos/product/product_repo_impl.dart';
+import 'package:dashboard_fruit_hub/core/repos/product/product_repo.dart';
+import 'package:dashboard_fruit_hub/features/dashboard/presentation/cubit/cubit/dashboard_order_cubit.dart';
+import 'package:dashboard_fruit_hub/features/orders/domain/repos/orders_repo.dart';
+import 'package:dashboard_fruit_hub/features/orders/presentation/cubit/orders_cubit/orders_cubit.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../features/auth/data/repos/auth_repo_impl.dart';
 import '../../features/auth/domain/repos/auth_repo.dart';
 import '../../features/auth/presentation/cubits/signin_cubit/signin_cubit.dart';
+import '../../features/dashboard/data/repos/dashboard_repo_impl.dart';
+import '../../features/dashboard/domain/repos/dashboard_repo.dart';
 import '../../features/dashboard/presentation/cubit/add_product_cubit/add_product_cubit.dart';
+import '../../features/orders/data/repos/orders_repo_impl.dart';
 import 'database_service/database_service.dart';
 import 'database_service/firestore_service.dart';
 import 'firebase_auth_service.dart';
@@ -47,6 +53,14 @@ void _registerRepositories() {
   getIt.registerLazySingleton<ImageRepo>(
     () => ImageRepoImpl(getIt<StorageService>()),
   );
+
+  getIt.registerLazySingleton<DashboardRepo>(
+    () => DashboardRepoImpl(getIt<DatabaseService>()),
+  );
+
+  getIt.registerLazySingleton<OrdersRepo>(
+    () => OrdersRepoImpl(getIt<DatabaseService>()),
+  );
 }
 
 void _registerCubits() {
@@ -54,4 +68,10 @@ void _registerCubits() {
   getIt.registerFactory<AddProductCubit>(
     () => AddProductCubit(getIt<ProductRepo>(), getIt<ImageRepo>()),
   );
+
+  getIt.registerFactory<DashboardOrderCubit>(
+    () => DashboardOrderCubit(getIt<DashboardRepo>()),
+  );
+
+  getIt.registerFactory<OrdersCubit>(() => OrdersCubit(getIt<OrdersRepo>()));
 }

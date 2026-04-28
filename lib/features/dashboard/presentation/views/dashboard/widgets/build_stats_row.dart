@@ -1,4 +1,7 @@
+import 'package:dashboard_fruit_hub/features/dashboard/presentation/cubit/cubit/dashboard_order_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../../../../core/utils/styles/app_colors.dart';
 import 'stats_card.dart';
@@ -8,33 +11,46 @@ class BuildStatsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: StatsCard(
-            title: 'الطلبات',
-            value: '342',
-            changePercent: '5%',
-            isPositive: false,
-            icon: Icons.shopping_bag_rounded,
-            iconBgColor: AppColors.secondaryLight.withOpacity(.2),
-            iconColor: AppColors.secondary,
-          ),
-        ),
+    return BlocBuilder<DashboardOrderCubit, DashboardOrderState>(
+      builder: (context, state) {
+        final isLoading =
+            state is DashboardOrderLoading || state is DashboardOrderInitial;
+        final totalOrders = state is DashboardOrderLoaded
+            ? state.totalOrdersCount
+            : 0;
+        final shippedCount = state is DashboardOrderLoaded
+            ? state.shippedCount
+            : 0;
 
-        const SizedBox(width: 12),
-        Expanded(
-          child: StatsCard(
-            title: 'المستخدمون الجدد',
-            value: '56',
-            changePercent: '8%',
-            isPositive: false,
-            icon: Icons.group_add_rounded,
-            iconBgColor: AppColors.primaryLight.withOpacity(.3),
-            iconColor: AppColors.primary,
+        return Skeletonizer(
+          enabled: isLoading,
+          child: Row(
+            children: [
+              Expanded(
+                child: StatsCard(
+                  title: 'إجمالي الطلبات',
+                  value: isLoading ? '--' : '$totalOrders',
+                  icon: Icons.shopping_bag_rounded,
+                  iconBgColor: AppColors.secondaryLight.withOpacity(.2),
+                  iconColor: AppColors.secondary,
+                  subtitle: 'جميع الطلبات',
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: StatsCard(
+                  title: 'قيد الشحن',
+                  value: isLoading ? '--' : '$shippedCount',
+                  icon: Icons.local_shipping_rounded,
+                  iconBgColor: AppColors.primaryLight.withOpacity(.3),
+                  iconColor: AppColors.primary,
+                  subtitle: 'طلب جارٍ شحنه',
+                ),
+              ),
+            ],
           ),
-        ),
-      ],
+        );
+      },
     );
   }
 }

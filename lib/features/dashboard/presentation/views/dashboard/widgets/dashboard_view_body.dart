@@ -1,14 +1,16 @@
+import 'package:dashboard_fruit_hub/core/utils/shared/widgets/main_app_bar.dart';
+import 'package:dashboard_fruit_hub/features/dashboard/presentation/cubit/cubit/dashboard_order_cubit.dart';
 import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/build_action_buttons.dart';
 import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/build_header.dart';
 import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/build_recent_orders_header.dart';
 import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/build_stats_row.dart';
-import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/main_app_bar.dart';
+import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/recent_orders_sliver_list.dart';
 import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/revenue_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../../core/l10n/l10n.dart';
 import '../../../../../../core/utils/constants.dart';
-import '../../../../domain/entities/order_entity.dart';
-import 'animated_order_item.dart';
 
 class DashboardViewBody extends StatefulWidget {
   const DashboardViewBody({super.key});
@@ -21,8 +23,8 @@ class _DashboardViewBodyState extends State<DashboardViewBody>
     with SingleTickerProviderStateMixin {
   late final AnimationController _entryController;
 
-  late final List<Animation<double>> _fadeAnims;
-  late final List<Animation<Offset>> _slideAnims;
+  late final List<Animation<double>> _fadeAnimation;
+  late final List<Animation<Offset>> _slideAnimation;
   static const int _sectionCount = 5;
   static const List<(double, double)> _intervals = [
     (0.00, 0.30),
@@ -32,11 +34,10 @@ class _DashboardViewBodyState extends State<DashboardViewBody>
     (0.44, 0.74),
   ];
 
-  List<OrderEntity> get _orders => MockOrders.recent;
-
   @override
   void initState() {
     super.initState();
+    context.read<DashboardOrderCubit>().startWatching();
     _setupAnimations();
   }
 
@@ -52,7 +53,7 @@ class _DashboardViewBodyState extends State<DashboardViewBody>
       duration: const Duration(milliseconds: 900),
     );
 
-    _fadeAnims = List.generate(_sectionCount, (i) {
+    _fadeAnimation = List.generate(_sectionCount, (i) {
       final (begin, end) = _intervals[i];
       return Tween<double>(begin: 0.0, end: 1.0).animate(
         CurvedAnimation(
@@ -62,7 +63,7 @@ class _DashboardViewBodyState extends State<DashboardViewBody>
       );
     });
 
-    _slideAnims = List.generate(_sectionCount, (i) {
+    _slideAnimation = List.generate(_sectionCount, (i) {
       final (begin, end) = _intervals[i];
       return Tween<Offset>(
         begin: const Offset(0, 0.18),
@@ -80,8 +81,11 @@ class _DashboardViewBodyState extends State<DashboardViewBody>
 
   Widget _animated(int sectionIndex, Widget child) {
     return FadeTransition(
-      opacity: _fadeAnims[sectionIndex],
-      child: SlideTransition(position: _slideAnims[sectionIndex], child: child),
+      opacity: _fadeAnimation[sectionIndex],
+      child: SlideTransition(
+        position: _slideAnimation[sectionIndex],
+        child: child,
+      ),
     );
   }
 
@@ -99,7 +103,7 @@ class _DashboardViewBodyState extends State<DashboardViewBody>
             _buildStatsRow(),
             _buildActionButtons(context),
             _buildRecentOrdersHeader(),
-            _buildOrderList(),
+            RecentOrdersSliverList(entryController: _entryController),
           ],
         ),
       ),
@@ -110,7 +114,10 @@ class _DashboardViewBodyState extends State<DashboardViewBody>
     child: Column(
       children: [
         const SizedBox(height: kTopPadding),
-        _animated(0, const MainAppBar()),
+        _animated(
+          0,
+          MainAppBar(title: AppLocalizations.of(context).dashboardTitle),
+        ),
       ],
     ),
   );
@@ -153,43 +160,4 @@ class _DashboardViewBodyState extends State<DashboardViewBody>
 
   Widget _buildRecentOrdersHeader() =>
       SliverToBoxAdapter(child: _animated(3, const BuildRecentOrdersHeader()));
-
-  Widget _buildOrderList() => DecoratedSliver(
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(20),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withOpacity(0.05),
-          blurRadius: 16,
-          offset: const Offset(0, 4),
-        ),
-      ],
-    ),
-    sliver: SliverPadding(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      sliver: SliverList(
-        delegate: SliverChildBuilderDelegate((context, index) {
-          final isLast = index == _orders.length - 1;
-          return Column(
-            children: [
-              AnimatedOrderItem(
-                key: ValueKey(_orders[index].id),
-                order: _orders[index],
-                entryController: _entryController,
-                delayFraction: (0.55 + index * 0.08).clamp(0.0, 0.90),
-              ),
-              if (!isLast)
-                const Divider(
-                  height: 1,
-                  indent: 16,
-                  endIndent: 16,
-                  color: Color(0xFFF3F4F6),
-                ),
-            ],
-          );
-        }, childCount: _orders.length),
-      ),
-    ),
-  );
 }

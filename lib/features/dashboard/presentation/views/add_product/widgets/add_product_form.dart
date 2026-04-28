@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:dashboard_fruit_hub/core/helpers/build_messages_bar.dart';
+import 'package:dashboard_fruit_hub/core/utils/helpers/build_messages_bar.dart';
 import 'package:dashboard_fruit_hub/features/dashboard/domain/entities/product_entity.dart';
 import 'package:dashboard_fruit_hub/features/dashboard/presentation/cubit/add_product_cubit/add_product_cubit.dart';
 import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/add_product/widgets/review_step.dart';
@@ -68,7 +68,7 @@ class _AddProductFormState extends State<AddProductForm>
   void _onSubmit() {
     if (!_formKey.currentState!.validate()) return;
     if (_productImage == null) {
-      buildErrorBar(context, 'يرجى اختيار صورة للمنتج');
+      showErrorBar(context, 'يرجى اختيار صورة للمنتج');
       return;
     }
     context.read<AddProductCubit>().addProduct(

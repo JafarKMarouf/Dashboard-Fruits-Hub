@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:dashboard_fruit_hub/core/helpers/build_messages_bar.dart';
-import 'package:dashboard_fruit_hub/core/shared/widgets/app_text_widget.dart';
+import 'package:dashboard_fruit_hub/core/utils/helpers/build_messages_bar.dart';
+import 'package:dashboard_fruit_hub/core/utils/shared/widgets/app_text_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../core/services/image_picker/image_picker_service.dart';
@@ -41,7 +41,7 @@ class _ProductImagePickerState extends State<ProductImagePicker> {
       widget.onImageSelected(file);
     } on ImagePickerException catch (e) {
       if (!mounted) return;
-      buildErrorBar(context, e.message);
+      showErrorBar(context, e.message);
     } finally {
       if (mounted) setState(() => _isLoading = false);
     }
@@ -69,8 +69,8 @@ class _ProductImagePickerState extends State<ProductImagePicker> {
           borderRadius: BorderRadius.circular(14),
           border: Border.all(
             color: _pickedImage != null
-                ? AppColors.primary
-                : AppColors.primary.withOpacity(0.4),
+                ? AppColors.primaryDark
+                : AppColors.primaryDark.withOpacity(0.4),
             width: 1.5,
             strokeAlign: BorderSide.strokeAlignInside,
           ),
@@ -117,7 +117,7 @@ class _ProductImagePickerState extends State<ProductImagePicker> {
           height: 28,
           child: CircularProgressIndicator(
             strokeWidth: 2.5,
-            color: AppColors.primary,
+            color: AppColors.primaryDark,
           ),
         ),
       );
@@ -130,12 +130,12 @@ class _ProductImagePickerState extends State<ProductImagePicker> {
           width: 56,
           height: 56,
           decoration: BoxDecoration(
-            color: AppColors.primary.withOpacity(0.12),
+            color: AppColors.primaryDark.withOpacity(0.1),
             shape: BoxShape.circle,
           ),
           child: const Icon(
             Icons.add_a_photo_rounded,
-            color: AppColors.primary,
+            color: AppColors.primaryDark,
             size: 26,
           ),
         ),
