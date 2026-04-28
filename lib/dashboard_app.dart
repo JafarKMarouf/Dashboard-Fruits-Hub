@@ -24,7 +24,7 @@ class DashboardApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: const [Locale('ar'), Locale('en')],
+      supportedLocales: const [Locale('en'), Locale('ar')],
       debugShowCheckedModeBanner: false,
       initialRoute: SplashView.routeName,
       onGenerateRoute: onGenerateRoutes,

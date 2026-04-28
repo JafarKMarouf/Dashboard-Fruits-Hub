@@ -4,7 +4,7 @@ import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashbo
 import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/build_header.dart';
 import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/build_recent_orders_header.dart';
 import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/build_stats_row.dart';
-import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/dashboard_order_list.dart';
+import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/recent_orders_sliver_list.dart';
 import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/revenue_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

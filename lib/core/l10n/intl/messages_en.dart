@@ -20,8 +20,11 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
+  static String m0(shortId) => "Order #${shortId}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "currencySymbol": MessageLookupByLibrary.simpleMessage("SYP"),
     "dashboardTitle": MessageLookupByLibrary.simpleMessage("FruitHub Admin"),
     "emailAddress": MessageLookupByLibrary.simpleMessage("Email Address"),
     "forgetPassword": MessageLookupByLibrary.simpleMessage("Forgot password?"),
@@ -47,6 +50,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "notAuthorized": MessageLookupByLibrary.simpleMessage(
       "Not authorized to access",
     ),
+    "orderIdFallback": MessageLookupByLibrary.simpleMessage("N/A"),
+    "orderIdLabel": m0,
     "orderListTitle": MessageLookupByLibrary.simpleMessage("Orders"),
     "password": MessageLookupByLibrary.simpleMessage("Password"),
     "requiredField": MessageLookupByLibrary.simpleMessage(

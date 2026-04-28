@@ -20,8 +20,11 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ar';
 
+  static String m0(shortId) => "رقم الطلب #${shortId}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "currencySymbol": MessageLookupByLibrary.simpleMessage("ل.س"),
     "dashboardTitle": MessageLookupByLibrary.simpleMessage("FruitHub Admin"),
     "emailAddress": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
     "forgetPassword": MessageLookupByLibrary.simpleMessage("نسيت كلمة المرور؟"),
@@ -45,6 +48,8 @@ class MessageLookup extends MessageLookupByLibrary {
       "فشل الاتصال بالشبكة. يرجى التحقق من اتصالك بالإنترنت.",
     ),
     "notAuthorized": MessageLookupByLibrary.simpleMessage("غير مخول للوصول"),
+    "orderIdFallback": MessageLookupByLibrary.simpleMessage("غير متاح"),
+    "orderIdLabel": m0,
     "orderListTitle": MessageLookupByLibrary.simpleMessage("إدارة الطلبات"),
     "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
     "requiredField": MessageLookupByLibrary.simpleMessage(" هذا الحقل مطلوب"),

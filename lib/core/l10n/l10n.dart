@@ -353,6 +353,36 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `SYP`
+  String get currencySymbol {
+    return Intl.message(
+      'SYP',
+      name: 'currencySymbol',
+      desc: 'Currency symbol appended after the price amount',
+      args: [],
+    );
+  }
+
+  /// `N/A`
+  String get orderIdFallback {
+    return Intl.message(
+      'N/A',
+      name: 'orderIdFallback',
+      desc: 'Shown when the order ID is null or too short to display',
+      args: [],
+    );
+  }
+
+  /// `Order #{shortId}`
+  String orderIdLabel(String shortId) {
+    return Intl.message(
+      'Order #$shortId',
+      name: 'orderIdLabel',
+      desc: 'Formatted order ID label, e.g. Order #A1B2C3',
+      args: [shortId],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

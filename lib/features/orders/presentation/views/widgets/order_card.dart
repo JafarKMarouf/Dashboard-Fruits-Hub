@@ -1,14 +1,15 @@
+import 'package:dashboard_fruit_hub/core/entities/order_entity/order_entity.dart';
+import 'package:dashboard_fruit_hub/core/entities/order_entity/order_entity_x.dart';
+import 'package:dashboard_fruit_hub/core/entities/order_entity/order_status.dart';
 import 'package:dashboard_fruit_hub/core/l10n/l10n.dart';
 import 'package:dashboard_fruit_hub/core/utils/extensions/date_time_extensions.dart';
 import 'package:dashboard_fruit_hub/core/utils/shared/widgets/app_primary_button.dart';
-import 'package:dashboard_fruit_hub/core/entities/order_entity/order_entity.dart';
-import 'package:dashboard_fruit_hub/core/entities/order_entity/order_status.dart';
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-import '../../../../../core/utils/shared/widgets/app_text_widget.dart';
 import '../../../../../../core/utils/styles/app_colors.dart';
 import '../../../../../../core/utils/styles/app_text_styles.dart';
+import '../../../../../core/utils/shared/widgets/app_text_widget.dart';
 import 'item__thumbnails.dart';
 import 'order_status_badge.dart';
 import 'status_icon_circle.dart';
@@ -62,7 +63,7 @@ class OrderCard extends StatelessWidget {
                       crossAxisAlignment: .start,
                       children: [
                         AppTextWidget(
-                          order.formatOrderId,
+                          order.formatOrderId(context),
                           style: AppTextStyles.styleSemiBold13.copyWith(
                             color: AppColors.textSecondary,
                           ),
@@ -111,7 +112,7 @@ class OrderCard extends StatelessWidget {
                         ),
                         const SizedBox(height: 4),
                         AppTextWidget(
-                          order.formatPrice,
+                          order.formatPrice(context),
                           style: AppTextStyles.styleBold16,
                         ),
                       ],

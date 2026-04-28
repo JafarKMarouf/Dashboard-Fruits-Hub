@@ -26,10 +26,6 @@ class OrdersStats extends StatelessWidget {
         final revenue = state.orders
             .where((o) => o.status != OrderStatus.cancelled)
             .fold<double>(0, (s, o) => s + o.finalTotal);
-        // final revenue = state.orders.fold<double>(
-        //   0,
-        //   (s, o) => s + o.finalTotal,
-        // );
         return Padding(
           padding: const EdgeInsets.only(top: 12),
           child: OrdersStatsRow(
