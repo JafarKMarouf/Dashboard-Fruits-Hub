@@ -12,5 +12,44 @@
     "invalidCredential": "البريد الإلكتروني أو كلمة المرور غير صحيح.",
     "notAuthorized": "غير مخول للوصول",
     "loginSuccess": "تم تسجيل الدخول بنجاح",
-    "dashboardTitle": "FruitHub Admin"
-}
+    "dashboardTitle": "FruitHub Admin",
+    "orderListTitle": "إدارة الطلبات",
+    "timeAgoMoments": "لحظات",
+    "timeAgoMinuteOne": "دقيقة",
+    "timeAgoMinuteTwo": "دقيقتين",
+    "timeAgoMinutePlural": "دقائق",
+    "timeAgoHourOne": "ساعة",
+    "timeAgoHourTwo": "ساعتين",
+    "timeAgoHourPlural": "ساعات",
+    "timeAgoDayOne": "يوم",
+    "timeAgoDayTwo": "يومين",
+    "timeAgoDayPlural": "أيام",
+    "timeAgoMonthOne": "شهر",
+    "timeAgoMonthTwo": "شهرين",
+    "timeAgoMonthPlural": "أشهر",
+    "timeAgoYearOne": "سنة",
+    "timeAgoYearTwo": "سنتين",
+    "timeAgoYearPlural": "سنوات",
+    "statusCancelled": "تم الإلغاء منذ",
+    "statusDelivered":   "تم التسليم منذ",
+    
+    "currencySymbol": "ل.س",
+    "@currencySymbol": {
+        "description": "Currency symbol appended after the price amount"
+    },
+
+    "orderIdFallback": "غير متاح",
+    "@orderIdFallback": {
+        "description": "Shown when the order ID is null or too short to display"
+    },
+
+    "orderIdLabel": "رقم الطلب #{shortId}",
+    "@orderIdLabel": {
+        "description": "Formatted order ID label, e.g. رقم الطلب #A1B2C3",
+        "placeholders": {
+            "shortId": {
+                "type": "String",
+                "description": "Last 6 characters of the order document ID, uppercased"
+            }
+        }
+    }}

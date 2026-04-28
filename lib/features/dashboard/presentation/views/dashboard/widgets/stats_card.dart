@@ -1,4 +1,4 @@
-import 'package:dashboard_fruit_hub/core/shared/widgets/app_text_widget.dart';
+import 'package:dashboard_fruit_hub/core/utils/shared/widgets/app_text_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../core/utils/styles/app_colors.dart';
@@ -7,8 +7,7 @@ import '../../../../../../core/utils/styles/app_text_styles.dart';
 class StatsCard extends StatelessWidget {
   final String title;
   final String value;
-  final String changePercent;
-  final bool isPositive;
+  final String subtitle;
   final IconData icon;
   final Color iconBgColor;
   final Color iconColor;
@@ -17,8 +16,7 @@ class StatsCard extends StatelessWidget {
     super.key,
     required this.title,
     required this.value,
-    required this.changePercent,
-    required this.isPositive,
+    required this.subtitle,
     required this.icon,
     required this.iconBgColor,
     required this.iconColor,
@@ -44,11 +42,10 @@ class StatsCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
                 width: 40,
-                height: 48,
+                height: 40,
                 decoration: BoxDecoration(
                   color: iconBgColor,
                   borderRadius: BorderRadius.circular(10),
@@ -67,32 +64,12 @@ class StatsCard extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           AppTextWidget(value, style: AppTextStyles.styleBold28),
-          const SizedBox(height: 6),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Icon(
-                isPositive
-                    ? Icons.arrow_upward_rounded
-                    : Icons.arrow_downward_rounded,
-                size: 16,
-                color: isPositive ? AppColors.success : AppColors.error,
-              ),
-              AppTextWidget(
-                changePercent,
-                style: AppTextStyles.styleBold13.copyWith(
-                  color: isPositive ? AppColors.success : AppColors.error,
-                ),
-              ),
-              const SizedBox(width: 4),
-
-              AppTextWidget(
-                'من الأسبوع الماضي',
-                style: AppTextStyles.styleBold11.copyWith(
-                  color: AppColors.primary.withOpacity(.8),
-                ),
-              ),
-            ],
+          const SizedBox(height: 4),
+          AppTextWidget(
+            subtitle,
+            style: AppTextStyles.styleRegular11.copyWith(
+              color: AppColors.grayscale500,
+            ),
           ),
         ],
       ),

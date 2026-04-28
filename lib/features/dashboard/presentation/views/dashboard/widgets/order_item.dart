@@ -1,67 +1,31 @@
-import 'package:dashboard_fruit_hub/core/shared/widgets/app_text_widget.dart';
+import 'package:dashboard_fruit_hub/core/entities/order_entity/order_entity_x.dart';
+import 'package:dashboard_fruit_hub/core/utils/shared/widgets/app_text_widget.dart';
+import 'package:dashboard_fruit_hub/core/entities/order_entity/order_entity.dart';
+import 'package:dashboard_fruit_hub/core/entities/order_entity/order_status.dart';
+import 'package:dashboard_fruit_hub/features/orders/presentation/views/widgets/order_status_badge.dart';
+import 'package:dashboard_fruit_hub/features/orders/presentation/views/widgets/status_icon_circle.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../core/utils/styles/app_colors.dart';
 import '../../../../../../core/utils/styles/app_text_styles.dart';
-import '../../../../domain/entities/order_entity.dart';
 
 class OrderItem extends StatelessWidget {
   final OrderEntity order;
 
   const OrderItem({super.key, required this.order});
 
-  Color get _statusColor {
-    switch (order.status) {
-      case OrderStatus.pending:
-        return AppColors.secondaryDark;
-      case OrderStatus.shipped:
-        return AppColors.primaryDark;
-      case OrderStatus.delivered:
-        return AppColors.primaryDark;
-    }
-  }
-
-  Color get _statusBgColor {
-    switch (order.status) {
-      case OrderStatus.pending:
-        return AppColors.secondaryLight;
-      case OrderStatus.shipped:
-        return AppColors.primaryLight;
-      case OrderStatus.delivered:
-        return AppColors.success;
-    }
-  }
-
-  IconData get _statusIcon {
-    switch (order.status) {
-      case OrderStatus.pending:
-        return Icons.access_time_rounded;
-      case OrderStatus.shipped:
-        return Icons.local_shipping_rounded;
-      case OrderStatus.delivered:
-        return Icons.check_circle_rounded;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-        leading: Container(
-          width: 38,
-          height: 38,
-          decoration: BoxDecoration(
-            color: _statusBgColor,
-            shape: BoxShape.circle,
-          ),
-          child: Icon(_statusIcon, size: 18),
-        ),
+        trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+        leading: StatusIconCircle(status: order.status),
         title: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             AppTextWidget(
-              'Order ${order.id}',
+              order.formatOrderId(context),
               style: AppTextStyles.styleBold16,
             ),
             const SizedBox(width: 6),
@@ -69,7 +33,7 @@ class OrderItem extends StatelessWidget {
               width: 7,
               height: 7,
               decoration: BoxDecoration(
-                color: _statusBgColor,
+                color: order.status.fg,
                 shape: BoxShape.circle,
               ),
             ),
@@ -78,42 +42,37 @@ class OrderItem extends StatelessWidget {
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text: order.customerName,
-                    style: AppTextStyles.styleBold16.copyWith(
-                      color: AppColors.grayscale500,
-                    ),
+            Builder(
+              builder: (context) {
+                final isRtl = Directionality.of(context) == TextDirection.rtl;
+
+                final nameSpan = TextSpan(
+                  text: order.shippingAddress!.name!,
+                  style: AppTextStyles.styleBold16.copyWith(
+                    color: AppColors.grayscale500,
                   ),
-                  TextSpan(
-                    text: '  •  ',
-                    style: AppTextStyles.styleRegular16.copyWith(
-                      color: _statusBgColor,
-                    ),
+                );
+
+                final dotSpan = TextSpan(
+                  text: '  •  ',
+                  style: AppTextStyles.styleRegular16.copyWith(
+                    color: order.status.fg,
                   ),
-                  TextSpan(
-                    text: '\$${order.amount.toStringAsFixed(2)}',
-                    style: AppTextStyles.styleBold16,
-                  ),
-                ],
-              ),
+                );
+
+                final priceSpan = TextSpan(
+                  text: order.formatPrice(context),
+                  style: AppTextStyles.styleBold16,
+                );
+                final spans = isRtl
+                    ? [priceSpan, dotSpan, nameSpan]
+                    : [nameSpan, dotSpan, priceSpan];
+
+                return Text.rich(TextSpan(children: spans));
+              },
             ),
             const SizedBox(height: 6),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-              decoration: BoxDecoration(
-                color: _statusBgColor,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: AppTextWidget(
-                order.statusAr,
-                style: AppTextStyles.styleSemiBold13.copyWith(
-                  color: _statusColor,
-                ),
-              ),
-            ),
+            OrderStatusBadge(status: order.status),
           ],
         ),
       ),

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/helpers/build_messages_bar.dart';
+import '../../../../../core/utils/helpers/build_messages_bar.dart';
 import '../../../../../core/l10n/l10n.dart';
-import '../../../../../core/shared/widgets/bottom_nav_bar/app_shell.dart';
-import '../../../../../core/shared/widgets/custom_progress_hud.dart';
+import '../../../../../core/utils/shared/widgets/bottom_nav_bar/app_shell.dart';
+import '../../../../../core/utils/shared/widgets/custom_progress_hud.dart';
 import '../../cubits/signin_cubit/signin_cubit.dart';
 import 'signin_view_body.dart';
 
@@ -24,7 +24,7 @@ class SigninViewBlocConsumer extends StatelessWidget {
             'notAuthorized' => locale.notAuthorized,
             _ => locale.genericError,
           };
-          buildErrorBar(context, localizedMessage);
+          showErrorBar(context, localizedMessage);
         }
         if (state is SigninSuccess) {
           buildSuccessMessage(

@@ -2,7 +2,7 @@ import 'package:dashboard_fruit_hub/features/splash/presentation/views/splash_vi
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'core/helpers/on_generate_routes.dart';
+import 'core/utils/helpers/on_generate_routes.dart';
 import 'core/l10n/l10n.dart';
 import 'core/utils/styles/app_colors.dart';
 
@@ -15,7 +15,7 @@ class DashboardApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Cairo',
         colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
-        scaffoldBackgroundColor: Colors.white,
+        scaffoldBackgroundColor: const Color(0xfff6f8f7),
       ),
       locale: const Locale('ar'),
       localizationsDelegates: const [
@@ -24,7 +24,7 @@ class DashboardApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: const [Locale('ar'), Locale('en')],
+      supportedLocales: const [Locale('en'), Locale('ar')],
       debugShowCheckedModeBanner: false,
       initialRoute: SplashView.routeName,
       onGenerateRoute: onGenerateRoutes,

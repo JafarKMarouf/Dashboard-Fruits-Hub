@@ -28,13 +28,31 @@ class FirestoreService extends DatabaseService {
   }
 
   @override
-  Future<Map<String, dynamic>> getData({
+  Future<dynamic> getData({
     required String path,
-    required String documentId,
+    String? documentId,
+    Map<String, dynamic>? query,
   }) async {
     try {
-      var data = await firestore.collection(path).doc(documentId).get();
-      return data.data() as Map<String, dynamic>;
+      if (documentId != null) {
+        var data = await firestore.collection(path).doc(documentId).get();
+        return data.data() as Map<String, dynamic>;
+      } else {
+        Query firestoreQuery = firestore.collection(path);
+
+        if (query != null && query.containsKey('orderBy')) {
+          firestoreQuery = firestoreQuery.orderBy(
+            query['orderBy'],
+            descending: query['descending'] ?? false,
+          );
+        }
+
+        if (query != null && query.containsKey('limit')) {
+          firestoreQuery = firestoreQuery.limit(query['limit'] as int);
+        }
+        var data = await firestoreQuery.get();
+        return data.docs.map((e) => e.data() as Map<String, dynamic>).toList();
+      }
     } on FirebaseException catch (e) {
       log('FirebaseException in FirestoreService.getData: ${e.toString()}');
       rethrow;
@@ -51,5 +69,49 @@ class FirestoreService extends DatabaseService {
   }) async {
     var data = await firestore.collection(path).doc(documentId).get();
     return data.exists;
+  }
+
+  @override
+  Stream<List<T>> watchData<T>({
+    required String path,
+    required T Function(Map<String, dynamic> data, String documentId) builder,
+    Map<String, dynamic>? query,
+  }) {
+    Query firestoreQuery = firestore.collection(path);
+
+    if (query != null && query.containsKey('orderBy')) {
+      firestoreQuery = firestoreQuery.orderBy(
+        query['orderBy'],
+        descending: query['descending'] ?? false,
+      );
+    }
+
+    if (query != null && query.containsKey('limit')) {
+      firestoreQuery = firestoreQuery.limit(query['limit'] as int);
+    }
+
+    return firestoreQuery.snapshots().map((snapshot) {
+      return snapshot.docs.map((doc) {
+        final data = doc.data() as Map<String, dynamic>;
+        return builder(data, doc.id);
+      }).toList();
+    });
+  }
+
+  @override
+  Future<void> updateData({
+    required String path,
+    required String documentId,
+    required Map<String, dynamic> data,
+  }) async {
+    try {
+      await firestore.collection(path).doc(documentId).update(data);
+    } on FirebaseException catch (e) {
+      log('FirebaseException in FirestoreService.updateData: ${e.toString()}');
+      rethrow;
+    } catch (e) {
+      log('Exception in FirestoreService.updateData: ${e.toString()}');
+      rethrow;
+    }
   }
 }
