@@ -108,16 +108,11 @@ class _OrdersViewBodyState extends State<OrdersViewBody>
             physics: const BouncingScrollPhysics(),
             slivers: [
               SliverToBoxAdapter(
-                child: Column(
-                  children: [
-                    const SizedBox(height: kTopPadding),
-                    _animated(
-                      0,
-                      MainAppBar(
-                        title: AppLocalizations.of(context).orderListTitle,
-                      ),
-                    ),
-                  ],
+                child: _animated(
+                  0,
+                  MainAppBar(
+                    title: AppLocalizations.of(context).orderListTitle,
+                  ),
                 ),
               ),
               SliverToBoxAdapter(

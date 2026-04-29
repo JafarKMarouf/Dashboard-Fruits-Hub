@@ -1,4 +1,5 @@
 import 'package:dashboard_fruit_hub/core/utils/shared/widgets/app_text_widget.dart';
+import 'package:dashboard_fruit_hub/features/inventory/presentation/views/inventory_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -115,7 +116,7 @@ class _AppShellState extends State<AppShell> {
       case 0:
         return const DashboardView();
       case 1:
-        return const Center(child: AppTextWidget('Inventory'));
+        return const InventoryView();
       case 2:
         return const OrdersView();
       case 3:
