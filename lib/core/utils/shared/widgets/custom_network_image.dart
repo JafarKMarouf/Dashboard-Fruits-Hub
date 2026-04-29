@@ -22,7 +22,7 @@ class CustomNetworkImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
+      width: double.maxFinite,
       child: ClipRRect(
         borderRadius: borderRadius ?? BorderRadius.zero,
         child: imageUrl != null && imageUrl!.isNotEmpty
