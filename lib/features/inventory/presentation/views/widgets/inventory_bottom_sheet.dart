@@ -70,7 +70,7 @@ class _RestockBottomSheetState extends State<RestockBottomSheet> {
           const SizedBox(height: 4),
           AppTextWidget(
             'المخزون الحالي: ${widget.product.quantity} كجم',
-            style: AppTextStyles.styleRegular13.copyWith(
+            style: AppTextStyles.styleBold13.copyWith(
               color: AppColors.grayscale500,
             ),
           ),
@@ -92,7 +92,7 @@ class _RestockBottomSheetState extends State<RestockBottomSheet> {
                       ),
                       AppTextWidget(
                         'كجم للإضافة',
-                        style: AppTextStyles.styleRegular11.copyWith(
+                        style: AppTextStyles.styleBold11.copyWith(
                           color: AppColors.grayscale400,
                         ),
                       ),
@@ -109,8 +109,8 @@ class _RestockBottomSheetState extends State<RestockBottomSheet> {
           Center(
             child: AppTextWidget(
               'المخزون الجديد: ${widget.product.quantity + _addQty} كجم',
-              style: AppTextStyles.styleSemiBold13.copyWith(
-                color: AppColors.primary,
+              style: AppTextStyles.styleBold13.copyWith(
+                color: AppColors.primaryDark,
               ),
             ),
           ),
@@ -118,8 +118,9 @@ class _RestockBottomSheetState extends State<RestockBottomSheet> {
 
           // Confirm button
           AppPrimaryButton(
+            showShadow: false,
             onPressed: _isLoading ? null : _confirm,
-            text: _isLoading ? 'جارٍ الحفظ...' : 'تأكيد التعبئة',
+            text: _isLoading ? 'جار الحفظ...' : 'تأكيد التعبئة',
           ),
         ],
       ),
@@ -145,7 +146,7 @@ class _StepButton extends StatelessWidget {
           color: AppColors.green1_100,
           borderRadius: BorderRadius.circular(12),
         ),
-        child: Icon(icon, color: AppColors.primary),
+        child: Icon(icon, color: AppColors.primaryDark),
       ),
     );
   }
