@@ -31,12 +31,13 @@ class InventoryCard extends StatelessWidget {
         ],
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: .center,
+
         children: [
           Padding(
             padding: const EdgeInsets.all(12),
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: .start,
               children: [
                 SizedBox(
                   width: 90,
@@ -54,7 +55,7 @@ class InventoryCard extends StatelessWidget {
                 // Info column
                 Expanded(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: .start,
                     children: [
                       AppTextWidget(
                         product.name,
@@ -98,6 +99,8 @@ class InventoryCard extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
             child: AppPrimaryButton(
               showShadow: false,
+              height: 50,
+              width: MediaQuery.sizeOf(context).width * .75,
               backgroundColor: AppColors.green1_700,
               onPressed: () => _openRestockSheet(context),
               widget: Row(
