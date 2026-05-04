@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/entities/order_entity/order_status.dart';
+import '../../../../../core/enums/order_status.dart';
 import '../../cubit/orders_cubit/orders_cubit.dart';
 import '../../cubit/orders_cubit/orders_state.dart';
 import 'orders_stats_row.dart';
@@ -15,21 +15,21 @@ class OrdersStats extends StatelessWidget {
       buildWhen: (_, curr) => curr is OrdersLoadedState,
       builder: (context, state) {
         if (state is! OrdersLoadedState) {
-          return const OrdersStatsRow(
-            total: 0,
-            pending: 0,
-            shipped: 0,
-            revenue: 0,
+          return const Padding(
+            padding: EdgeInsets.only(top: 12),
+            child: OrdersStatsRow(total: 0, pending: 0, shipped: 0, revenue: 0),
           );
         }
+
         final cubit = context.read<OrdersCubit>();
-        final revenue = state.orders
+        final revenue = state.all
             .where((o) => o.status != OrderStatus.cancelled)
-            .fold<double>(0, (s, o) => s + o.finalTotal);
+            .fold<double>(0.0, (sum, o) => sum + o.finalTotal);
+
         return Padding(
           padding: const EdgeInsets.only(top: 12),
           child: OrdersStatsRow(
-            total: state.orders.length,
+            total: state.all.length,
             pending: cubit.countByStatus(OrderStatus.pending),
             shipped: cubit.countByStatus(OrderStatus.shipped),
             revenue: revenue,

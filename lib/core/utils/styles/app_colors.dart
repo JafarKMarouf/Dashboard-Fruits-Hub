@@ -61,7 +61,7 @@ abstract class AppColors {
 
   // Secondary
   static const Color secondary = orange500;
-  static const Color secondaryLight = orange300;
+  static const Color secondaryLight = orange400;
   static const Color secondaryDark = orange700;
 
   // Surface
@@ -87,4 +87,5 @@ abstract class AppColors {
   static const Color success = green500;
   static const Color warning = orange400;
   static const Color info = green1_500;
+  static const Color danger = Color(0xFFC0392B);
 }

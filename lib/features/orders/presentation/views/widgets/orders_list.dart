@@ -18,36 +18,33 @@ class OrdersList extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<OrdersCubit, OrdersState>(
       builder: (context, state) {
-        // ── Loading ──────────────────────────────────────────────────────────
+        // ── Loading ────────────────────────────────────────────────────────
         if (state is OrdersInitialState || state is OrdersLoadingState) {
           return const OrdersListLoading();
         }
 
-        // ── Error ────────────────────────────────────────────────────────────
+        // ── Hard failure (stream error) ────────────────────────────────────
         if (state is OrdersFailureState) {
           return SliverFillRemaining(
             child: CustomErrorWidget(
               errorMessage: state.message,
-              onRetry: () {
-                context.read<OrdersCubit>().startWatching();
-              },
+              onRetry: () => context.read<OrdersCubit>().startWatching(),
             ),
           );
         }
 
-        // ── Resolve orders + updating id ─────────────────────────────────────
+        // ── Resolve displayed orders + updating id ─────────────────────────
         final (orders, updatingId) = switch (state) {
           OrdersLoadedState() => (state.filtered, state.updatingOrderId),
-          OrderStatusUpdateError() => (state.filtered, null),
           _ => (<OrderEntity>[], null),
         };
 
-        // ── Empty ────────────────────────────────────────────────────────────
+        // ── Empty ──────────────────────────────────────────────────────────
         if (orders.isEmpty) {
           return const SliverFillRemaining(child: EmptyOrders());
         }
 
-        // ── List ─────────────────────────────────────────────────────────────
+        // ── List ───────────────────────────────────────────────────────────
         return SliverList(
           delegate: SliverChildBuilderDelegate((context, index) {
             final order = orders[index];

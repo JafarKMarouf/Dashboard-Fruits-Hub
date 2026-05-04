@@ -15,65 +15,68 @@ class SigninViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: SingleChildScrollView(
-        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-        child: Container(
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+      child: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: SingleChildScrollView(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: kHorizontalPadding,
-              vertical: kTopPadding,
-            ),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.07),
-                  blurRadius: 20,
-                  offset: const Offset(0, 4),
-                  spreadRadius: 0,
-                ),
-              ],
-            ),
-            child: Column(
-              children: [
-                SvgPicture.asset(AppImages.imagesLogo),
-                const SizedBox(height: 16),
-                SizedBox(
-                  width: MediaQuery.sizeOf(context).width * .7,
-                  child: AppTextWidget(
-                    AppLocalizations.of(context).loginTitle,
-                    style: AppTextStyles.styleBold13.copyWith(
-                      color: AppColors.grayscale400,
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+            child: Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: kHorizontalPadding,
+                vertical: kTopPadding,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.07),
+                    blurRadius: 20,
+                    offset: const Offset(0, 4),
+                    spreadRadius: 0,
+                  ),
+                ],
+              ),
+              child: Column(
+                children: [
+                  SvgPicture.asset(AppImages.imagesLogo),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    width: MediaQuery.sizeOf(context).width * .7,
+                    child: AppTextWidget(
+                      AppLocalizations.of(context).loginTitle,
+                      style: AppTextStyles.styleBold13.copyWith(
+                        color: AppColors.grayscale400,
+                      ),
+                      maxLines: 2,
+                      textAlign: TextAlign.center,
                     ),
-                    maxLines: 2,
-                    textAlign: TextAlign.center,
                   ),
-                ),
-                const SigninForm(),
-                const SizedBox(height: 12),
-                Text.rich(
-                  TextSpan(
-                    children: [
-                      TextSpan(
-                        text: 'تواجه مشكله في الدخول؟ ',
-                        style: AppTextStyles.styleBold13.copyWith(
-                          color: AppColors.grayscale500,
+                  const SigninForm(),
+                  const SizedBox(height: 12),
+                  Text.rich(
+                    TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'تواجه مشكله في الدخول؟ ',
+                          style: AppTextStyles.styleBold13.copyWith(
+                            color: AppColors.grayscale500,
+                          ),
                         ),
-                      ),
-                      TextSpan(
-                        text: 'اتصل بالدعم الفني ',
-                        style: AppTextStyles.styleBold13.copyWith(
-                          color: AppColors.green1_500,
+                        TextSpan(
+                          text: 'اتصل بالدعم الفني ',
+                          style: AppTextStyles.styleBold13.copyWith(
+                            color: AppColors.green1_500,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(height: 12),
-              ],
+                  const SizedBox(height: 12),
+                ],
+              ),
             ),
           ),
         ),
