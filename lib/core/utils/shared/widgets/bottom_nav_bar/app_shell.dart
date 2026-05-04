@@ -1,8 +1,8 @@
-import 'package:dashboard_fruit_hub/core/utils/shared/widgets/app_text_widget.dart';
 import 'package:dashboard_fruit_hub/core/utils/styles/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../../../../features/customers/presentation/views/customers_view.dart';
 import '../../../../../features/dashboard/presentation/views/add_product/add_product_view.dart';
 import '../../../../../features/dashboard/presentation/views/dashboard/dashboard_view.dart';
 import '../../../../../features/inventory/presentation/views/inventory_view.dart';
@@ -155,7 +155,7 @@ class _AppShellState extends State<AppShell> {
       case 2:
         return const OrdersView();
       case 3:
-        return const Center(child: AppTextWidget('العملاء'));
+        return const CustomersView();
       default:
         return const SizedBox.shrink();
     }

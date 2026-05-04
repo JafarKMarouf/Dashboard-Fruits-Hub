@@ -33,6 +33,7 @@ class CustomErrorWidget extends StatelessWidget {
             ),
             textDirection: TextDirection.rtl,
             textAlign: TextAlign.center,
+            maxLines: 5,
           ),
           TextButton.icon(
             onPressed: () => onRetry,

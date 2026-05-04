@@ -1,34 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/enums/order_status.dart';
+import '../../../../../core/enums/customer_status.dart';
 import '../../../../../core/utils/shared/app_filter_bar.dart';
-import '../../cubit/orders_cubit/orders_cubit.dart';
-import '../../cubit/orders_cubit/orders_state.dart';
+import '../../manager/customer_cubit/customers_cubit.dart';
 
-class OrdersFilterBar extends StatelessWidget {
-  const OrdersFilterBar({super.key});
+class CustomersFilterBar extends StatelessWidget {
+  const CustomersFilterBar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.watch<OrdersCubit>();
+    final cubit = context.watch<CustomersCubit>();
 
     final activeFilter = switch (cubit.state) {
-      OrdersLoadedState(activeFilter: final f) => f,
-      _ => OrderStatus.all,
+      CustomersLoadedState(activeFilter: final f) => f,
+      _ => CustomerStatus.all,
     };
 
-    return AppFilterBar<OrderStatus>(
+    return AppFilterBar<CustomerStatus>(
       activeValue: activeFilter,
       onSelected: cubit.filterByStatus,
-      items: OrderStatus.values
+      items: CustomerStatus.values
           .map(
             (s) => FilterItem(
               value: s,
-              label: s.labelAr,
+              label: s.label,
               count: cubit.countByStatus(s),
-              bgColor: s.bg,
-              fgColor: s.fg,
+              bgColor: s.bgColor,
+              fgColor: s.fgColor,
               icon: s.icon,
             ),
           )

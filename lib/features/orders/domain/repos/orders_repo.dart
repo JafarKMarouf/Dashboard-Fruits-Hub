@@ -1,4 +1,4 @@
-import 'package:dashboard_fruit_hub/core/entities/order_entity/order_status.dart';
+import 'package:dashboard_fruit_hub/core/enums/order_status.dart';
 
 import '../../../../core/entities/order_entity/order_entity.dart';
 

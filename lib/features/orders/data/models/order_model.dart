@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dashboard_fruit_hub/core/entities/order_entity/order_entity.dart';
-import 'package:dashboard_fruit_hub/core/entities/order_entity/order_status.dart';
+import 'package:dashboard_fruit_hub/core/enums/order_status.dart';
 
 import 'order_item_model.dart';
 import 'shipping_address_model.dart';
