@@ -1,11 +1,11 @@
 import 'package:dashboard_fruit_hub/core/utils/constants.dart';
 import 'package:dashboard_fruit_hub/core/utils/helpers/build_messages_bar.dart';
-import 'package:dashboard_fruit_hub/core/utils/shared/widgets/app_text_widget.dart';
 import 'package:dashboard_fruit_hub/core/utils/shared/widgets/custom_error_widget.dart';
 import 'package:dashboard_fruit_hub/core/utils/shared/widgets/main_app_bar.dart';
 import 'package:dashboard_fruit_hub/core/utils/styles/app_colors.dart';
 import 'package:dashboard_fruit_hub/features/customers/presentation/manager/customer_cubit/customers_cubit.dart';
 import 'package:dashboard_fruit_hub/features/customers/presentation/views/widgets/customers_card.dart';
+import 'package:dashboard_fruit_hub/core/utils/shared/widgets/empty_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -115,7 +115,7 @@ class _CustomersViewBodyState extends State<CustomersViewBody> {
       if (state.customers.isEmpty) {
         return const SliverFillRemaining(
           hasScrollBody: false,
-          child: Center(child: AppTextWidget('لا يوجد مستخدمون مطابقون')),
+          child: EmptyView(emptyMessage: 'لا يوجد مستخدمون مطابقون'),
         );
       }
 

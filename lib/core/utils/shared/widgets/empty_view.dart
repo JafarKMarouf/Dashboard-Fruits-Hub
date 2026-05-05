@@ -1,11 +1,12 @@
 import 'package:dashboard_fruit_hub/core/utils/shared/widgets/app_text_widget.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../core/utils/styles/app_colors.dart';
-import '../../../../../core/utils/styles/app_text_styles.dart';
+import '../../styles/app_colors.dart';
+import '../../styles/app_text_styles.dart';
 
-class EmptyOrders extends StatelessWidget {
-  const EmptyOrders({super.key});
+class EmptyView extends StatelessWidget {
+  final String emptyMessage;
+  const EmptyView({super.key, required this.emptyMessage});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class EmptyOrders extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         AppTextWidget(
-          'لا توجد طلبات',
+          emptyMessage,
           style: AppTextStyles.styleSemiBold16.copyWith(
             color: AppColors.textSecondary,
           ),

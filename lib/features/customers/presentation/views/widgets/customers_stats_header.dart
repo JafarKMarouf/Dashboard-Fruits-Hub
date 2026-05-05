@@ -26,7 +26,7 @@ class CustomersStatsHeader extends StatelessWidget {
           child: AppTextWidget(
             'عرض الكل',
             style: AppTextStyles.styleSemiBold13.copyWith(
-              color: AppColors.primary,
+              color: AppColors.primaryDark,
             ),
           ),
         ),

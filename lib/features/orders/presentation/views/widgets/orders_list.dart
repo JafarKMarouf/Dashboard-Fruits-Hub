@@ -5,7 +5,7 @@ import '../../../../../core/entities/order_entity/order_entity.dart';
 import '../../../../../core/utils/shared/widgets/custom_error_widget.dart';
 import '../../cubit/orders_cubit/orders_cubit.dart';
 import '../../cubit/orders_cubit/orders_state.dart';
-import 'empty_orders.dart';
+import '../../../../../core/utils/shared/widgets/empty_view.dart';
 import 'order_card.dart';
 import 'orders_list_loading.dart';
 
@@ -41,7 +41,9 @@ class OrdersList extends StatelessWidget {
 
         // ── Empty ──────────────────────────────────────────────────────────
         if (orders.isEmpty) {
-          return const SliverFillRemaining(child: EmptyOrders());
+          return const SliverFillRemaining(
+            child: EmptyView(emptyMessage: 'لا توجد طلبات'),
+          );
         }
 
         // ── List ───────────────────────────────────────────────────────────
