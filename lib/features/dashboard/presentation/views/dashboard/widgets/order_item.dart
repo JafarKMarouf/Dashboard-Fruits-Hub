@@ -1,7 +1,7 @@
 import 'package:dashboard_fruit_hub/core/entities/order_entity/order_entity_x.dart';
 import 'package:dashboard_fruit_hub/core/utils/shared/widgets/app_text_widget.dart';
 import 'package:dashboard_fruit_hub/core/entities/order_entity/order_entity.dart';
-import 'package:dashboard_fruit_hub/core/entities/order_entity/order_status.dart';
+import 'package:dashboard_fruit_hub/core/enums/order_status.dart';
 import 'package:dashboard_fruit_hub/features/orders/presentation/views/widgets/order_status_badge.dart';
 import 'package:dashboard_fruit_hub/features/orders/presentation/views/widgets/status_icon_circle.dart';
 import 'package:flutter/material.dart';

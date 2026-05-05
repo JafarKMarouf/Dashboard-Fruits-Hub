@@ -26,7 +26,7 @@ class OrdersStatsRow extends StatelessWidget {
         _StatCard(
           label: 'الطلبات الجديدة',
           value: '$total',
-          sub: 'في آخر ١٢٠ دقيقة',
+          sub: 'في آخر يومين',
           bg: const Color(0xffd5f5e1).withOpacity(.5),
           fg: AppColors.green1_600,
           icon: Icons.shopping_bag_rounded,

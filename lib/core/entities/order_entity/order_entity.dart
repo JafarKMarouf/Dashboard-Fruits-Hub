@@ -1,5 +1,5 @@
 import 'order_item_entity.dart';
-import 'order_status.dart';
+import '../../enums/order_status.dart';
 import 'shipping_address_entity.dart';
 
 class OrderEntity {

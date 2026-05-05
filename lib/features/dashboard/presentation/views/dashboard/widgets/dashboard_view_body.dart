@@ -94,31 +94,30 @@ class _DashboardViewBodyState extends State<DashboardViewBody>
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: kHorizontalPadding),
-        child: CustomScrollView(
-          physics: const BouncingScrollPhysics(),
-          slivers: [
-            _buildAppBar(),
-            _buildHeader(),
-            _buildRevenueCard(),
-            _buildStatsRow(),
-            _buildActionButtons(context),
-            _buildRecentOrdersHeader(),
-            RecentOrdersSliverList(entryController: _entryController),
-          ],
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: CustomScrollView(
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+            physics: const BouncingScrollPhysics(),
+            slivers: [
+              _buildAppBar(),
+              _buildHeader(),
+              _buildRevenueCard(),
+              _buildStatsRow(),
+              _buildActionButtons(context),
+              _buildRecentOrdersHeader(),
+              RecentOrdersSliverList(entryController: _entryController),
+            ],
+          ),
         ),
       ),
     );
   }
 
   Widget _buildAppBar() => SliverToBoxAdapter(
-    child: Column(
-      children: [
-        const SizedBox(height: kTopPadding),
-        _animated(
-          0,
-          MainAppBar(title: AppLocalizations.of(context).dashboardTitle),
-        ),
-      ],
+    child: _animated(
+      0,
+      MainAppBar(title: AppLocalizations.of(context).dashboardTitle),
     ),
   );
 
@@ -126,9 +125,9 @@ class _DashboardViewBodyState extends State<DashboardViewBody>
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 16),
+        const SizedBox(height: 8),
         _animated(1, const BuildHeader()),
-        const SizedBox(height: 24),
+        const SizedBox(height: 16),
       ],
     ),
   );

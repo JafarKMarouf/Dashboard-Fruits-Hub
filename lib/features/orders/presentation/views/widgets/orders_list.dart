@@ -5,7 +5,7 @@ import '../../../../../core/entities/order_entity/order_entity.dart';
 import '../../../../../core/utils/shared/widgets/custom_error_widget.dart';
 import '../../cubit/orders_cubit/orders_cubit.dart';
 import '../../cubit/orders_cubit/orders_state.dart';
-import 'empty_orders.dart';
+import '../../../../../core/utils/shared/widgets/empty_view.dart';
 import 'order_card.dart';
 import 'orders_list_loading.dart';
 
@@ -18,36 +18,35 @@ class OrdersList extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<OrdersCubit, OrdersState>(
       builder: (context, state) {
-        // ── Loading ──────────────────────────────────────────────────────────
+        // ── Loading ────────────────────────────────────────────────────────
         if (state is OrdersInitialState || state is OrdersLoadingState) {
           return const OrdersListLoading();
         }
 
-        // ── Error ────────────────────────────────────────────────────────────
+        // ── Hard failure (stream error) ────────────────────────────────────
         if (state is OrdersFailureState) {
           return SliverFillRemaining(
             child: CustomErrorWidget(
               errorMessage: state.message,
-              onRetry: () {
-                context.read<OrdersCubit>().startWatching();
-              },
+              onRetry: () => context.read<OrdersCubit>().startWatching(),
             ),
           );
         }
 
-        // ── Resolve orders + updating id ─────────────────────────────────────
+        // ── Resolve displayed orders + updating id ─────────────────────────
         final (orders, updatingId) = switch (state) {
           OrdersLoadedState() => (state.filtered, state.updatingOrderId),
-          OrderStatusUpdateError() => (state.filtered, null),
           _ => (<OrderEntity>[], null),
         };
 
-        // ── Empty ────────────────────────────────────────────────────────────
+        // ── Empty ──────────────────────────────────────────────────────────
         if (orders.isEmpty) {
-          return const SliverFillRemaining(child: EmptyOrders());
+          return const SliverFillRemaining(
+            child: EmptyView(emptyMessage: 'لا توجد طلبات'),
+          );
         }
 
-        // ── List ─────────────────────────────────────────────────────────────
+        // ── List ───────────────────────────────────────────────────────────
         return SliverList(
           delegate: SliverChildBuilderDelegate((context, index) {
             final order = orders[index];

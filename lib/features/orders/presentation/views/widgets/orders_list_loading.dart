@@ -1,4 +1,4 @@
-import 'package:dashboard_fruit_hub/core/entities/order_entity/order_status.dart';
+import 'package:dashboard_fruit_hub/core/enums/order_status.dart';
 import 'package:dashboard_fruit_hub/core/entities/order_entity/shipping_address_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';

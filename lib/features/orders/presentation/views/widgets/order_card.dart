@@ -1,6 +1,6 @@
 import 'package:dashboard_fruit_hub/core/entities/order_entity/order_entity.dart';
 import 'package:dashboard_fruit_hub/core/entities/order_entity/order_entity_x.dart';
-import 'package:dashboard_fruit_hub/core/entities/order_entity/order_status.dart';
+import 'package:dashboard_fruit_hub/core/enums/order_status.dart';
 import 'package:dashboard_fruit_hub/core/l10n/l10n.dart';
 import 'package:dashboard_fruit_hub/core/utils/extensions/date_time_extensions.dart';
 import 'package:dashboard_fruit_hub/core/utils/shared/widgets/app_primary_button.dart';
@@ -51,34 +51,34 @@ class OrderCard extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(14),
             child: Column(
-              crossAxisAlignment: .start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // ── Header ────────────────────────────────────────────────
                 Row(
-                  crossAxisAlignment: .start,
-                  mainAxisAlignment: .start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     StatusIconCircle(status: order.status),
                     const SizedBox(width: 12),
-                    Column(
-                      crossAxisAlignment: .start,
-                      children: [
-                        AppTextWidget(
-                          order.formatOrderId(context),
-                          style: AppTextStyles.styleSemiBold13.copyWith(
-                            color: AppColors.textSecondary,
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          AppTextWidget(
+                            order.formatOrderId(context),
+                            style: AppTextStyles.styleSemiBold13.copyWith(
+                              color: AppColors.textSecondary,
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 3),
-                        AppTextWidget(
-                          order.shippingAddress!.name!,
-                          style: AppTextStyles.styleBold19,
-                        ),
-                      ],
+                          const SizedBox(height: 3),
+                          AppTextWidget(
+                            order.shippingAddress?.name ?? '—',
+                            style: AppTextStyles.styleBold19,
+                          ),
+                        ],
+                      ),
                     ),
-
-                    const Spacer(),
                     OrderStatusBadge(status: order.status),
-                    _buildMoreMenu(context),
+                    _MoreMenu(order: order, onStatusChanged: onStatusChanged),
                   ],
                 ),
 
@@ -86,40 +86,17 @@ class OrderCard extends StatelessWidget {
                 const Divider(height: 1, color: AppColors.border),
                 const SizedBox(height: 10),
 
-                // ── Footer row ──────────────────────────────────────────────
+                // ── Footer ────────────────────────────────────────────────
                 Row(
-                  mainAxisAlignment: .spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    order.status == OrderStatus.pending ||
-                            order.status == OrderStatus.shipped
-                        ? ItemsThumbnails(items: order.items!)
-                        : AppTextWidget(
-                            order.status == OrderStatus.cancelled
-                                ? '${AppLocalizations.of(context).statusCancelled} ${order.updatedAt.arabicTimeAgo(context)}'
-                                : '${AppLocalizations.of(context).statusDelivered} ${order.updatedAt.arabicTimeAgo(context)}',
-                            style: AppTextStyles.styleBold14.copyWith(
-                              color: AppColors.textSecondary,
-                            ),
-                          ),
-                    Column(
-                      crossAxisAlignment: .start,
-                      children: [
-                        AppTextWidget(
-                          'الإجمالي',
-                          style: AppTextStyles.styleRegular11.copyWith(
-                            color: AppColors.textSecondary,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        AppTextWidget(
-                          order.formatPrice(context),
-                          style: AppTextStyles.styleBold16,
-                        ),
-                      ],
-                    ),
+                    _FooterLeft(order: order),
+                    _PriceSummary(order: order),
                   ],
                 ),
+
                 const SizedBox(height: 10),
+
                 Skeleton.replace(
                   replacement: Container(
                     height: 44,
@@ -141,12 +118,84 @@ class OrderCard extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _buildMoreMenu(BuildContext context) {
+// ─── Footer left: thumbnails OR status timestamp ───────────────────────────
+
+class _FooterLeft extends StatelessWidget {
+  final OrderEntity order;
+
+  const _FooterLeft({required this.order});
+
+  @override
+  Widget build(BuildContext context) {
+    final showThumbnails =
+        order.status == OrderStatus.pending ||
+        order.status == OrderStatus.shipped;
+
+    if (showThumbnails) {
+      // Fixed: was order.items! (null bang) — guard with empty fallback.
+      final items = order.items ?? const [];
+      return items.isEmpty
+          ? const SizedBox.shrink()
+          : ItemsThumbnails(items: items);
+    }
+
+    final l10n = AppLocalizations.of(context);
+    final label = order.status == OrderStatus.cancelled
+        ? l10n.statusCancelled
+        : l10n.statusDelivered;
+
+    // updatedAt is nullable; arabicTimeAgo extension already handles null → "منذ لحظات"
+    return AppTextWidget(
+      '$label ${order.updatedAt.arabicTimeAgo(context)}',
+      style: AppTextStyles.styleBold14.copyWith(color: AppColors.textSecondary),
+    );
+  }
+}
+
+// ─── Price summary ─────────────────────────────────────────────────────────
+
+class _PriceSummary extends StatelessWidget {
+  final OrderEntity order;
+
+  const _PriceSummary({required this.order});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AppTextWidget(
+          'الإجمالي',
+          style: AppTextStyles.styleRegular11.copyWith(
+            color: AppColors.textSecondary,
+          ),
+        ),
+        const SizedBox(height: 4),
+        AppTextWidget(
+          order.formatPrice(context),
+          style: AppTextStyles.styleBold16,
+        ),
+      ],
+    );
+  }
+}
+
+// ─── More menu ─────────────────────────────────────────────────────────────
+
+class _MoreMenu extends StatelessWidget {
+  final OrderEntity order;
+  final ValueChanged<OrderStatus> onStatusChanged;
+
+  const _MoreMenu({required this.order, required this.onStatusChanged});
+
+  @override
+  Widget build(BuildContext context) {
     return PopupMenuButton<String>(
       icon: const Icon(Icons.more_vert, color: Color(0xFF4B5563)),
-      onSelected: (value) {},
-      itemBuilder: (context) => [
+      onSelected: (_) {},
+      itemBuilder: (_) => [
         const PopupMenuItem(
           value: 'details',
           child: AppTextWidget('تفاصيل الطلب'),
@@ -169,6 +218,8 @@ class OrderCard extends StatelessWidget {
   }
 }
 
+// ─── Action row ────────────────────────────────────────────────────────────
+
 class _ActionRow extends StatelessWidget {
   final OrderEntity order;
   final bool isUpdating;
@@ -182,16 +233,15 @@ class _ActionRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return isUpdating ? _LoadingButton() : _buildMainActionButton();
-  }
-
-  Widget _buildMainActionButton() {
+    if (isUpdating) return const _LoadingButton();
     if (order.status == OrderStatus.pending) {
       return _AcceptButton(onTap: () => onStatusChanged(OrderStatus.shipped));
     }
     return const SizedBox.shrink();
   }
 }
+
+// ─── Accept button ─────────────────────────────────────────────────────────
 
 class _AcceptButton extends StatelessWidget {
   final VoidCallback onTap;
@@ -209,7 +259,11 @@ class _AcceptButton extends StatelessWidget {
   }
 }
 
+// ─── Loading button ────────────────────────────────────────────────────────
+
 class _LoadingButton extends StatelessWidget {
+  const _LoadingButton();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -222,7 +276,7 @@ class _LoadingButton extends StatelessWidget {
         child: SizedBox(
           width: 20,
           height: 20,
-          child: CircularProgressIndicator(strokeWidth: 2),
+          child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
         ),
       ),
     );
