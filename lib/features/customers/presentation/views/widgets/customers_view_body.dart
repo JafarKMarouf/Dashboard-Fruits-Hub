@@ -58,6 +58,8 @@ class _CustomersViewBodyState extends State<CustomersViewBody> {
               builder: (context, state) {
                 return CustomScrollView(
                   controller: _scrollController,
+                  keyboardDismissBehavior:
+                      ScrollViewKeyboardDismissBehavior.onDrag,
                   slivers: [
                     // ── App Bar ─────────────────────────────────────────────
                     const SliverToBoxAdapter(

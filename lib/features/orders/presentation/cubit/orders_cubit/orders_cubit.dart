@@ -17,7 +17,6 @@ class OrdersCubit extends Cubit<OrdersState> {
 
   List<OrderEntity> _all = [];
 
-  // Default is .all — never null; no more null-bang crashes.
   OrderStatus _activeFilter = OrderStatus.all;
 
   // ── Lifecycle ──────────────────────────────────────────────────────────────
@@ -49,12 +48,10 @@ class OrdersCubit extends Cubit<OrdersState> {
     if (state is! OrdersLoadedState) return;
     final current = state as OrdersLoadedState;
 
-    // Optimistically flag the row as updating.
     emit(current.copyWith(updatingOrderId: orderId));
 
     try {
       await ordersRepo.updateOrderStatus(orderId: orderId, status: status);
-      // Stream will push a fresh list automatically; just clear the flag.
       if (state is OrdersLoadedState) {
         emit((state as OrdersLoadedState).copyWith(clearUpdating: true));
       }
@@ -72,7 +69,6 @@ class OrdersCubit extends Cubit<OrdersState> {
 
   // ── Helpers ────────────────────────────────────────────────────────────────
 
-  /// Count of orders for [status] across the full (unfiltered) list.
   int countByStatus(OrderStatus status) => status == OrderStatus.all
       ? _all.length
       : _all.where((o) => o.status == status).length;

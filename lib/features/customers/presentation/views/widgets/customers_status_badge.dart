@@ -19,9 +19,7 @@ class CustomersStatusBadge extends StatelessWidget {
       ),
       child: AppTextWidget(
         status.label,
-        style: AppTextStyles.styleSemiBold11.copyWith(
-          color: status.fgColor.withOpacity(.2),
-        ),
+        style: AppTextStyles.styleBold13.copyWith(color: status.fgColor),
       ),
     );
   }

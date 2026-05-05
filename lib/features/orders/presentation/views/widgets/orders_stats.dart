@@ -23,13 +23,22 @@ class OrdersStats extends StatelessWidget {
 
         final cubit = context.read<OrdersCubit>();
         final revenue = state.all
-            .where((o) => o.status != OrderStatus.cancelled)
-            .fold<double>(0.0, (sum, o) => sum + o.finalTotal);
+            .where(
+              (order) =>
+                  order.status != OrderStatus.cancelled &&
+                  order.status != OrderStatus.pending,
+            )
+            .fold<double>(0.0, (sum, order) => sum + order.finalTotal);
 
+        final totalInLastTwoDays = state.all.where((order) {
+          final now = DateTime.now();
+          final twoDaysAgo = now.subtract(const Duration(days: 2));
+          return order.createdAt!.isAfter(twoDaysAgo);
+        }).length;
         return Padding(
           padding: const EdgeInsets.only(top: 12),
           child: OrdersStatsRow(
-            total: state.all.length,
+            total: totalInLastTwoDays,
             pending: cubit.countByStatus(OrderStatus.pending),
             shipped: cubit.countByStatus(OrderStatus.shipped),
             revenue: revenue,

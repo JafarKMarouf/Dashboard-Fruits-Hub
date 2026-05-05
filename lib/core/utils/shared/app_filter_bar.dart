@@ -82,22 +82,17 @@ class _FilterChip<T> extends StatelessWidget {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 220),
         curve: Curves.easeOut,
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
           color: isActive ? chipBg : Colors.white,
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: isActive ? chipBg : AppColors.grayscale200),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             // ── Icon ────────────────────────────────────────────────────────
             if (item.icon != null) ...[
-              Icon(
-                item.icon,
-                size: 16,
-                color: isActive ? activeText : inactiveText,
-              ),
+              Icon(item.icon, size: 16, color: item.fgColor),
               const SizedBox(width: 4),
             ],
 
@@ -105,7 +100,8 @@ class _FilterChip<T> extends StatelessWidget {
             AppTextWidget(
               item.label,
               style: AppTextStyles.styleBold13.copyWith(
-                color: isActive ? activeText : inactiveText,
+                color: item.fgColor,
+                // status.fg
               ),
             ),
 
@@ -115,15 +111,13 @@ class _FilterChip<T> extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1),
                 decoration: BoxDecoration(
-                  color: isActive
-                      ? Colors.white.withOpacity(0.30)
-                      : AppColors.grayscale200,
+                  color: isActive ? activeText : inactiveText,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: AppTextWidget(
                   '${item.count}',
                   style: AppTextStyles.styleBold11.copyWith(
-                    color: isActive ? Colors.white : AppColors.textSecondary,
+                    color: isActive ? inactiveText : activeText,
                   ),
                 ),
               ),

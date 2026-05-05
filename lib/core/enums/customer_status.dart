@@ -35,11 +35,11 @@ extension CustomerStatusX on CustomerStatus {
       case CustomerStatus.all:
         return AppColors.primary;
       case CustomerStatus.active:
-        return AppColors.success;
+        return AppColors.green400;
       case CustomerStatus.blocked:
-        return AppColors.danger;
+        return AppColors.danger.withOpacity(.4);
       case CustomerStatus.suspended:
-        return AppColors.warning;
+        return AppColors.orange400;
     }
   }
 
@@ -48,11 +48,11 @@ extension CustomerStatusX on CustomerStatus {
       case CustomerStatus.all:
         return AppColors.primaryDark;
       case CustomerStatus.active:
-        return AppColors.success;
+        return AppColors.green700;
       case CustomerStatus.blocked:
         return AppColors.danger;
       case CustomerStatus.suspended:
-        return AppColors.warning;
+        return AppColors.orange700;
     }
   }
 
