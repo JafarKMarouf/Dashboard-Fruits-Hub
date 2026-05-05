@@ -35,7 +35,7 @@ class _SigninFormState extends State<SigninForm> {
             textInputType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
             showShadow: _showFieldShadows,
-            onSaved: (value) => email = value!,
+            onSaved: (value) => email = value!.trim(),
             label: AppLocalizations.of(context).emailAddress,
             prefixIcon: const Icon(Icons.email_outlined),
           ),

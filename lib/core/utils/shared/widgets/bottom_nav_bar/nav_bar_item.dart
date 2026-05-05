@@ -43,8 +43,8 @@ class NavBarItem extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Container(
-                      width: 40,
-                      height: 40,
+                      width: 36,
+                      height: 36,
                       decoration: const ShapeDecoration(
                         color: AppColors.green1_500,
                         shape: OvalBorder(),
@@ -56,7 +56,7 @@ class NavBarItem extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(width: 8),
+                    const SizedBox(width: 4),
                     AppTextWidget(
                       bottomNavigationBarEntity.title,
                       style: AppTextStyles.styleSemiBold13.copyWith(

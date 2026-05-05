@@ -1,4 +1,3 @@
-import 'package:dashboard_fruit_hub/core/entities/order_entity/order_status.dart';
 import 'package:dashboard_fruit_hub/core/utils/helpers/build_messages_bar.dart';
 import 'package:dashboard_fruit_hub/core/utils/shared/widgets/app_text_widget.dart';
 import 'package:dashboard_fruit_hub/features/orders/presentation/views/widgets/orders_list.dart';
@@ -25,9 +24,9 @@ class OrdersViewBody extends StatefulWidget {
 class _OrdersViewBodyState extends State<OrdersViewBody>
     with SingleTickerProviderStateMixin {
   late final AnimationController _entryController;
-
   late final List<Animation<double>> _fadeAnimation;
   late final List<Animation<Offset>> _slideAnimation;
+
   static const int _sectionCount = 5;
   static const List<(double, double)> _intervals = [
     (0.00, 0.30),
@@ -82,66 +81,71 @@ class _OrdersViewBodyState extends State<OrdersViewBody>
     super.dispose();
   }
 
-  Widget _animated(int sectionIndex, Widget child) {
-    return FadeTransition(
-      opacity: _fadeAnimation[sectionIndex],
-      child: SlideTransition(
-        position: _slideAnimation[sectionIndex],
-        child: child,
-      ),
-    );
-  }
+  Widget _animated(int i, Widget child) => FadeTransition(
+    opacity: _fadeAnimation[i],
+    child: SlideTransition(position: _slideAnimation[i], child: child),
+  );
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<OrdersCubit, OrdersState>(
-      listenWhen: (_, current) => current is OrderStatusUpdateError,
+      listenWhen: (_, current) => current is OrdersUpdateFailureState,
       listener: (context, state) {
-        if (state is OrderStatusUpdateError) {
-          showErrorBar(context, 'فشل تحديث الطلب: ${state.message}');
+        if (state is OrdersUpdateFailureState) {
+          showErrorBar(context, 'فشل تحديث الطلب: ${state.errorMessage}');
         }
       },
       child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: kHorizontalPadding),
-          child: CustomScrollView(
-            physics: const BouncingScrollPhysics(),
-            slivers: [
-              SliverToBoxAdapter(
-                child: Column(
-                  children: [
-                    const SizedBox(height: kTopPadding),
-                    _animated(
-                      0,
-                      MainAppBar(
-                        title: AppLocalizations.of(context).orderListTitle,
-                      ),
+          child: GestureDetector(
+            onTap: () => FocusScope.of(context).unfocus(),
+            child: CustomScrollView(
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+              physics: const BouncingScrollPhysics(),
+              slivers: [
+                // ── App bar ───────────────────────────────────────────────────
+                SliverToBoxAdapter(
+                  child: _animated(
+                    0,
+                    MainAppBar(
+                      title: AppLocalizations.of(context).orderListTitle,
                     ),
-                  ],
-                ),
-              ),
-              SliverToBoxAdapter(
-                child: FadeTransition(
-                  opacity: _fadeAnimation[1],
-                  child: const OrdersStats(),
-                ),
-              ),
-              const SliverToBoxAdapter(child: SizedBox(height: 16)),
-              const SliverToBoxAdapter(child: _OrdersFilter()),
-              const SliverToBoxAdapter(child: SizedBox(height: 16)),
-              const SliverToBoxAdapter(
-                child: Padding(
-                  padding: EdgeInsets.only(bottom: 12),
-                  child: AppTextWidget(
-                    'أحدث الطلبات',
-                    textDirection: TextDirection.rtl,
-                    style: AppTextStyles.styleBold16,
                   ),
                 ),
-              ),
-              OrdersList(onOrderTap: _onOrderTap),
-              const SliverToBoxAdapter(child: SizedBox(height: 24)),
-            ],
+
+                // ── Stats header ──────────────────────────────────────────────
+                SliverToBoxAdapter(
+                  child: FadeTransition(
+                    opacity: _fadeAnimation[1],
+                    child: const OrdersStats(),
+                  ),
+                ),
+
+                const SliverToBoxAdapter(child: SizedBox(height: 16)),
+
+                const SliverToBoxAdapter(child: OrdersFilterBar()),
+
+                const SliverToBoxAdapter(child: SizedBox(height: 16)),
+
+                // ── Section label ─────────────────────────────────────────────
+                const SliverToBoxAdapter(
+                  child: Padding(
+                    padding: EdgeInsets.only(bottom: 12),
+                    child: AppTextWidget(
+                      'أحدث الطلبات',
+                      textDirection: TextDirection.rtl,
+                      style: AppTextStyles.styleBold16,
+                    ),
+                  ),
+                ),
+
+                // ── Orders list ───────────────────────────────────────────────
+                OrdersList(onOrderTap: _onOrderTap),
+
+                const SliverToBoxAdapter(child: SizedBox(height: 24)),
+              ],
+            ),
           ),
         ),
       ),
@@ -153,38 +157,5 @@ class _OrdersViewBodyState extends State<OrdersViewBody>
     //   OrderDetailView.routeName,
     //   arguments: order.id,
     // );
-  }
-}
-
-class _OrdersFilter extends StatelessWidget {
-  const _OrdersFilter();
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<OrdersCubit, OrdersState>(
-      buildWhen: (prev, curr) =>
-          curr is OrdersLoadedState &&
-          (prev is! OrdersLoadedState ||
-              (prev).activeFilter != (curr).activeFilter),
-      builder: (context, state) {
-        final cubit = context.read<OrdersCubit>();
-        final filter = state is OrdersLoadedState
-            ? state.activeFilter
-            : OrderFilter.all;
-        return OrdersFilterBar(
-          activeFilter: filter,
-          counts: {
-            OrderFilter.all: state is OrdersLoadedState
-                ? state.orders.length
-                : 0,
-            OrderFilter.pending: cubit.countByStatus(OrderStatus.pending),
-            OrderFilter.shipped: cubit.countByStatus(OrderStatus.shipped),
-            OrderFilter.delivered: cubit.countByStatus(OrderStatus.delivered),
-            OrderFilter.cancelled: cubit.countByStatus(OrderStatus.cancelled),
-          },
-          onFilterChanged: cubit.setFilter,
-        );
-      },
-    );
   }
 }

@@ -1,9 +1,11 @@
-import 'package:dashboard_fruit_hub/core/utils/shared/widgets/app_text_widget.dart';
+import 'package:dashboard_fruit_hub/core/utils/styles/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../../../../features/customers/presentation/views/customers_view.dart';
 import '../../../../../features/dashboard/presentation/views/add_product/add_product_view.dart';
 import '../../../../../features/dashboard/presentation/views/dashboard/dashboard_view.dart';
+import '../../../../../features/inventory/presentation/views/inventory_view.dart';
 import '../../../../../features/orders/presentation/views/orders_view.dart';
 import 'custom_bottom_nav_bar.dart';
 
@@ -19,14 +21,34 @@ class AppShell extends StatefulWidget {
 class _AppShellState extends State<AppShell> {
   int _currentIndex = 0;
 
+  static const int _fabIndex = 4;
+  static const int _tabCount = 4;
+
   final Set<int> _visitedTabs = {0};
 
   final List<GlobalKey<NavigatorState>> _navigatorKeys = List.generate(
-    4,
+    _tabCount,
     (_) => GlobalKey<NavigatorState>(),
   );
 
   void _onTabTapped(int index) {
+    if (index == _fabIndex) {
+      Navigator.of(context, rootNavigator: true).push(
+        PageRouteBuilder(
+          pageBuilder: (_, _, _) => const AddProductView(),
+          transitionsBuilder: (_, animation, _, child) => SlideTransition(
+            position: Tween<Offset>(begin: const Offset(0, 1), end: Offset.zero)
+                .animate(
+                  CurvedAnimation(parent: animation, curve: Curves.easeInOut),
+                ),
+            child: child,
+          ),
+          transitionDuration: const Duration(milliseconds: 300),
+        ),
+      );
+      return;
+    }
+
     if (index == _currentIndex) {
       _navigatorKeys[index].currentState?.popUntil((route) => route.isFirst);
       return;
@@ -60,7 +82,7 @@ class _AppShellState extends State<AppShell> {
       child: Scaffold(
         body: IndexedStack(
           index: _currentIndex,
-          children: List.generate(4, (index) {
+          children: List.generate(_tabCount, (index) {
             if (!_visitedTabs.contains(index)) {
               return const SizedBox.shrink();
             }
@@ -71,6 +93,20 @@ class _AppShellState extends State<AppShell> {
             );
           }),
         ),
+
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => _onTabTapped(_fabIndex),
+          backgroundColor: AppColors.primaryDark,
+          elevation: 4,
+          shape: const StadiumBorder(),
+          child: const Icon(
+            Icons.qr_code_scanner,
+            color: Colors.white,
+            size: 32,
+          ),
+        ),
+
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: CustomBottomNavigationBar(
           selectedIndex: _currentIndex,
           onItemTapped: _onTabTapped,
@@ -115,11 +151,11 @@ class _AppShellState extends State<AppShell> {
       case 0:
         return const DashboardView();
       case 1:
-        return const Center(child: AppTextWidget('Inventory'));
+        return const InventoryView();
       case 2:
         return const OrdersView();
       case 3:
-        return const Center(child: AppTextWidget('Customers'));
+        return const CustomersView();
       default:
         return const SizedBox.shrink();
     }

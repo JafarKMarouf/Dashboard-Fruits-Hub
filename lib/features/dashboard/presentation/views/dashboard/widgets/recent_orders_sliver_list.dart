@@ -1,6 +1,6 @@
 import 'package:dashboard_fruit_hub/core/utils/shared/widgets/custom_error_widget.dart';
 import 'package:dashboard_fruit_hub/features/dashboard/presentation/cubit/cubit/dashboard_order_cubit.dart';
-import 'package:dashboard_fruit_hub/features/orders/presentation/views/widgets/empty_orders.dart';
+import 'package:dashboard_fruit_hub/core/utils/shared/widgets/empty_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -35,7 +35,7 @@ class RecentOrdersSliverList extends StatelessWidget {
           if (orders.isEmpty) {
             return const SliverFillRemaining(
               hasScrollBody: false,
-              child: EmptyOrders(),
+              child: EmptyView(emptyMessage: 'لا توجد طلبات'),
             );
           }
 

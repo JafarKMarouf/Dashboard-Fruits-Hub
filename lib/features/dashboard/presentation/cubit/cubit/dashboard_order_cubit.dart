@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:dashboard_fruit_hub/core/entities/order_entity/order_status.dart';
+import 'package:dashboard_fruit_hub/core/enums/order_status.dart';
 import 'package:dashboard_fruit_hub/features/dashboard/domain/repos/dashboard_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

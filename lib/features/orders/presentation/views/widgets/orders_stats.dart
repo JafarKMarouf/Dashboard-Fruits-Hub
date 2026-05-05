@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/entities/order_entity/order_status.dart';
+import '../../../../../core/enums/order_status.dart';
 import '../../cubit/orders_cubit/orders_cubit.dart';
 import '../../cubit/orders_cubit/orders_state.dart';
 import 'orders_stats_row.dart';
@@ -15,21 +15,30 @@ class OrdersStats extends StatelessWidget {
       buildWhen: (_, curr) => curr is OrdersLoadedState,
       builder: (context, state) {
         if (state is! OrdersLoadedState) {
-          return const OrdersStatsRow(
-            total: 0,
-            pending: 0,
-            shipped: 0,
-            revenue: 0,
+          return const Padding(
+            padding: EdgeInsets.only(top: 12),
+            child: OrdersStatsRow(total: 0, pending: 0, shipped: 0, revenue: 0),
           );
         }
+
         final cubit = context.read<OrdersCubit>();
-        final revenue = state.orders
-            .where((o) => o.status != OrderStatus.cancelled)
-            .fold<double>(0, (s, o) => s + o.finalTotal);
+        final revenue = state.all
+            .where(
+              (order) =>
+                  order.status != OrderStatus.cancelled &&
+                  order.status != OrderStatus.pending,
+            )
+            .fold<double>(0.0, (sum, order) => sum + order.finalTotal);
+
+        final totalInLastTwoDays = state.all.where((order) {
+          final now = DateTime.now();
+          final twoDaysAgo = now.subtract(const Duration(days: 2));
+          return order.createdAt!.isAfter(twoDaysAgo);
+        }).length;
         return Padding(
           padding: const EdgeInsets.only(top: 12),
           child: OrdersStatsRow(
-            total: state.orders.length,
+            total: totalInLastTwoDays,
             pending: cubit.countByStatus(OrderStatus.pending),
             shipped: cubit.countByStatus(OrderStatus.shipped),
             revenue: revenue,

@@ -18,6 +18,7 @@ class AppPrimaryButton extends StatefulWidget {
     this.isLoading = false,
     this.textStyle,
     this.colorShadow = AppColors.green1_900,
+    this.showShadow = true,
   });
 
   final Color? backgroundColor;
@@ -30,6 +31,7 @@ class AppPrimaryButton extends StatefulWidget {
   final TextStyle? textStyle;
   final Widget? widget;
   final Color colorShadow;
+  final bool showShadow;
 
   @override
   State<AppPrimaryButton> createState() => _AppPrimaryButtonState();
@@ -69,14 +71,16 @@ class _AppPrimaryButtonState extends State<AppPrimaryButton>
         height: widget.height ?? 54,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          boxShadow: [
-            BoxShadow(
-              color: widget.colorShadow,
-              blurRadius: 4,
-              offset: const Offset(0, 4),
-              spreadRadius: 0,
-            ),
-          ],
+          boxShadow: widget.showShadow
+              ? [
+                  BoxShadow(
+                    color: widget.colorShadow,
+                    blurRadius: 4,
+                    offset: const Offset(0, 4),
+                    spreadRadius: 0,
+                  ),
+                ]
+              : [],
         ),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(

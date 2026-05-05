@@ -9,6 +9,8 @@ class CustomBottomNavigationBar extends StatelessWidget {
     required this.selectedIndex,
     required this.onItemTapped,
   });
+  static const _rightIndices = [0, 1];
+  static const _leftIndices = [2, 3];
 
   final int selectedIndex;
   final ValueChanged<int> onItemTapped;
@@ -35,15 +37,28 @@ class CustomBottomNavigationBar extends StatelessWidget {
           ),
         ],
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: navigationBarItems.asMap().entries.map((e) {
-          return NavBarItem(
-            isSelected: selectedIndex == e.key,
-            bottomNavigationBarEntity: e.value,
-            onTap: () => onItemTapped(e.key),
-          );
-        }).toList(),
+      child: SizedBox(
+        height: 45,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            ..._rightIndices.map(
+              (i) => NavBarItem(
+                isSelected: selectedIndex == i,
+                bottomNavigationBarEntity: navigationBarItems[i],
+                onTap: () => onItemTapped(i),
+              ),
+            ),
+            const SizedBox(width: 40),
+            ..._leftIndices.map(
+              (i) => NavBarItem(
+                isSelected: selectedIndex == i,
+                bottomNavigationBarEntity: navigationBarItems[i],
+                onTap: () => onItemTapped(i),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
