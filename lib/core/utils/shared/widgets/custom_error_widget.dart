@@ -36,7 +36,7 @@ class CustomErrorWidget extends StatelessWidget {
             maxLines: 5,
           ),
           TextButton.icon(
-            onPressed: () => onRetry,
+            onPressed: onRetry,
             icon: const Icon(Icons.refresh_rounded, size: 20),
             label: const AppTextWidget(
               'إعادة المحاولة',

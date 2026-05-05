@@ -8,7 +8,6 @@ class CustomerEntity {
   final String email;
   final String role;
   final CustomerStatus status;
-  final String? imageUrl;
   final Timestamp? createdAt;
 
   const CustomerEntity({
@@ -17,7 +16,6 @@ class CustomerEntity {
     required this.email,
     required this.role,
     required this.status,
-    this.imageUrl,
     this.createdAt,
   });
 

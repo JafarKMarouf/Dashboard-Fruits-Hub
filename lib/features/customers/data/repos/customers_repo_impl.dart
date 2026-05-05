@@ -24,8 +24,8 @@ class CustomersRepoImpl implements CustomersRepo {
         'where': [
           {'field': 'role', 'isEqualTo': 'customer'},
         ],
-        // 'orderBy': 'created_at',
-        // 'descending': true,
+        'orderBy': 'created_at',
+        'descending': true,
       },
       builder: _build,
     );

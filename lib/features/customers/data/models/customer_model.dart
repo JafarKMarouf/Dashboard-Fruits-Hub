@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../domain/entities/customer_entity.dart';
@@ -9,7 +11,6 @@ class CustomerModel {
   final String email;
   final String role;
   final CustomerStatus status;
-  final String? imageUrl;
   final Timestamp? createdAt;
 
   const CustomerModel({
@@ -18,7 +19,6 @@ class CustomerModel {
     required this.email,
     required this.role,
     required this.status,
-    this.imageUrl,
     this.createdAt,
   });
 
@@ -29,9 +29,26 @@ class CustomerModel {
       email: json['email'] as String,
       role: json['role'] as String,
       status: CustomerStatusX.fromString(json['status'] as String? ?? 'active'),
-      createdAt: json['created_at'] as Timestamp?,
-      imageUrl: json['image_url'] as String?,
+      createdAt: _parseTimestamp(json['created_at']),
     );
+  }
+  static Timestamp? _parseTimestamp(dynamic value) {
+    if (value == null) return null;
+
+    if (value is Timestamp) {
+      return value;
+    }
+
+    if (value is String) {
+      try {
+        return Timestamp.fromDate(DateTime.parse(value));
+      } catch (e) {
+        log('Error parsing date string: $e');
+        return null;
+      }
+    }
+
+    return null;
   }
 
   CustomerEntity toEntity() => CustomerEntity(
@@ -41,7 +58,6 @@ class CustomerModel {
     status: status,
     role: role,
     createdAt: createdAt,
-    imageUrl: imageUrl,
   );
 
   Map<String, dynamic> toMap() {
@@ -51,7 +67,6 @@ class CustomerModel {
       'email': email,
       'status': status,
       'role': role,
-      'image_url': imageUrl,
       'created_at': createdAt,
     };
   }
