@@ -89,61 +89,63 @@ class _OrdersViewBodyState extends State<OrdersViewBody>
   @override
   Widget build(BuildContext context) {
     return BlocListener<OrdersCubit, OrdersState>(
-      // ── Fixed: was OrderStatusUpdateError (old name) ──────────────────────
       listenWhen: (_, current) => current is OrdersUpdateFailureState,
       listener: (context, state) {
         if (state is OrdersUpdateFailureState) {
-          // ── Fixed: was state.message — field is now errorMessage ──────────
           showErrorBar(context, 'فشل تحديث الطلب: ${state.errorMessage}');
         }
       },
       child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: kHorizontalPadding),
-          child: CustomScrollView(
-            physics: const BouncingScrollPhysics(),
-            slivers: [
-              // ── App bar ───────────────────────────────────────────────────
-              SliverToBoxAdapter(
-                child: _animated(
-                  0,
-                  MainAppBar(
-                    title: AppLocalizations.of(context).orderListTitle,
+          child: GestureDetector(
+            onTap: () => FocusScope.of(context).unfocus(),
+            child: CustomScrollView(
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+              physics: const BouncingScrollPhysics(),
+              slivers: [
+                // ── App bar ───────────────────────────────────────────────────
+                SliverToBoxAdapter(
+                  child: _animated(
+                    0,
+                    MainAppBar(
+                      title: AppLocalizations.of(context).orderListTitle,
+                    ),
                   ),
                 ),
-              ),
 
-              // ── Stats header ──────────────────────────────────────────────
-              SliverToBoxAdapter(
-                child: FadeTransition(
-                  opacity: _fadeAnimation[1],
-                  child: const OrdersStats(),
-                ),
-              ),
-
-              const SliverToBoxAdapter(child: SizedBox(height: 16)),
-
-              const SliverToBoxAdapter(child: OrdersFilterBar()),
-
-              const SliverToBoxAdapter(child: SizedBox(height: 16)),
-
-              // ── Section label ─────────────────────────────────────────────
-              const SliverToBoxAdapter(
-                child: Padding(
-                  padding: EdgeInsets.only(bottom: 12),
-                  child: AppTextWidget(
-                    'أحدث الطلبات',
-                    textDirection: TextDirection.rtl,
-                    style: AppTextStyles.styleBold16,
+                // ── Stats header ──────────────────────────────────────────────
+                SliverToBoxAdapter(
+                  child: FadeTransition(
+                    opacity: _fadeAnimation[1],
+                    child: const OrdersStats(),
                   ),
                 ),
-              ),
 
-              // ── Orders list ───────────────────────────────────────────────
-              OrdersList(onOrderTap: _onOrderTap),
+                const SliverToBoxAdapter(child: SizedBox(height: 16)),
 
-              const SliverToBoxAdapter(child: SizedBox(height: 24)),
-            ],
+                const SliverToBoxAdapter(child: OrdersFilterBar()),
+
+                const SliverToBoxAdapter(child: SizedBox(height: 16)),
+
+                // ── Section label ─────────────────────────────────────────────
+                const SliverToBoxAdapter(
+                  child: Padding(
+                    padding: EdgeInsets.only(bottom: 12),
+                    child: AppTextWidget(
+                      'أحدث الطلبات',
+                      textDirection: TextDirection.rtl,
+                      style: AppTextStyles.styleBold16,
+                    ),
+                  ),
+                ),
+
+                // ── Orders list ───────────────────────────────────────────────
+                OrdersList(onOrderTap: _onOrderTap),
+
+                const SliverToBoxAdapter(child: SizedBox(height: 24)),
+              ],
+            ),
           ),
         ),
       ),

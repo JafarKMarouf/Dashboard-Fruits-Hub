@@ -39,7 +39,7 @@ extension OrderStatusX on OrderStatus {
       case OrderStatus.all:
         return AppColors.primary;
       case OrderStatus.pending:
-        return AppColors.secondaryLight;
+        return AppColors.orange400;
       case OrderStatus.shipped:
         return AppColors.green1_200;
       case OrderStatus.delivered:
@@ -54,7 +54,7 @@ extension OrderStatusX on OrderStatus {
       case OrderStatus.all:
         return AppColors.primaryDark;
       case OrderStatus.pending:
-        return AppColors.orange900;
+        return AppColors.orange700;
       case OrderStatus.shipped:
         return AppColors.green1_600;
       case OrderStatus.delivered:
