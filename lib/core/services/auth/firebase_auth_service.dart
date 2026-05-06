@@ -3,8 +3,8 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../features/auth/domain/requests/user_request.dart';
-import '../errors/custom_exceptions.dart';
+import '../../../features/auth/domain/requests/user_request.dart';
+import '../../errors/custom_exceptions.dart';
 
 class FirebaseAuthService {
   Future<User> signinWithEmailAndPassword({

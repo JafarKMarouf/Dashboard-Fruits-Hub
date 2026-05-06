@@ -20,13 +20,13 @@ import '../../features/dashboard/domain/repos/dashboard_repo.dart';
 import '../../features/dashboard/presentation/cubit/add_product_cubit/add_product_cubit.dart';
 import '../../features/inventory/data/repos/inventory_repo_impl.dart';
 import '../../features/orders/data/repos/orders_repo_impl.dart';
-import 'database_service/database_service.dart';
-import 'database_service/firestore_service.dart';
-import 'firebase_auth_service.dart';
+import 'database/database_service.dart';
+import 'database/firestore_service.dart';
+import 'auth/firebase_auth_service.dart';
 import 'image_picker/image_picker_service.dart';
 import 'image_picker/image_picker_service_impl.dart';
-import 'storage_service/storage_service.dart';
-import 'storage_service/supabase_storage.dart';
+import 'storage/storage_service.dart';
+import 'storage/supabase_storage.dart';
 
 final getIt = GetIt.instance;
 

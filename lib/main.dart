@@ -6,7 +6,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'core/services/bloc_observer.dart';
 import 'core/services/get_it_service.dart';
-import 'core/services/shared_preferences_service.dart';
+import 'core/services/local/shared_prefs_service.dart';
 import 'dashboard_app.dart';
 import 'firebase_options.dart';
 
@@ -15,7 +15,7 @@ void main() async {
   Bloc.observer = const AppBlocObserver();
   await dotenv.load(fileName: '.env');
   await Future.wait([
-    SharedPreferencesService.init(),
+    SharedPrefsService.init(),
     Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform),
     Supabase.initialize(
       url: dotenv.env['SUPABASE_URL']!,

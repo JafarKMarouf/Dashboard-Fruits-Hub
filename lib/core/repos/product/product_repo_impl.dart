@@ -4,7 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dashboard_fruit_hub/core/errors/failure.dart';
 import 'package:dashboard_fruit_hub/core/utils/backend_endpoints.dart';
 
-import '../../services/database_service/database_service.dart';
+import '../../services/database/database_service.dart';
 import '../../../features/dashboard/domain/entities/product_entity.dart';
 import 'product_repo.dart';
 import '../../../features/dashboard/data/models/product_model.dart';
