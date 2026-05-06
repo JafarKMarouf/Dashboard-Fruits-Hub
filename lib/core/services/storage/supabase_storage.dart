@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:dashboard_fruit_hub/core/services/storage_service/storage_service.dart';
+import 'package:dashboard_fruit_hub/core/services/storage/storage_service.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SupabaseStorage extends StorageService {

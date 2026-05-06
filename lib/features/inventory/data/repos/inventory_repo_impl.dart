@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:dashboard_fruit_hub/core/services/database_service/database_service.dart';
+import 'package:dashboard_fruit_hub/core/services/database/database_service.dart';
 import 'package:dashboard_fruit_hub/core/utils/backend_endpoints.dart';
 import 'package:dashboard_fruit_hub/features/inventory/domain/entities/inventory_entity.dart';
 

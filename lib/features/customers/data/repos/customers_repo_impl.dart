@@ -4,7 +4,7 @@ import 'package:dashboard_fruit_hub/features/customers/domain/entities/customer_
 import 'package:dashboard_fruit_hub/core/enums/customer_status.dart';
 import 'package:dashboard_fruit_hub/features/customers/domain/repos/customers_repo.dart';
 
-import '../../../../core/services/database_service/database_service.dart';
+import '../../../../core/services/database/database_service.dart';
 import '../../../../core/utils/backend_endpoints.dart';
 import '../models/customer_model.dart';
 

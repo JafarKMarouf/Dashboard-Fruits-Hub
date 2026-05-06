@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dashboard_fruit_hub/core/services/database_service/database_service.dart';
+import 'package:dashboard_fruit_hub/core/services/database/database_service.dart';
 import 'package:dashboard_fruit_hub/core/enums/order_status.dart';
 
 import '../../../../core/utils/backend_endpoints.dart';

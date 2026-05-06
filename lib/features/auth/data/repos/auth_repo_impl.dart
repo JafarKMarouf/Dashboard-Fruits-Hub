@@ -5,9 +5,9 @@ import 'package:dartz/dartz.dart';
 
 import '../../../../core/errors/custom_exceptions.dart';
 import '../../../../core/errors/failure.dart';
-import '../../../../core/services/database_service/database_service.dart';
-import '../../../../core/services/firebase_auth_service.dart';
-import '../../../../core/services/shared_preferences_service.dart';
+import '../../../../core/services/database/database_service.dart';
+import '../../../../core/services/auth/firebase_auth_service.dart';
+import '../../../../core/services/local/shared_prefs_service.dart';
 import '../../../../core/utils/backend_endpoints.dart';
 import '../../../../core/utils/constants.dart';
 import '../../domain/entities/user_entity.dart';
@@ -58,13 +58,13 @@ class AuthRepoImpl extends AuthRepo {
   @override
   Future<void> saveUserData({required UserEntity user}) async {
     var jsonData = jsonEncode(UserModel.fromEntity(user).toMap());
-    await SharedPreferencesService.setString(kUserData, jsonData);
-    await SharedPreferencesService.setBool(kIsUserLoggedIn, true);
+    await SharedPrefsService.setString(kUserData, jsonData);
+    await SharedPrefsService.setBool(kIsUserLoggedIn, true);
   }
 
   @override
   Future<void> signOut() async {
-    await SharedPreferencesService.remove(kUserData);
-    await SharedPreferencesService.remove(kIsUserLoggedIn);
+    await SharedPrefsService.remove(kUserData);
+    await SharedPrefsService.remove(kIsUserLoggedIn);
   }
 }
