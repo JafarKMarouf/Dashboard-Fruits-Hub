@@ -1,0 +1,162 @@
+import 'package:dashboard_fruit_hub/core/utils/shared/widgets/main_app_bar.dart';
+import 'package:dashboard_fruit_hub/features/dashboard/presentation/cubit/dashboard_order_cubit/dashboard_order_cubit.dart';
+import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/build_action_buttons.dart';
+import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/build_header.dart';
+import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/build_recent_orders_header.dart';
+import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/build_stats_row.dart';
+import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/recent_orders_sliver_list.dart';
+import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/revenue_card.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../../../core/l10n/l10n.dart';
+import '../../../../../../core/utils/constants.dart';
+
+class DashboardViewBody extends StatefulWidget {
+  const DashboardViewBody({super.key});
+
+  @override
+  State<DashboardViewBody> createState() => _DashboardViewBodyState();
+}
+
+class _DashboardViewBodyState extends State<DashboardViewBody>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _entryController;
+
+  late final List<Animation<double>> _fadeAnimation;
+  late final List<Animation<Offset>> _slideAnimation;
+  static const int _sectionCount = 5;
+  static const List<(double, double)> _intervals = [
+    (0.00, 0.30),
+    (0.10, 0.38),
+    (0.20, 0.50),
+    (0.32, 0.62),
+    (0.44, 0.74),
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<DashboardOrderCubit>().startWatching();
+    _setupAnimations();
+  }
+
+  @override
+  void dispose() {
+    _entryController.dispose();
+    super.dispose();
+  }
+
+  void _setupAnimations() {
+    _entryController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 900),
+    );
+
+    _fadeAnimation = List.generate(_sectionCount, (i) {
+      final (begin, end) = _intervals[i];
+      return Tween<double>(begin: 0.0, end: 1.0).animate(
+        CurvedAnimation(
+          parent: _entryController,
+          curve: Interval(begin, end, curve: Curves.easeOut),
+        ),
+      );
+    });
+
+    _slideAnimation = List.generate(_sectionCount, (i) {
+      final (begin, end) = _intervals[i];
+      return Tween<Offset>(
+        begin: const Offset(0, 0.18),
+        end: Offset.zero,
+      ).animate(
+        CurvedAnimation(
+          parent: _entryController,
+          curve: Interval(begin, end, curve: Curves.easeOutCubic),
+        ),
+      );
+    });
+
+    _entryController.forward();
+  }
+
+  Widget _animated(int sectionIndex, Widget child) {
+    return FadeTransition(
+      opacity: _fadeAnimation[sectionIndex],
+      child: SlideTransition(
+        position: _slideAnimation[sectionIndex],
+        child: child,
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: kHorizontalPadding),
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: CustomScrollView(
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+            physics: const BouncingScrollPhysics(),
+            slivers: [
+              _buildAppBar(),
+              _buildHeader(),
+              _buildRevenueCard(),
+              _buildStatsRow(),
+              _buildActionButtons(context),
+              _buildRecentOrdersHeader(),
+              RecentOrdersSliverList(entryController: _entryController),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAppBar() => SliverToBoxAdapter(
+    child: _animated(
+      0,
+      MainAppBar(title: AppLocalizations.of(context).dashboardTitle),
+    ),
+  );
+
+  Widget _buildHeader() => SliverToBoxAdapter(
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 8),
+        _animated(1, const BuildHeader()),
+        const SizedBox(height: 16),
+      ],
+    ),
+  );
+
+  Widget _buildRevenueCard() =>
+      SliverToBoxAdapter(child: _animated(2, const RevenueCard()));
+
+  Widget _buildStatsRow() {
+    return SliverToBoxAdapter(
+      child: Column(
+        children: [
+          const SizedBox(height: 16),
+          _animated(3, const BuildStatsRow()),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildActionButtons(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: Column(
+        children: [
+          const SizedBox(height: 16),
+          _animated(4, const BuildActionButtons()),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRecentOrdersHeader() =>
+      SliverToBoxAdapter(child: _animated(3, const BuildRecentOrdersHeader()));
+}

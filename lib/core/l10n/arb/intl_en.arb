@@ -1,0 +1,57 @@
+{
+    "@@locale": "en",
+    "loginTitle": "Admin Dashboard - Please sign in to continue",
+    "login": "Sign In",
+    "emailAddress": "Email Address",
+    "password": "Password",
+    "forgetPassword": "Forgot password?",
+    "genericError": "Something went wrong. Please try again later.",
+    "networkRequestFailed": "Network connection failed. Please check your internet connection.",
+    "invalidEmail": "Invalid email address.",
+    "requiredField": "This field is required",
+    "invalidCredential": "Incorrect email or password.",
+    "notAuthorized": "Not authorized to access",
+    "loginSuccess": "Signed in successfully",
+    "dashboardTitle": "FruitHub Admin",
+    "orderListTitle": "Orders",
+    "timeAgoMoments": "moments ago",
+    "timeAgoMinuteOne": "1 minute ago",
+    "timeAgoMinuteTwo": "2 minutes ago",
+    "timeAgoMinutePlural": "minutes ago",
+    "timeAgoHourOne": "1 hour ago",
+    "timeAgoHourTwo": "2 hours ago",
+    "timeAgoHourPlural": "hours ago",
+    "timeAgoDayOne": "1 day ago",
+    "timeAgoDayTwo": "2 days ago",
+    "timeAgoDayPlural": "days ago",
+    "timeAgoMonthOne": "1 month ago",
+    "timeAgoMonthTwo": "2 months ago",
+    "timeAgoMonthPlural": "months ago",
+    "timeAgoYearOne": "1 year ago",
+    "timeAgoYearTwo": "2 years ago",
+    "timeAgoYearPlural": "years ago",
+    "statusCancelled": "cancelled since",
+    "statusDelivered":   "delivered since",
+
+    "currencySymbol": "SYP",
+    "@currencySymbol": {
+        "description": "Currency symbol appended after the price amount"
+    },
+
+    "orderIdFallback": "N/A",
+    "@orderIdFallback": {
+        "description": "Shown when the order ID is null or too short to display"
+    },
+
+    "orderIdLabel": "Order #{shortId}",
+    "@orderIdLabel": {
+        "description": "Formatted order ID label, e.g. Order #A1B2C3",
+        "placeholders": {
+            "shortId": {
+                "type": "String",
+                "description": "Last 6 characters of the order document ID, uppercased"
+            }
+        }
+    }
+
+}

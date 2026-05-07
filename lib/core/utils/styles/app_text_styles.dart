@@ -57,6 +57,11 @@ abstract class AppTextStyles {
     fontWeight: FontWeight(600),
   );
 
+  static const TextStyle styleSemiBold15 = TextStyle(
+    fontSize: 15,
+    fontWeight: FontWeight(600),
+  );
+
   static const TextStyle styleSemiBold16 = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight(600),
@@ -103,8 +108,18 @@ abstract class AppTextStyles {
     fontWeight: FontWeight(700),
   );
 
+  static const TextStyle styleBold14 = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight(700),
+  );
+
   static const TextStyle styleBold16 = TextStyle(
     fontSize: 16,
+    fontWeight: FontWeight(700),
+  );
+
+  static const TextStyle styleBold17 = TextStyle(
+    fontSize: 17,
     fontWeight: FontWeight(700),
   );
 

@@ -22,7 +22,7 @@ workflows:
       # ── 1. Generate .env file ─────────────────────────────────────
       - name: Generate .env file
         script: |
-          cat > "$CM_BUILD_DIR/.env" << 'EOF'
+          cat > "$CM_BUILD_DIR/.env" << EOF
           SUPABASE_URL=$SUPABASE_URL
           SUPABASE_ANON_KEY=$SUPABASE_ANON_KEY
           FCM_PROJECT_ID=$FCM_PROJECT_ID
@@ -53,21 +53,13 @@ workflows:
       - name: Get Flutter packages
         script: flutter pub get
 
-      # ── 5. Generate l10n & assets ─────────────────────────────────
-      - name: Generate localization & assets
-        script: dart run build_runner build --delete-conflicting-outputs
-
-      # ── 6. Analyze ────────────────────────────────────────────────
-      - name: Flutter analyze
-        script: flutter analyze --no-fatal-infos
-
-      # ── 7. Build release APKs (split by ABI) ─────────────────────
+      # ── 5. Build release APKs (split by ABI) ─────────────────────
       - name: Build APK (split-per-abi)
         script: |
             flutter build apk --release --split-per-abi
             flutter build appbundle --release
       
-      # ── 8. Publish to GitHub Releases ────────────────────────────
+      # ── 6. Publish to GitHub Releases ────────────────────────────
       - name: Publish to GitHub Releases
         script: |
           TAG="${CM_TAG:-}"

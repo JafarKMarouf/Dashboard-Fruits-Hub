@@ -43,3 +43,19 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+.env
+*.env
+# VSCode
+/.vscode/launch.json
+
+# Firebase platform config — NEVER commit these
+android/app/google-services.json
+ios/Runner/GoogleService-Info.plist
+macos/Runner/GoogleService-Info.plist
+
+# Android signing keystore
+*.jks
+*.keystore
+android/key.properties
+
+lib/firebase_options.dart

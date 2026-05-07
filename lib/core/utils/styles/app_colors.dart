@@ -21,7 +21,7 @@ abstract class AppColors {
   static const Color green300 = Color(0xff98e77e);
   static const Color green400 = Color(0xff76df53);
   static const Color green500 = Color(0xff6cdc46);
-  static const Color green600 = Color(0xff43ac20);
+  static const Color green600 = Color(0xff1ee667);
   static const Color green700 = Color(0xff328118);
   static const Color green800 = Color(0xff225610);
   static const Color green900 = Color(0xff112b08);
@@ -57,11 +57,11 @@ abstract class AppColors {
   // Primary
   static const Color primary = green600;
   static const Color primaryLight = green400;
-  static const Color primaryDark = green700;
+  static const Color primaryDark = green1_800;
 
   // Secondary
   static const Color secondary = orange500;
-  static const Color secondaryLight = orange300;
+  static const Color secondaryLight = orange400;
   static const Color secondaryDark = orange700;
 
   // Surface
@@ -87,4 +87,5 @@ abstract class AppColors {
   static const Color success = green500;
   static const Color warning = orange400;
   static const Color info = green1_500;
+  static const Color danger = Color(0xFFC0392B);
 }
