@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../add_product/add_product_view.dart';
+import '../../../../../add_product/presentation/views/add_product_view.dart';
 import 'action_button.dart';
 
 class BuildActionButtons extends StatelessWidget {

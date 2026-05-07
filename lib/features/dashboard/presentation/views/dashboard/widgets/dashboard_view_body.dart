@@ -1,5 +1,5 @@
 import 'package:dashboard_fruit_hub/core/utils/shared/widgets/main_app_bar.dart';
-import 'package:dashboard_fruit_hub/features/dashboard/presentation/cubit/cubit/dashboard_order_cubit.dart';
+import 'package:dashboard_fruit_hub/features/dashboard/presentation/cubit/dashboard_order_cubit/dashboard_order_cubit.dart';
 import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/build_action_buttons.dart';
 import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/build_header.dart';
 import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/dashboard/widgets/build_recent_orders_header.dart';

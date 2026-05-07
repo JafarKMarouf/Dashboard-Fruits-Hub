@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:dashboard_fruit_hub/core/services/database_service/database_service.dart';
+import 'package:dashboard_fruit_hub/core/services/database/database_service.dart';
 import 'package:dashboard_fruit_hub/core/utils/backend_endpoints.dart';
 import 'package:dashboard_fruit_hub/features/inventory/domain/entities/inventory_entity.dart';
 
@@ -17,7 +17,7 @@ class InventoryRepoImpl implements InventoryRepo {
   @override
   Stream<List<InventoryEntity>> watchProducts() {
     return _db.watchData<InventoryEntity>(
-      path: BackendEndpoints.getProduct,
+      path: BackendEndpoints.products,
       query: {'orderBy': 'name', 'descending': false},
       builder: _build,
     );
@@ -30,7 +30,7 @@ class InventoryRepoImpl implements InventoryRepo {
   }) async {
     try {
       await _db.updateData(
-        path: BackendEndpoints.updateProduct,
+        path: BackendEndpoints.products,
         documentId: productId,
         data: {'quantity': newQuantity},
       );
