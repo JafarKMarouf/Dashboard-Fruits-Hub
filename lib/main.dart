@@ -6,7 +6,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'core/services/bloc_observer.dart';
 import 'core/services/get_it_service.dart';
-import 'core/services/shared_preferences_service.dart';
+import 'core/services/local/shared_prefs_service.dart';
 import 'dashboard_app.dart';
 import 'firebase_options.dart';
 
@@ -14,8 +14,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = const AppBlocObserver();
   await dotenv.load(fileName: '.env');
+  _assertEnvKeys(['SUPABASE_URL', 'SUPABASE_ANON_KEY']);
+
   await Future.wait([
-    SharedPreferencesService.init(),
+    SharedPrefsService.init(),
     Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform),
     Supabase.initialize(
       url: dotenv.env['SUPABASE_URL']!,
@@ -24,6 +26,15 @@ void main() async {
   ]);
 
   await setupServiceLocator();
-
   runApp(const DashboardApp());
+}
+
+void _assertEnvKeys(List<String> keys) {
+  final missing = keys.where((k) => (dotenv.env[k] ?? '').isEmpty).toList();
+  if (missing.isNotEmpty) {
+    throw StateError(
+      'Missing required .env keys: ${missing.join(', ')}. '
+      'Make sure your .env file is present and complete.',
+    );
+  }
 }

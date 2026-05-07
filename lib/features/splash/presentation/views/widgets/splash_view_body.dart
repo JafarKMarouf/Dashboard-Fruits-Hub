@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../../../core/services/shared_preferences_service.dart';
+import '../../../../../core/services/local/shared_prefs_service.dart';
 import '../../../../../core/utils/shared/widgets/bottom_nav_bar/app_shell.dart';
 import '../../../../../core/utils/constants.dart';
 import '../../../../../core/utils/styles/app_images.dart';
@@ -17,8 +17,8 @@ class SplashViewBody extends StatefulWidget {
 class _SplashViewBodyState extends State<SplashViewBody> {
   @override
   void initState() {
-    handleNavigation();
     super.initState();
+    handleNavigation();
   }
 
   @override
@@ -39,7 +39,8 @@ class _SplashViewBodyState extends State<SplashViewBody> {
 
   void handleNavigation() {
     Future.delayed(const Duration(seconds: 4), () {
-      bool isLoggedIn = SharedPreferencesService.getBool(kIsUserLoggedIn);
+      if (!mounted) return;
+      final bool isLoggedIn = SharedPrefsService.getBool(kIsUserLoggedIn);
 
       final String destination = isLoggedIn
           ? AppShell.routeName

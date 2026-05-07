@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 
 import '../../errors/failure.dart';
-import '../../services/storage_service/storage_service.dart';
+import '../../services/storage/storage_service.dart';
 import 'image_repo.dart';
 
 class ImageRepoImpl implements ImageRepo {
