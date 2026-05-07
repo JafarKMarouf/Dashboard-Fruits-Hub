@@ -6,6 +6,6 @@ import '../../services/local/shared_prefs_service.dart';
 import '../constants.dart';
 
 UserEntity getUser() {
-  var jsonData = SharedPrefsService.getString(kUserData);
+  final jsonData = SharedPrefsService.getString(kUserData);
   return UserModel.fromJson(jsonDecode(jsonData!));
 }

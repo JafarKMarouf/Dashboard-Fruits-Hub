@@ -8,7 +8,6 @@ analyzer:
     unused_local_variable: warning
     unused_element: warning
     dead_code: warning
-    strict_top_level_inference: ignore
 linter:
   rules:
     prefer_single_quotes: true
@@ -20,3 +19,7 @@ linter:
     prefer_const_declarations: true
     prefer_const_constructors_in_immutables: true
     unnecessary_const: true
+    avoid_print: true
+    prefer_final_fields: true
+    prefer_final_locals: true
+    unnecessary_nullable_for_final_variable_declarations: true

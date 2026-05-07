@@ -39,7 +39,7 @@ class _SplashViewBodyState extends State<SplashViewBody> {
 
   void handleNavigation() {
     Future.delayed(const Duration(seconds: 4), () {
-      bool isLoggedIn = SharedPrefsService.getBool(kIsUserLoggedIn);
+      final bool isLoggedIn = SharedPrefsService.getBool(kIsUserLoggedIn);
 
       final String destination = isLoggedIn
           ? AppShell.routeName

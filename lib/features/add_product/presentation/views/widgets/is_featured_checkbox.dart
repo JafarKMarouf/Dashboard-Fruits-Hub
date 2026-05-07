@@ -1,10 +1,10 @@
 import 'package:dashboard_fruit_hub/core/utils/shared/widgets/app_text_widget.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../auth/presentation/views/widgets/custom_checkbox.dart';
+import '../../../../auth/presentation/views/widgets/custom_checkbox.dart';
 
-class IsOrganicCheckbox extends StatefulWidget {
-  const IsOrganicCheckbox({
+class IsFeaturedCheckbox extends StatefulWidget {
+  const IsFeaturedCheckbox({
     super.key,
     required this.changed,
     this.initialValue = false,
@@ -14,10 +14,10 @@ class IsOrganicCheckbox extends StatefulWidget {
   final bool initialValue;
 
   @override
-  State<IsOrganicCheckbox> createState() => _IsOrganicCheckboxState();
+  State<IsFeaturedCheckbox> createState() => _IsFeaturedCheckboxState();
 }
 
-class _IsOrganicCheckboxState extends State<IsOrganicCheckbox> {
+class _IsFeaturedCheckboxState extends State<IsFeaturedCheckbox> {
   bool isAccepted = false;
   @override
   void initState() {
@@ -40,7 +40,7 @@ class _IsOrganicCheckboxState extends State<IsOrganicCheckbox> {
             });
           },
         ),
-        const Expanded(child: AppTextWidget('هل هذا المنتج طبيعي؟')),
+        const Expanded(child: AppTextWidget('هل هذا المنتج مميز؟')),
       ],
     );
   }

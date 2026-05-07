@@ -4,9 +4,9 @@ import 'package:dashboard_fruit_hub/core/utils/helpers/build_messages_bar.dart';
 import 'package:dashboard_fruit_hub/core/utils/shared/widgets/app_text_widget.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../../core/services/image_picker/image_picker_service.dart';
-import '../../../../../../core/utils/styles/app_colors.dart';
-import '../../../../../../core/utils/styles/app_text_styles.dart';
+import '../../../../../core/services/image_picker/image_picker_service.dart';
+import '../../../../../core/utils/styles/app_colors.dart';
+import '../../../../../core/utils/styles/app_text_styles.dart';
 import 'overlay_icon_button.dart';
 
 class ProductImagePicker extends StatefulWidget {

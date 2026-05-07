@@ -14,6 +14,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = const AppBlocObserver();
   await dotenv.load(fileName: '.env');
+  _assertEnvKeys(['SUPABASE_URL', 'SUPABASE_ANON_KEY']);
+
   await Future.wait([
     SharedPrefsService.init(),
     Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform),
@@ -24,6 +26,15 @@ void main() async {
   ]);
 
   await setupServiceLocator();
-
   runApp(const DashboardApp());
+}
+
+void _assertEnvKeys(List<String> keys) {
+  final missing = keys.where((k) => (dotenv.env[k] ?? '').isEmpty).toList();
+  if (missing.isNotEmpty) {
+    throw StateError(
+      'Missing required .env keys: ${missing.join(', ')}. '
+      'Make sure your .env file is present and complete.',
+    );
+  }
 }

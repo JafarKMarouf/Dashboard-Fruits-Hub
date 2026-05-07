@@ -75,7 +75,7 @@ class FirestoreService extends DatabaseService {
   }) async {
     try {
       if (documentId != null) {
-        var data = await firestore.collection(path).doc(documentId).get();
+        final data = await firestore.collection(path).doc(documentId).get();
         return data.data() as Map<String, dynamic>;
       } else {
         final result = await _applyQuery(
@@ -100,7 +100,7 @@ class FirestoreService extends DatabaseService {
     required String path,
     required String documentId,
   }) async {
-    var data = await firestore.collection(path).doc(documentId).get();
+    final data = await firestore.collection(path).doc(documentId).get();
     return data.exists;
   }
 

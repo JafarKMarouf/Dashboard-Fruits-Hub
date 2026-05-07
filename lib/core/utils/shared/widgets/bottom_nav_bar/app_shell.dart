@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../../../../features/customers/presentation/views/customers_view.dart';
-import '../../../../../features/dashboard/presentation/views/add_product/add_product_view.dart';
+import '../../../../../features/add_product/presentation/views/add_product_view.dart';
 import '../../../../../features/dashboard/presentation/views/dashboard/dashboard_view.dart';
 import '../../../../../features/inventory/presentation/views/inventory_view.dart';
 import '../../../../../features/orders/presentation/views/orders_view.dart';
