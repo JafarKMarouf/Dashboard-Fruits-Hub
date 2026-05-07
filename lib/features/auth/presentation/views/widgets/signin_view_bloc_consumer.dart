@@ -8,9 +8,13 @@ import '../../../../../core/utils/shared/widgets/custom_progress_hud.dart';
 import '../../cubits/signin_cubit/signin_cubit.dart';
 import 'signin_view_body.dart';
 
-class SigninViewBlocConsumer extends StatelessWidget {
+class SigninViewBlocConsumer extends StatefulWidget {
   const SigninViewBlocConsumer({super.key});
+  @override
+  State<SigninViewBlocConsumer> createState() => _SigninViewBlocConsumerState();
+}
 
+class _SigninViewBlocConsumerState extends State<SigninViewBlocConsumer> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SigninCubit, SigninState>(
@@ -32,6 +36,7 @@ class SigninViewBlocConsumer extends StatelessWidget {
             AppLocalizations.of(context).loginSuccess,
           );
           Future.delayed(const Duration(seconds: 2), () {
+            if (!mounted) return;
             Navigator.pushNamedAndRemoveUntil(
               context,
               AppShell.routeName,

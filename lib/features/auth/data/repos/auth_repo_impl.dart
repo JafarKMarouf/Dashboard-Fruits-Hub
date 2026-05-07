@@ -31,6 +31,8 @@ class AuthRepoImpl extends AuthRepo {
       );
       final UserEntity userEntity = await getUserData(uid: user.uid);
       if (userEntity.role != kRoleAdmin) {
+        await firebaseAuthService.signOut();
+
         return Left(ServerFailure('notAuthorized'));
       }
       await saveUserData(user: userEntity);
@@ -66,5 +68,6 @@ class AuthRepoImpl extends AuthRepo {
   Future<void> signOut() async {
     await SharedPrefsService.remove(kUserData);
     await SharedPrefsService.remove(kIsUserLoggedIn);
+    firebaseAuthService.signOut();
   }
 }
