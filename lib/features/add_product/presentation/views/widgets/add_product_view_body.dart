@@ -1,5 +1,5 @@
 import 'package:dashboard_fruit_hub/core/utils/constants.dart';
-import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/add_product/widgets/add_product_form.dart';
+import 'package:dashboard_fruit_hub/features/add_product/presentation/views/widgets/add_product_form.dart';
 import 'package:flutter/material.dart';
 
 class AddProductViewBody extends StatelessWidget {

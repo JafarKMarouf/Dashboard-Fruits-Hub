@@ -1,6 +1,6 @@
 import 'package:dashboard_fruit_hub/core/services/get_it_service.dart';
-import 'package:dashboard_fruit_hub/features/dashboard/presentation/cubit/add_product_cubit/add_product_cubit.dart';
-import 'package:dashboard_fruit_hub/features/dashboard/presentation/views/add_product/widgets/add_product_bloc_consumer.dart';
+import 'package:dashboard_fruit_hub/features/add_product/presentation/manage/add_product_cubit/add_product_cubit.dart';
+import 'package:dashboard_fruit_hub/features/add_product/presentation/views/widgets/add_product_bloc_consumer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

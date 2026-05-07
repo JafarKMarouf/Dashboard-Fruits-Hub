@@ -17,7 +17,7 @@ class InventoryRepoImpl implements InventoryRepo {
   @override
   Stream<List<InventoryEntity>> watchProducts() {
     return _db.watchData<InventoryEntity>(
-      path: BackendEndpoints.getProduct,
+      path: BackendEndpoints.products,
       query: {'orderBy': 'name', 'descending': false},
       builder: _build,
     );
@@ -30,7 +30,7 @@ class InventoryRepoImpl implements InventoryRepo {
   }) async {
     try {
       await _db.updateData(
-        path: BackendEndpoints.updateProduct,
+        path: BackendEndpoints.products,
         documentId: productId,
         data: {'quantity': newQuantity},
       );

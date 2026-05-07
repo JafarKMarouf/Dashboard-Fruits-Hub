@@ -15,7 +15,7 @@ class DashboardRepoImpl extends DashboardRepo {
   @override
   Stream<List<OrderEntity>> watchRecentOrders({int limit = 10}) {
     return databaseService.watchData<OrderEntity>(
-      path: BackendEndpoints.getOrder,
+      path: BackendEndpoints.orders,
       query: {'orderBy': 'created_at', 'descending': true, 'limit': limit},
       builder: _build,
     );
@@ -24,7 +24,7 @@ class DashboardRepoImpl extends DashboardRepo {
   @override
   Stream<List<OrderEntity>> watchAllOrdersForStats() {
     return databaseService.watchData<OrderEntity>(
-      path: BackendEndpoints.getOrder,
+      path: BackendEndpoints.orders,
       query: {'orderBy': 'created_at', 'descending': true},
       builder: _build,
     );

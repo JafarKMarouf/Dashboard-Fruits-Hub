@@ -1,7 +1,7 @@
 import 'dart:developer';
 
-import 'package:dashboard_fruit_hub/features/customers/domain/entities/customer_entity.dart';
 import 'package:dashboard_fruit_hub/core/enums/customer_status.dart';
+import 'package:dashboard_fruit_hub/features/customers/domain/entities/customer_entity.dart';
 import 'package:dashboard_fruit_hub/features/customers/domain/repos/customers_repo.dart';
 
 import '../../../../core/services/database/database_service.dart';
@@ -19,7 +19,7 @@ class CustomersRepoImpl implements CustomersRepo {
   @override
   Stream<List<CustomerEntity>> watchCustomers() {
     return _db.watchData<CustomerEntity>(
-      path: BackendEndpoints.getUser,
+      path: BackendEndpoints.users,
       query: {
         'where': [
           {'field': 'role', 'isEqualTo': 'customer'},
@@ -38,7 +38,7 @@ class CustomersRepoImpl implements CustomersRepo {
   }) async {
     try {
       await _db.updateData(
-        path: BackendEndpoints.updateUser,
+        path: BackendEndpoints.users,
         documentId: customerId,
         data: {'status': status.value},
       );

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../../../core/utils/styles/app_colors.dart';
-import '../../../../../../core/utils/styles/app_images.dart';
+import '../../../../../core/utils/styles/app_colors.dart';
+import '../../../../../core/utils/styles/app_images.dart';
 
 class CustomCheckbox extends StatelessWidget {
   const CustomCheckbox({
