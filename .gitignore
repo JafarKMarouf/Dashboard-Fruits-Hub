@@ -57,5 +57,3 @@ macos/Runner/GoogleService-Info.plist
 *.jks
 *.keystore
 android/key.properties
-
-lib/firebase_options.dart
